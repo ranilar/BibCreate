@@ -14,4 +14,4 @@ def add_book():
         publisher = request.form["publisher"]
         ISBN_number = request.form["ISBN_number"]
 
-    return render_template(?.html) # päätä mikä html, index.html vai add_book.html
+    return render_template(index.html)
