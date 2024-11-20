@@ -1,4 +1,4 @@
-CREATE TABLE book_reference (
+CREATE TABLE book_citation (
     title TEXT,
     author TEXT,
     year INTEGER,
