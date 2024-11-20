@@ -1,7 +1,7 @@
 from config import db, app
 from sqlalchemy import text
 
-table_name = "todos"
+table_name = "book_citation"
 
 def table_exists(name):
   sql_table_existence = text(
