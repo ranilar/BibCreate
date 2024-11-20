@@ -7,5 +7,6 @@ CREATE TABLE book_citation (
     volume INTEGER,
     pages TEXT,
     month INTEGER,
+    isbn TEXT,
     note TEXT
 );
