@@ -1,9 +1,13 @@
 from app import app
 from flask import render_template, request, flash, redirect
+from repositories.citation_repository import BibtexRepo
+from config import db
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    bibrep = BibtexRepo(db)
+    citations = bibrep.get_all_books()
+    return render_template("index.html", citations=citations)
 
 @app.route("/add_book", methods=["GET", "POST"])
 def add_book():
@@ -39,8 +43,9 @@ def add_book():
         
         if not ISBN_number.isdigit() or len(ISBN_number) < 13:
             flash("ISBN number must be 13 digits")
-        
+        bibrep=BibtexRepo(db)
+        bibrep.add_book_citation(title, author, year, publisher, None, None, None, None, ISBN_number, None)
         flash("Book citation added, successfully!", "success")
         return redirect("/")
         
-    return render_template(index.html)
+    return render_template("index.html")
