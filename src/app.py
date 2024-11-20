@@ -1,8 +1,5 @@
-from flask import Flask
-from os import getenv
+from config import create_app
 
-
-app = Flask(__name__)
-app.secret_key = getenv("SECRET_KEY")
+app = create_app()
 
 import routes
