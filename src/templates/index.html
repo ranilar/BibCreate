@@ -18,9 +18,38 @@ lomakkeella. Mutta tällä hetkellä käytössä tämä enimmäisessä sprintiss
         .form-section {
             margin-top: 20px;
         }
+        .flash-messages-container {
+            margin-bottom: 20px;
+        }
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .alert {
+            font-weight: bold;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
     </style>
 </head>
 <body>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages-container">
+          {% for message in messages %}
+            <div class="flash-message alert alert-{{ message[1] }}"><i>{{ message }}</i></div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <div class="search-bar">
         <input type="text" placeholder="Search" id="search-input" style="flex-grow: 1;">
