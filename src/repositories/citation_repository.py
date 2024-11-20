@@ -21,3 +21,8 @@ def add_book_citation(title, author, year, publisher, editor, volume, pages, mon
     })
     db.session.commit()
 
+def get_all_book():
+    sql = text("SELECT * FROM book_citation")
+    result = db.session.execute(sql)
+    return result.fetchall()
+
