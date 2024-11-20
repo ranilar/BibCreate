@@ -1,10 +1,8 @@
-# Ignore virtual environment folders
-venv/
-.venv/
-
-# Ignore Python cache files
-__pycache__/
-
-# Ignore compiled Python files
-*.pyc
-*.pyo
+.venv 
+.env
+__pycache__
+*.log
+log.html
+output.xml
+report.html
+*.png
