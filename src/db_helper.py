@@ -1,3 +1,5 @@
+# Tiedostossa SQL injektio mahdollisuuksia
+
 from config import db, app
 from sqlalchemy import text
 

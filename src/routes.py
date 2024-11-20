@@ -20,29 +20,32 @@ def add_book():
 
         if len(title) < 1 or len(title) > 25:
             flash("Title must have 1-25 characters")
-            return render_template("index.html")
+            return redirect("/")
         
         if len(author) < 1 or len(author) > 25:
             flash("Author must have 1-25 characters")
-            return render_template("index.html")
+            return redirect("/")
         
         if not year.strip():
             flash("Year is required")
-            return render_template("index.html")
+            return redirect("/")
         
         if not year.isdigit() or int(year) < 0:
             flash("Year must be a positive number")
+            return redirect("/")
         
         if len(publisher) < 1 or len(publisher) > 25:
             flash("Publisher must have 1-25 characters")
-            return render_template("index.html")
+            return redirect("/")
         
-        if not ISBN_number.strip():
+        if not ISBN_number:
             flash("ISBN_number is required")
-            return render_template("index.html")
+            return redirect("/")
         
-        if not ISBN_number.isdigit() or len(ISBN_number) < 13:
+        if len(ISBN_number) < 13:
             flash("ISBN number must be 13 digits")
+            return redirect("/")
+        
         bibrep=BibtexRepo(db)
         bibrep.add_book_citation(title, author, year, publisher, None, None, None, None, ISBN_number, None)
         flash("Book citation added, successfully!", "success")

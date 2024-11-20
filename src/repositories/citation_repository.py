@@ -7,7 +7,7 @@ class BibtexRepo:
     def __init__(self, database: SQLAlchemy):
         self._db = database
 
-    def add_book_citation(self,title, author, year, publisher, editor, volume, pages, month, isbn, note):
+    def add_book_citation(self, title, author, year, publisher, editor, volume, pages, month, isbn, note):
         sql = text("""
             INSERT INTO book_citation (title, author, year, publisher, editor, volume, pages, month, isbn, note) 
             VALUES (:title, :author, :year, :publisher, :editor, :volume, :pages, :month, :isbn, :note)
