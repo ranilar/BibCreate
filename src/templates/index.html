@@ -1,117 +1,48 @@
-<!-- Alustava ulkoasu. Tarkoitus tehdä erillinen kansio "static", minne tulee tiedosto "main.css". 
-Siihen määritellään erikseen sovelluksen ulkoasu, joka näkyy yhtenäisesti jokaisella html 
-lomakkeella. Mutta tällä hetkellä käytössä tämä enimmäisessä sprintissä. -->
+{% extends "layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .search-bar {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        .hidden {
-            display: none;
-        }
-        .form-section {
-            margin-top: 20px;
-        }
-        .flash-messages-container {
-            margin-bottom: 20px;
-        }
-        .flash-message {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .alert {
-            font-weight: bold;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-    </style>
-</head>
-<body>
+{% block title %}
+bibcreate
+{% endblock %}
 
+{% block body %}
+
+<h2>bibcreate</h2>
+
+<form action="/create_reference" method="post">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <div class="flash-messages-container">
-          {% for message in messages %}
-            <div class="flash-message alert alert-{{ message[1] }}"><i>{{ message }}</i></div>
-          {% endfor %}
-        </div>
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
       {% endif %}
     {% endwith %}
+  
 
-    <div class="search-bar">
-        <input type="text" placeholder="Search" id="search-input" style="flex-grow: 1;">
-        <select id="citation-type" onchange="showForm()">
-            <option value="">Select</option>
-            <option value="book">Book Citation</option>
-        </select>
-    </div>
-
-    <div id="book-form" class="form-section hidden">
-        <h3>Book Citation</h3>
-        <form action="/add_book" method="post">
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title"><br><br>
-
-            <label for="author">Author:</label><br>
-            <input type="text" id="author" name="author"><br><br>
-
-            <label for="year">Year:</label><br>
-            <input type="number" id="year" name="year"><br><br>
-
-            <label for="publisher">Publisher:</label><br>
-            <input type="text" id="publisher" name="publisher"><br><br>
-
-            <label for="ISBN_number">ISBN Number:</label><br>
-            <input type="text" id="ISBN_number" name="ISBN_number"><br><br>
-
-            <button type="submit">Add</button>
-        </form>
-    </div>
-    <h3>Book Citations</h3>
+<h3>Book Citations</h3>
     <table border="1">
         <tr>
+            <th>Type</th>
             <th>Title</th>
             <th>Author</th>
             <th>Year</th>
             <th>Publisher</th>
             <th>ISBN</th>
         </tr>
-        {% for citation in citations %}
+        {% for reference in references %}
         <tr>
-            <td>{{ citation.title }}</td>
-            <td>{{ citation.author }}</td>
-            <td>{{ citation.year }}</td>
-            <td>{{ citation.publisher }}</td>
-            <td>{{ citation.isbn }}</td>
+            <td>{{ reference.ref_type }}</td>
+            <td>{{ reference.title }}</td>
+            <td>{{ reference.author }}</td>
+            <td>{{ reference.year }}</td>
+            <td>{{ reference.publisher }}</td>
+            <td>{{ reference.ISBN }}</td>
         </tr>
         {% endfor %}
     </table>
 
-    <script>
-        function showForm() {
-            const selectedType = document.getElementById("citation-type").value;
-            const bookForm = document.getElementById("book-form");
-
-            if (selectedType === "book") {
-                bookForm.classList.remove("hidden");
-            } else {
-                bookForm.classList.add("hidden");
-            }
-        }
-    </script>
-
-</body>
-</html>
+<div>
+  <a href="/new_reference">Create a new reference</a>
+</div>
+{% endblock %}
