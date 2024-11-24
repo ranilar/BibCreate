@@ -23,21 +23,20 @@ bibcreate
 <h3>Book Citations</h3>
     <table border="1">
         <tr>
-            <th>Type</th>
             <th>Title</th>
             <th>Author</th>
             <th>Year</th>
             <th>Publisher</th>
             <th>ISBN</th>
         </tr>
-        {% for reference in references %}
+        {% for book in books %}
         <tr>
-            <td>{{ reference.ref_type }}</td>
-            <td>{{ reference.title }}</td>
-            <td>{{ reference.author }}</td>
-            <td>{{ reference.year }}</td>
-            <td>{{ reference.publisher }}</td>
-            <td>{{ reference.ISBN }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.year }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.ISBN }}</td>
+
         </tr>
         {% endfor %}
     </table>

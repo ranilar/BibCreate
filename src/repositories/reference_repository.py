@@ -1,29 +1,54 @@
 from config import db
 from sqlalchemy import text
+from entities.reference import Book, Article, Misc, Improceedings
 
-from entities.reference import Reference
-
-def get_references():
-    result = db.session.execute(
-        text("SELECT id, ref_type, title, author, year, publisher, ISBN FROM book_references")
-    )
+def get_references_bytype(ref_type):
+    sql = text(f"SELECT * FROM {ref_type}_references")
+    result = db.session.execute(sql)
     references = result.fetchall()
-    return [
-        Reference(reference[0], reference[1], reference[2], reference[3], reference[4], reference[5], reference[6])
-        for reference in references
+
+    if ref_type == "book":
+        return [
+            Book(
+                reference[0], reference[1], reference[2], reference[3], reference[4]
+            )
+            for reference in references
     ]
 
+    elif ref_type == "article":
+        #todo
+        pass
+    elif ref_type == "misc":
+        #todo
+        pass
+    elif ref_type == "improceedings":
+        #todo
+        pass
 
-def create_reference(ref_type, title, author, year, publisher, ISBN):
+def create_book(title, author, year, publisher, ISBN):
     sql = text(
         """
-        INSERT INTO book_references (ref_type, title, author, year, publisher, ISBN) 
-        VALUES (:ref_type, :title, :author, :year, :publisher, :ISBN)
+        INSERT INTO book_references (title, author, year, publisher, ISBN)
+        VALUES (:title, :author, :year, :publisher, :ISBN)
     """
     )
-
     db.session.execute(
         sql,
-        {"ref_type": ref_type, "title": title, "author": author, "year": year, "publisher": publisher, "ISBN": ISBN},
+        {
+            "title": title,
+            "author": author,
+            "year": year,
+            "publisher": publisher,
+            "ISBN": ISBN,
+        },
     )
     db.session.commit()
+
+def manage_bookreference(id):
+    #todo
+    pass
+
+def delete_citation(id):
+    #todo
+    pass
+        

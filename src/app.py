@@ -1,13 +1,14 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.reference_repository import get_references, create_reference
+from repositories.reference_repository import get_references_bytype, create_book
 from config import app, test_env
 from util import validate_reference
 
 @app.route("/")
 def index():
-    references = get_references()
-    return render_template("index.html", references=references)
+    books = get_references_bytype("book")
+    #todo muut
+    return render_template("index.html", books=books)
 
 @app.route("/new_reference")
 def new():
@@ -15,7 +16,6 @@ def new():
 
 @app.route("/create_reference", methods=["POST"])
 def reference_creation():
-    ref_type = request.form.get("ref_type")
     title = request.form.get("title")
     author = request.form.get("author")
     year = request.form.get("year")
@@ -25,7 +25,7 @@ def reference_creation():
 
     try:
         validate_reference(title, author, year, publisher, ISBN )
-        create_reference(ref_type, title, author, year, publisher, ISBN )
+        create_book(title, author, year, publisher, ISBN )
         flash("Book citation added successfully", "success") 
         return redirect("/")
     except Exception as error:
