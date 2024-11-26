@@ -1,8 +1,8 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.reference_repository import get_references_bytype, create_book
+from repositories.reference_repository import *
 from config import app, test_env
-from util import validate_reference
+from util import validate_reference, UserInputError
 
 @app.route("/")
 def index():
@@ -28,14 +28,22 @@ def reference_creation():
         create_book(title, author, year, publisher, ISBN )
         flash("Book citation added successfully", "success") 
         return redirect("/")
-    except Exception as error:
-        flash(str(error))
-        return  redirect("/new_reference")
+    except UserInputError as error:
+        errors = error.args[0]
+        for field, message in errors.items():
+            flash(f"{field}: {message}", "error")
+        return redirect("/new_reference")
 
-@app.route("/update_reference/<reference_id>", methods=["POST"])
+@app.route("/delete/<id>", methods=["POST"])
 def update_reference(reference_id):
     #set_done(todo_id)
     return redirect("/")
+
+
+@app.route("/edit_book/<book_id>", methods=["POST"])
+def edit_book(book_id):
+    pass
+
 
 
 # testausta varten oleva reitti
@@ -43,4 +51,4 @@ if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        return jsonify({ 'message': "db reset" })
+        return jsonify({ 'message': "db reset" })   
