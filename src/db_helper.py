@@ -5,7 +5,6 @@ from sqlalchemy import text
 tables = {
     "book_references": (
         "id SERIAL PRIMARY KEY, "
-        "ref_type TEXT NOT NULL, "
         "title TEXT NOT NULL, "
         "author TEXT NOT NULL, "
         "year INTEGER NOT NULL, "
@@ -82,7 +81,6 @@ def reset_db():
   sql = text(
     f"CREATE TABLE {table_name} ("
     "  id SERIAL PRIMARY KEY, "
-    "  ref_type TEXT NOT NULL,"
     "  title TEXT NOT NULL,"
     "  author TEXT NOT NULL,"
     "  year INTEGER NOT NULL,"
