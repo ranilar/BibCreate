@@ -36,10 +36,14 @@ bibcreate
             <td>{{ book.year }}</td>
             <td>{{ book.publisher }}</td>
             <td>{{ book.ISBN }}</td>
+            <!-- <td> <a href="/edit_book/{{ book.id }}">edit</a> </td> -->
+            <td> <button type="delete">x</button></td>
 
         </tr>
         {% endfor %}
     </table>
+
+<!-- todo citation tables for other reference types -->
 
 <div>
   <a href="/new_reference">Create a new reference</a>
