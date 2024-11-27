@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Reference
+{% endblock %}
+
+{% block body %}
+<h1>Edit Reference</h1>
+<form action="/edit_reference/{{ reference_id }}" method="post">
+  
+  {% if reference is instance of Book %}
+  <div>
+      <label for="author">Author:</label><br>
+      <input type="text" name="author" id="author" value="{{ reference.author }}" required><br><br>
+  </div>
+    <div>
+      <label for="year">Year:</label><br>
+      <input type="number" name="year" id="year" value="{{ reference.year }}" required><br><br>
+  </div>
+  <div>
+      <label for="year">Year:</label><br>
+      <input type="number" name="year" id="year" value="{{ reference.year }}" required><br><br>
+  </div>
+  <div>
+      <label for="publisher">Publisher:</label><br>
+      <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}" required><br><br>
+  </div>
+  <div>
+      <label for="ISBN">ISBN:</label><br>
+      <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}" required><br><br>
+  </div>
+  {% endif %}
+  
+  {% if reference is instance of Article %}
+  <!-- Article-specific fields -->
+  {% endif %}
+  
+  {% if reference is instance of Misc %}
+  <!-- Misc-specific fields -->
+  {% endif %}
+
+  {% if reference is instance of Inproceedings %}
+  <!-- Inproceedings-specific fields -->
+</form>
+{% endblock %}
