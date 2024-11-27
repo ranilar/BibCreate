@@ -19,7 +19,8 @@ bibcreate
       {% endif %}
     {% endwith %}
   
-<h3>Book Citations</h3>
+
+    <h3>Book Citations</h3>
     <table border="1">
         <tr>
             <th>Title</th>
@@ -36,15 +37,15 @@ bibcreate
             <td>{{ book.publisher }}</td>
             <td>{{ book.ISBN }}</td>
             <td>
-              <form action="/delete/{{ book.id }}" method="post" style="display: inline;">
-                  <input type="hidden" name="ref_type" value="book">
-                  <button type="delete">x</button>
-              </form>
-          </td>
-        </tr>
+            <form action="/delete/{{ book.id }}" method="post" style="display: inline;">
+              <input type="hidden" name="ref_type" value="book">
+              <button type="delete"style="background-color: red; 
+                  color: white; padding: 7px 12px;">x</button>
+          </form>
+      </td>
+    </tr>
         {% endfor %}
     </table>
-
     <h3>Article Citations</h3>
     <table border="1">
         <tr>
@@ -63,8 +64,14 @@ bibcreate
             <td>{{ article.year }}</td>
             <td>{{ article.volume }}</td>
             <td>{{ article.DOI }}</td>
-            <td> <button type="delete">x</button></td>
-        </tr>
+            <td>
+            <form action="/delete/{{ article.id }}" method="post" style="display: inline;">
+              <input type="hidden" name="ref_type" value="article">
+              <button type="delete"style="background-color: red; 
+                  color: white; padding: 7px 12px;">x</button>
+          </form>
+      </td>
+    </tr>
         {% endfor %}
     </table>
     
@@ -84,8 +91,14 @@ bibcreate
             <td>{{ misc.year }}</td>
             <td>{{ misc.url }}</td>
             <td>{{ misc.note }}</td>
-            <td> <button type="delete">x</button></td>
-        </tr>
+            <td>
+            <form action="/delete/{{ misc.id }}" method="post" style="display: inline;">
+              <input type="hidden" name="ref_type" value="misc">
+              <button type="delete"style="background-color: red; 
+                  color: white; padding: 7px 12px;">x</button>
+          </form>
+      </td>
+    </tr>
         {% endfor %}
     </table>
     
@@ -113,8 +126,14 @@ bibcreate
             <td>{{ inproceedings.month }}</td>
             <td>{{ inproceedings.url }}</td>
             <td>{{ inproceedings.organization }}</td>
-            <td> <button type="delete">x</button></td>
-        </tr>
+            <td>
+            <form action="/delete/{{ inproceedings.id }}" method="post" style="display: inline;">
+              <input type="hidden" name="ref_type" value="inproceedings">
+              <button type="delete"style="background-color: red; 
+                  color: white; padding: 7px 12px;">x</button>
+          </form>
+      </td>
+    </tr>
         {% endfor %}
     </table>
     
