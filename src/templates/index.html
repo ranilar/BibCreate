@@ -19,7 +19,6 @@ bibcreate
       {% endif %}
     {% endwith %}
   
-
 <h3>Book Citations</h3>
     <table border="1">
         <tr>
@@ -36,9 +35,12 @@ bibcreate
             <td>{{ book.year }}</td>
             <td>{{ book.publisher }}</td>
             <td>{{ book.ISBN }}</td>
-            <!-- <td> <a href="/edit_book/{{ book.id }}">edit</a> </td> -->
-            <td> <button type="delete">x</button></td>
-
+            <td>
+              <form action="/delete/{{ book.id }}" method="post" style="display: inline;">
+                  <input type="hidden" name="ref_type" value="book">
+                  <button type="delete">x</button>
+              </form>
+          </td>
         </tr>
         {% endfor %}
     </table>
