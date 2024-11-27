@@ -80,14 +80,17 @@ def update_reference(reference_id):
 def edit_book(book_id):
     pass
 
-@app.route("/delete/<id>", methods=["POST"]) #TESTI
-def delete_bookreference(id):
-    try:
-        delete_bookreference(id)  # Kutsutaan funktiota, joka poistaa viitteen tietokannasta
-        flash("Book reference deleted successfully", "success")
-    except Exception as e:
-        flash(f"Error deleting book reference: {str(e)}", "error")
-    return redirect("/")
+@app.route("/delete/<id>", methods=["POST"])
+def delete_reference(id):
+    ref_type = request.form.get("ref_type")
+
+    if ref_type == "book":
+        try:
+            delete_reference(ref_type, id)
+            flash("Book reference deleted successfully", "success")
+        except Exception:
+            flash("Failed to delete book reference")
+        return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:
