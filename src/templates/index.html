@@ -43,7 +43,79 @@ bibcreate
         {% endfor %}
     </table>
 
-<!-- todo citation tables for other reference types -->
+    <h3>Article Citations</h3>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Journal</th>
+            <th>Year</th>
+            <th>Volume</th>
+            <th>DOI</th>
+        </tr>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.title }}</td>
+            <td>{{ article.author }}</td>
+            <td>{{ article.journal }}</td>
+            <td>{{ article.year }}</td>
+            <td>{{ article.volume }}</td>
+            <td>{{ article.DOI }}</td>
+            <td> <button type="delete">x</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h3>Misc Citations</h3>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>URL</th>
+            <th>Note</th>
+        </tr>
+        {% for misc in miscs %}
+        <tr>
+            <td>{{ misc.title }}</td>
+            <td>{{ misc.author }}</td>
+            <td>{{ misc.year }}</td>
+            <td>{{ misc.url }}</td>
+            <td>{{ misc.note }}</td>
+            <td> <button type="delete">x</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h3>Inproceedings Citations</h3>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Booktitle</th>
+            <th>DOI</th>
+            <th>Address</th>
+            <th>Month</th>
+            <th>URL</th>
+            <th>Organization</th>
+        </tr>
+        {% for inproceedings in inproceedings %}
+        <tr>
+            <td>{{ inproceedings.title }}</td>
+            <td>{{ inproceedings.author }}</td>
+            <td>{{ inproceedings.year }}</td>
+            <td>{{ inproceedings.booktitle }}</td>
+            <td>{{ inproceedings.DOI }}</td>
+            <td>{{ inproceedings.address }}</td>
+            <td>{{ inproceedings.month }}</td>
+            <td>{{ inproceedings.url }}</td>
+            <td>{{ inproceedings.organization }}</td>
+            <td> <button type="delete">x</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
 
 <div>
   <a href="/new_reference">Create a new reference</a>

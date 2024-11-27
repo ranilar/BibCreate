@@ -20,32 +20,94 @@ Create a new reference
   {% endwith %}
 
 
-<div>
-  <label for="ref_type">Type:</label>
-        <select name="ref_type" id="ref_type" required>
-            <option value="book">Book</option>
-            
-        </select>
-
-</div>
-  <label for="title">Title:</label><br>
-  <input type="text" name="title" id="title" required><br><br>
-
-  <label for="author">Author:</label><br>
-  <input type="text" name="author" id="author" required><br><br>
-
-  <label for="year">Year:</label><br>
-  <input type="number" name="year" id="year" required><br><br>
-
-  <label for="publisher">Publisher:</label><br>
-  <input type="text" name="publisher" id="publisher" required><br><br>
-
-  <label for="ISBN">ISBN:</label><br>
-  <input type="number" name="ISBN" id="ISBN" required><br><br>
-
-</div>
-
-<button type="submit">Add</button>
-</form>
+  <div>
+    <label for="ref_type">Type:</label>
+    <select name="ref_type" id="ref_type" required onchange="toggleFields()">
+      <option value="book">Book</option>
+      <option value="article">Article</option>
+      <option value="misc">Misc</option>
+      <option value="inproceedings">Inproceedings</option>
+    </select>
+  </div>
   
-{% endblock %}
+  <div id="common-fields">
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" required><br><br>
+  
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author"><br><br>
+  
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year"><br><br>
+  </div>
+  
+  <div id="book-fields" class="type-specific">
+    <label for="publisher">Publisher:</label><br>
+    <input type="text" name="publisher" id="publisher"><br><br>
+  
+    <label for="ISBN">ISBN:</label><br>
+    <input type="text" name="ISBN" id="ISBN"><br><br>
+  </div>
+  
+  <div id="article-fields" class="type-specific" style="display: none;">
+    <label for="journal">Journal:</label><br>
+    <input type="text" name="journal" id="journal"><br><br>
+  
+    <label for="volume">Volume:</label><br>
+    <input type="number" name="volume" id="volume"><br><br>
+  
+    <label for="DOI">DOI:</label><br>
+    <input type="text" name="DOI" id="DOI"><br><br>
+  </div>
+  
+  <div id="misc-fields" class="type-specific" style="display: none;">
+    <label for="url">URL:</label><br>
+    <input type="url" name="url" id="url"><br><br>
+  
+    <label for="note">Note:</label><br>
+    <input type="text" name="note" id="note"><br><br>
+  </div>
+  
+  <div id="inproceedings-fields" class="type-specific" style="display: none;">
+    <label for="booktitle">Booktitle:</label><br>
+    <input type="text" name="booktitle" id="booktitle"><br><br>
+  
+    <label for="DOI">DOI:</label><br>
+    <input type="text" name="DOI" id="DOI"><br><br>
+  
+    <label for="address">Address:</label><br>
+    <input type="text" name="address" id="address"><br><br>
+  
+    <label for="month">Month:</label><br>
+    <input type="text" name="month" id="month"><br><br>
+  
+    <label for="url">URL:</label><br>
+    <input type="url" name="url" id="url"><br><br>
+  
+    <label for="organization">Organization:</label><br>
+    <input type="text" name="organization" id="organization"><br><br>
+  </div>
+  
+  <button type="submit">Add</button>
+  </form>
+  
+  <script>
+    function toggleFields() {
+      const refType = document.getElementById("ref_type").value;
+      const typeFields = document.querySelectorAll(".type-specific");
+  
+      typeFields.forEach(field => field.style.display = "none");
+  
+      if (refType === "book") {
+        document.getElementById("book-fields").style.display = "block";
+      } else if (refType === "article") {
+        document.getElementById("article-fields").style.display = "block";
+      } else if (refType === "misc") {
+        document.getElementById("misc-fields").style.display = "block";
+      } else if (refType === "inproceedings") {
+        document.getElementById("inproceedings-fields").style.display = "block";
+      }
+    }
+  </script>
+  
+  {% endblock %}
