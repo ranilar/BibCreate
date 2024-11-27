@@ -108,22 +108,23 @@ def manage_bookreference(id):
     pass
 
 # deletions by reference type (maybe joined together later??? )
-def delete_bookreference(id):
-    sql = text("DELETE FROM book_references WHERE id = :id")
-    db.session.execute(sql, {"id": id})
-    db.session.commit()
-        
-def delete_articlereference(id):
-    sql = text("DELETE FROM article_references WHERE id = :id")
-    db.session.execute(sql, {"id": id})
-    db.session.commit()
+def delete_reference(ref_type, id):
+    if ref_type == "book":
+        sql = text("DELETE FROM book_references WHERE id = :id")
+        db.session.execute(sql, {"id": id})
+        db.session.commit()
+            
+    elif ref_type == "article":
+        sql = text("DELETE FROM article_references WHERE id = :id")
+        db.session.execute(sql, {"id": id})
+        db.session.commit()
 
-def delete_miscreference(id):
-    sql = text("DELETE FROM misc_references WHERE id = :id")
-    db.session.execute(sql, {"id": id})
-    db.session.commit()
+    elif ref_type == "misc":
+        sql = text("DELETE FROM misc_references WHERE id = :id")
+        db.session.execute(sql, {"id": id})
+        db.session.commit()
 
-def delete_inproceedingsference(id):
-    sql = text("DELETE FROM inproceedings_references WHERE id = :id")
-    db.session.execute(sql, {"id": id})
-    db.session.commit()
+    elif ref_type == "inproceedings":
+        sql = text("DELETE FROM inproceedings_references WHERE id = :id")
+        db.session.execute(sql, {"id": id})
+        db.session.commit()
