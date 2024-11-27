@@ -36,10 +36,10 @@ class Article(Reference):
 
 
 class Misc(Reference):
-    def __init__(self, id, title, year=None, author=None, url=None, note=None):
+    def __init__(self, id, title, author=None, year=None, url=None, note=None):
         super().__init__(id, title, "misc")
-        self.year = year
         self.author = author
+        self.year = year
         self.url = url
         self.note = note
 
