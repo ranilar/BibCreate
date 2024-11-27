@@ -57,8 +57,6 @@ def create_article(title, author, journal, year, volume, DOI):
         },
     )
     db.session.commit()
-
-
 def create_misc(title, author, year, url, note):
     sql = text(
         """
@@ -77,9 +75,7 @@ def create_misc(title, author, year, url, note):
         },
     )
     db.session.commit()
-
-
-def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):
+def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):    
     sql = text(
         """
         INSERT INTO inproceedings_references (title, author, year, booktitle, DOI, address, month, url, organization)
@@ -100,7 +96,7 @@ def create_inproceedings(title, author, year, booktitle, DOI, address, month, ur
             "organization": organization,
         },
     )
-    db.session.commit()
+    db.session.commit()    
 
 
 def manage_bookreference(id):

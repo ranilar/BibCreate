@@ -55,13 +55,15 @@ Create a new reference
     <label for="volume">Volume:</label><br>
     <input type="number" name="volume" id="volume" value="{{ form_data.get('volume', '') if form_data else '' }}"><br><br>
   
-    <label for="DOI">DOI:</label><br>
-    <input type="text" name="DOI" id="DOI" value="{{ form_data.get('DOI', '') if form_data else '' }}"><br><br>
+    <label for="DOI-article">DOI:</label><br>
+    <input type="text" name="DOI-article" id="DOI-article"value="{{ form_data.get('DOI-article', '') if form_data else '' }}"><br><br>
+  
   </div>
   
   <div id="misc-fields" class="type-specific" style="display: none;">
-    <label for="url">URL:</label><br>
-    <input type="url" name="url" id="url" value="{{ form_data.get('url', '') if form_data else '' }}"><br><br>
+    <label for="url-misc">URL:</label><br>
+    <input type="url" name="url-misc" id="url-misc" value="{{ form_data.get('url-misc', '') if form_data else '' }}"><br><br>
+
   
     <label for="note">Note:</label><br>
     <input type="text" name="note" id="note" value="{{ form_data.get('note', '') if form_data else '' }}"><br><br>
@@ -71,8 +73,8 @@ Create a new reference
     <label for="booktitle">Booktitle:</label><br>
     <input type="text" name="booktitle" id="booktitle" value="{{ form_data.get('booktitle', '') if form_data else '' }}"><br><br>
   
-    <label for="DOI">DOI:</label><br>
-    <input type="text" name="DOI" id="DOI" value="{{ form_data.get('DOI', '') if form_data else '' }}"><br><br>
+    <label for="DOI-inproceedings">DOI:</label><br>
+    <input type="text" name="DOI-inproceedings" id="DOI-inproceedings" value="{{ form_data.get('DOI-inproceedings', '') if form_data else '' }}"><br><br>
   
     <label for="address">Address:</label><br>
     <input type="text" name="address" id="address" value="{{ form_data.get('address', '') if form_data else '' }}"><br><br>
@@ -80,8 +82,8 @@ Create a new reference
     <label for="month">Month:</label><br>
     <input type="text" name="month" id="month" value="{{ form_data.get('month', '') if form_data else '' }}"><br><br>
   
-    <label for="url">URL:</label><br>
-    <input type="url" name="url" id="url" value="{{ form_data.get('url', '') if form_data else '' }}"><br><br>
+    <label for="url-inproceedings">URL:</label><br>
+    <input type="url" name="url-inproceedings" id="url-inproceedings" value="{{ form_data.get('url-inproceedings', '') if form_data else '' }}"><br><br>
   
     <label for="organization">Organization:</label><br>
     <input type="text" name="organization" id="organization" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>

@@ -55,6 +55,7 @@ class Inproceedings(Reference):
         self.booktitle = booktitle
         self.DOI = DOI
         self.address = address
+        self.month = month
         self.url = url
         self.organization = organization
 

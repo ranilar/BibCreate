@@ -35,8 +35,8 @@ def reference_creation():
         "ISBN": request.form.get("ISBN"),
         "journal": request.form.get("journal"),
         "volume": request.form.get("volume"),
-        "DOI": request.form.get("DOI"),
-        "url": request.form.get("url"),
+        "DOI": request.form.get(f"DOI-{ref_type}"),
+        "url": request.form.get(f"url-{ref_type}"),
         "note": request.form.get("note"),
         "booktitle": request.form.get("booktitle"),
         "address": request.form.get("address"),
@@ -46,7 +46,6 @@ def reference_creation():
 
     try:
         validate_reference(ref_type, **fields)
-
         if ref_type == "book":
             create_book(fields["title"], fields["author"], fields["year"], fields["publisher"], fields["ISBN"])
         elif ref_type == "article":
@@ -58,7 +57,6 @@ def reference_creation():
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
                 fields["DOI"], fields["address"], fields["month"], fields["url"], fields["organization"]
             )
-
         flash(f"{ref_type.capitalize()} citation added successfully", "success")
     except UserInputError as error:
         for field, message in error.args[0].items():
