@@ -78,6 +78,53 @@ def delete_reference(id):
     #     flash(f"Failed to delete {ref_type} reference")
     return redirect("/")
 
+@app.route("/edit_reference/<reference_id>", methods=["GET", "POST"])
+def edit_reference(reference_id):
+    
+    ref_type = request.args.get("ref_type") if request.method == "GET" else request.form.get("ref_type")
+    print(ref_type)
+    reference_obj = get_reference(ref_type, reference_id)
+    print("works")
+    if not reference_obj:
+        flash("Reference not found.", "error")
+        return redirect("/") 
+
+    if request.method == "GET":
+        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type)
+
+    elif request.method == "POST":
+        reference_obj.title = request.form.get("title")
+        if isinstance(reference_obj, Book):
+            reference_obj.author = request.form.get("author")
+            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.publisher = request.form.get("publisher")
+            reference_obj.ISBN = request.form.get("ISBN")
+        elif isinstance(reference_obj, Article):
+            reference_obj.author = request.form.get("author")
+            reference_obj.journal = request.form.get("journal")
+            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.volume = request.form.get("volume")
+            reference_obj.DOI = request.form.get("DOI")
+        elif isinstance(reference_obj, Misc):
+            reference_obj.author = request.form.get("author")
+            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.url = request.form.get("url")
+            reference_obj.note = request.form.get("note")
+        elif isinstance(reference_obj, Inproceedings):
+            reference_obj.author = request.form.get("author")
+            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.booktitle = request.form.get("booktitle")
+            reference_obj.DOI = request.form.get("DOI")
+            reference_obj.address = request.form.get("address")
+            reference_obj.month = request.form.get("month")
+            reference_obj.url = request.form.get("url")
+            reference_obj.organization = request.form.get("organization")
+
+        flash("Reference updated successfully!", "success")
+        return redirect("/")
+
+
+
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")

@@ -70,7 +70,9 @@ bibcreate
               <input type="hidden" name="ref_type" value="article">
               <button type="delete"style="background-color: red; 
                   color: white; padding: 7px 12px;">x</button>
-          </form>
+      </td>
+            <td>
+                <a href="/edit_reference/{{ article.id }}?ref_type=article" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
       </td>
     </tr>
         {% endfor %}
