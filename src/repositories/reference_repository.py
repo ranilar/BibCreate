@@ -99,11 +99,33 @@ def create_inproceedings(title, author, year, booktitle, DOI, address, month, ur
     db.session.commit()    
 
 
-def manage_bookreference(id):
-    # todo
-    pass
+def get_reference(ref_type, ref_id):
+    print("works too")
+    if ref_type == "book":
+        sql = text("SELECT * FROM book_references WHERE id = :id")
+        result = db.session.execute(sql, {"id": ref_id})
+        reference = result.fetchall()
+        return Book(*reference)
 
-# deletions by reference type (maybe joined together later??? )
+    elif ref_type == "article":
+        print("try")
+        sql = text("SELECT * FROM article_references WHERE id = :id")
+        result = db.session.execute(sql, {"id": ref_id})
+        reference = result.fetchall()
+        print(reference)
+        return Article(*reference[0])
+
+    elif ref_type == "misc":
+        sql = text("SELECT * FROM misc_references WHERE id = :id")
+        result = db.session.execute(sql, {"id": ref_id})
+        reference = result.fetchall()
+        return Misc(*reference)
+
+    elif ref_type == "inproceedings":
+        sql = text("SELECT * FROM inproceedings_references WHERE id = :id")
+        result = db.session.execute(sql, {"id": ref_id})
+        reference = result.fetchall()
+        return Inproceedings(*reference)
 
 
 def delete_reference_bytype(ref_type, ref_id):
