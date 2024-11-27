@@ -24,6 +24,7 @@ def index():
 @app.route("/new_reference")
 def new():
     return render_template("new_reference.html")
+
 @app.route("/create_reference", methods=["POST"])
 def reference_creation():
     ref_type = request.form.get("ref_type")
