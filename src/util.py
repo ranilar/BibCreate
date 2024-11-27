@@ -22,3 +22,4 @@ def validate_reference(title, author, year, publisher, ISBN):
 
     if errors:
         raise UserInputError(errors)
+
