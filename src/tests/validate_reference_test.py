@@ -6,18 +6,14 @@ class TestTReferenceValidation(unittest.TestCase):
         pass
 
     def test_valid_book_reference_does_not_raise_error(self):
-        try: 
-            validate_reference(
-                "book",
-                title="Valid Title",
-                author="Valid Author",
-                year="2024",
-                publisher="Valid Publisher",
-                ISBN="1234567890123"
-            )
-        except Exception as e:
-            self.fail(f"validate_reference raised an exception unexpectedly: {e}")
-
+        validate_reference(
+            "book",
+            title="Valid Title",
+            author="Valid Author",
+            year="2024",
+            publisher="Valid Publisher",
+            ISBN="1234567890123"
+        )
 
     def test_book_reference_with_invalid_title_raises_error(self):
         with self.assertRaises(UserInputError) as context:

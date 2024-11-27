@@ -71,27 +71,17 @@ def setup_tables():
 
 # Reset all tables
 def reset_db():
-  for table_name in tables.keys():
-    print(f"Clearing contents from table {table_name}")
-    sql = text(f"DELETE FROM {table_name}")
+    for table_name in tables.keys():
+        print(f"Clearing contents from table {table_name}")
+        sql = text(f"DELETE FROM {table_name}")
+        db.session.execute(sql)
+        db.session.commit()
+
+    setup_tables()
+
     db.session.execute(sql)
     db.session.commit()
-
-  print(f"Creating table {table_name}")
-  sql = text(
-    f"CREATE TABLE {table_name} ("
-    "  id SERIAL PRIMARY KEY, "
-    "  title TEXT NOT NULL,"
-    "  author TEXT NOT NULL,"
-    "  year INTEGER NOT NULL,"
-    "  publisher TEXT NOT NULL,"
-    "  ISBN TEXT NOT NULL"
-    ")"
-  )
-
-  db.session.execute(sql)
-  db.session.commit()
-  print("All tables have been created successfully.")
+    print("All tables have been created successfully.")
 
 if __name__ == "__main__":
     with app.app_context():
