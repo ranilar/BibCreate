@@ -30,6 +30,12 @@ Edit Reference
     <label for="ISBN">ISBN:</label><br>
     <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}"><br><br>
   </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="book">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
   {% endif %}
 
   {% if ref_type == "article" %}
@@ -41,10 +47,6 @@ Edit Reference
   <div>
     <label for="title">Title:</label><br>
     <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
-  </div>
-  <div>
-    <label for="author">Author:</label><br>
-    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
   </div>
   <div>
     <label for="journal">Journal:</label><br>
@@ -62,6 +64,12 @@ Edit Reference
     <label for="DOI">DOI:</label><br>
     <input type="text" name="DOI" id="DOI" value="{{ reference.DOI }}"><br><br>
   </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="article">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
   {% endif %}
 
   {% if ref_type == "misc" %}
@@ -86,6 +94,12 @@ Edit Reference
     <label for="note">Note:</label><br>
     <input type="text" name="note" id="note" value="{{ reference.note }}"><br><br>
   </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="misc">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
   {% endif %}
 
   {% if ref_type == "inproceedings" %}
@@ -126,12 +140,15 @@ Edit Reference
     <label for="organization">Organization:</label><br>
     <input type="text" name="organization" id="organization" value="{{ reference.organization }}"><br><br>
   </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="inproceedings">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
   {% endif %}
 
-  <div>
-    <form action="/edit_reference{{ reference.id }}" method="post" style="display: inline;">
-      <button type="submit">Save Changes</button>
-  </div>
+
 
 </form>
 {% endblock %}

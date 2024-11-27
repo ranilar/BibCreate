@@ -44,6 +44,9 @@ bibcreate
                   color: white; padding: 7px 12px;">x</button>
                 </form>
             </td>
+            <td>
+                <a href="/edit_reference/{{ book.id }}?ref_type=book" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+      </td>
     </tr>
         {% endfor %}
     </table>
@@ -101,6 +104,9 @@ bibcreate
                   color: white; padding: 7px 12px;">x</button>
           </form>
       </td>
+      <td>
+        <a href="/edit_reference/{{ misc.id }}?ref_type=misc" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+</td>
     </tr>
         {% endfor %}
     </table>
@@ -136,6 +142,9 @@ bibcreate
                   color: white; padding: 7px 12px;">x</button>
           </form>
       </td>
+      <td>
+        <a href="/edit_reference/{{ inproceedings.id }}?ref_type=inproceedings" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+</td>
     </tr>
         {% endfor %}
     </table>

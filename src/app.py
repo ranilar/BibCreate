@@ -80,11 +80,10 @@ def delete_reference(id):
 
 @app.route("/edit_reference/<reference_id>", methods=["GET", "POST"])
 def edit_reference(reference_id):
-    
+
     ref_type = request.args.get("ref_type") if request.method == "GET" else request.form.get("ref_type")
-    print(ref_type)
     reference_obj = get_reference(ref_type, reference_id)
-    print("works")
+    
     if not reference_obj:
         flash("Reference not found.", "error")
         return redirect("/") 
@@ -94,23 +93,24 @@ def edit_reference(reference_id):
 
     elif request.method == "POST":
         reference_obj.title = request.form.get("title")
-        if isinstance(reference_obj, Book):
+        
+        if ref_type == "book":
             reference_obj.author = request.form.get("author")
             reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
             reference_obj.publisher = request.form.get("publisher")
             reference_obj.ISBN = request.form.get("ISBN")
-        elif isinstance(reference_obj, Article):
+        elif ref_type == "article":
             reference_obj.author = request.form.get("author")
             reference_obj.journal = request.form.get("journal")
             reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
             reference_obj.volume = request.form.get("volume")
             reference_obj.DOI = request.form.get("DOI")
-        elif isinstance(reference_obj, Misc):
+        elif ref_type == "misc":
             reference_obj.author = request.form.get("author")
             reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
             reference_obj.url = request.form.get("url")
             reference_obj.note = request.form.get("note")
-        elif isinstance(reference_obj, Inproceedings):
+        elif ref_type == "inproceedings":
             reference_obj.author = request.form.get("author")
             reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
             reference_obj.booktitle = request.form.get("booktitle")
@@ -120,9 +120,10 @@ def edit_reference(reference_id):
             reference_obj.url = request.form.get("url")
             reference_obj.organization = request.form.get("organization")
 
+        save_reference(reference_obj, reference_id, ref_type)
+            
         flash("Reference updated successfully!", "success")
         return redirect("/")
-
 
 
 # testausta varten oleva reitti
