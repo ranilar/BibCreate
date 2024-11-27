@@ -23,8 +23,8 @@ tables = {
     "misc_references": (
         "id SERIAL PRIMARY KEY, "
         "title TEXT NOT NULL, "
-        "year INTEGER, "
         "author TEXT, "
+        "year INTEGER, "
         "url TEXT, "
         "note TEXT "
     ),
