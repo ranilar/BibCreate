@@ -11,18 +11,20 @@ def index():
     articles = get_references_bytype("article")
     miscs = get_references_bytype("misc")
     inproceedings = get_references_bytype("inproceedings")
-    
+
     return render_template(
-        "index.html", 
-        books=books, 
-        articles=articles, 
-        miscs=miscs, 
+        "index.html",
+        books=books,
+        articles=articles,
+        miscs=miscs,
         inproceedings=inproceedings
     )
+
 
 @app.route("/new_reference")
 def new():
     return render_template("new_reference.html")
+
 
 @app.route("/create_reference", methods=["POST"])
 def reference_creation():
@@ -48,11 +50,14 @@ def reference_creation():
         validate_reference(ref_type, **fields)
 
         if ref_type == "book":
-            create_book(fields["title"], fields["author"], fields["year"], fields["publisher"], fields["ISBN"])
+            create_book(fields["title"], fields["author"],
+                        fields["year"], fields["publisher"], fields["ISBN"])
         elif ref_type == "article":
-            create_article(fields["title"], fields["author"], fields["journal"], fields["year"], fields["volume"], fields["DOI"])
+            create_article(fields["title"], fields["author"], fields["journal"],
+                           fields["year"], fields["volume"], fields["DOI"])
         elif ref_type == "misc":
-            create_misc(fields["title"], fields["author"], fields["year"], fields["url"], fields["note"])
+            create_misc(fields["title"], fields["author"],
+                        fields["year"], fields["url"], fields["note"])
         elif ref_type == "inproceedings":
             create_inproceedings(
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
@@ -69,9 +74,11 @@ def reference_creation():
         return redirect("/new_reference")
     return redirect("/")
 
+
 @app.route("/edit_book/<book_id>", methods=["POST"])
 def edit_book(book_id):
     pass
+
 
 @app.route("/delete/<id>", methods=["POST"])
 def delete_reference(id):
@@ -82,9 +89,10 @@ def delete_reference(id):
     #     flash(f"Failed to delete {ref_type} reference")
     return redirect("/")
 
+
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        return jsonify({ 'message': "db reset" })   
+        return jsonify({'message': "db reset"})

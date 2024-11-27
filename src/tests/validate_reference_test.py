@@ -1,6 +1,7 @@
 import unittest
 from util import validate_reference, UserInputError
 
+
 class TestTReferenceValidation(unittest.TestCase):
     def setUp(self):
         pass
@@ -26,6 +27,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 ISBN="1234567890123"
             )
         self.assertIn("title", context.exception.args[0])
-        
+
+
 if __name__ == "__main__":
     unittest.main()

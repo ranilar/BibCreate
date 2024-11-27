@@ -1,6 +1,6 @@
 [MASTER]
 
-ignore=tests, story_tests
+ignore=tests, story_tests, ui, tests
 
 [MESSAGE CONTROL]
 
