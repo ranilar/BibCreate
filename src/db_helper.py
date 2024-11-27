@@ -42,6 +42,7 @@ tables = {
     )
 }
 
+
 def table_exists(name):
     """Check if a table exists in the database."""
     sql_table_existence = text(
@@ -54,6 +55,7 @@ def table_exists(name):
     result = db.session.execute(sql_table_existence)
     return result.fetchone()[0]
 
+
 def setup_tables():
     """Create multiple tables defined in the `tables` dictionary."""
     for table_name, schema in tables.items():
@@ -61,7 +63,7 @@ def setup_tables():
             print(f"Table {table_name} exists, dropping it.")
             sql = text(f"DROP TABLE {table_name}")
             db.session.execute(sql)
-        
+
         print(f"Creating table {table_name}")
         sql = text(f"CREATE TABLE {table_name} ({schema})")
         db.session.execute(sql)
@@ -70,6 +72,8 @@ def setup_tables():
     print("All tables have been created successfully.")
 
 # Reset all tables
+
+
 def reset_db():
     for table_name in tables.keys():
         print(f"Clearing contents from table {table_name}")
@@ -82,6 +86,7 @@ def reset_db():
     db.session.execute(sql)
     db.session.commit()
     print("All tables have been created successfully.")
+
 
 if __name__ == "__main__":
     with app.app_context():

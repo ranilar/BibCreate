@@ -2,6 +2,7 @@ from config import db
 from sqlalchemy import text
 from entities.reference import Book, Article, Misc, Inproceedings
 
+
 def get_references_bytype(ref_type):
     sql = text(f"SELECT * FROM {ref_type}_references")
     result = db.session.execute(sql)
@@ -15,6 +16,7 @@ def get_references_bytype(ref_type):
         return [Misc(*reference) for reference in references]
     if ref_type == "inproceedings":
         return [Inproceedings(*reference) for reference in references]
+
 
 def create_book(title, author, year, publisher, ISBN):
     sql = text(
@@ -34,6 +36,7 @@ def create_book(title, author, year, publisher, ISBN):
         },
     )
     db.session.commit()
+
 
 def create_article(title, author, journal, year, volume, DOI):
     sql = text(
@@ -55,6 +58,7 @@ def create_article(title, author, journal, year, volume, DOI):
     )
     db.session.commit()
 
+
 def create_misc(title, author, year, url, note):
     sql = text(
         """
@@ -73,6 +77,7 @@ def create_misc(title, author, year, url, note):
         },
     )
     db.session.commit()
+
 
 def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):
     sql = text(
@@ -97,11 +102,14 @@ def create_inproceedings(title, author, year, booktitle, DOI, address, month, ur
     )
     db.session.commit()
 
+
 def manage_bookreference(id):
-    #todo
+    # todo
     pass
 
 # deletions by reference type (maybe joined together later??? )
+
+
 def delete_reference_bytype(ref_type, ref_id):
     if ref_type == "book":
         sql = text("DELETE FROM book_references WHERE id = :id")
