@@ -69,13 +69,6 @@ def reference_creation():
         return redirect("/new_reference")
     return redirect("/")
 
-
-@app.route("/delete/<id>", methods=["POST"])
-def update_reference(reference_id):
-    #set_done(todo_id)
-    return redirect("/")
-
-
 @app.route("/edit_book/<book_id>", methods=["POST"])
 def edit_book(book_id):
     pass
@@ -83,14 +76,11 @@ def edit_book(book_id):
 @app.route("/delete/<id>", methods=["POST"])
 def delete_reference(id):
     ref_type = request.form.get("ref_type")
-
-    if ref_type == "book":
-        try:
-            delete_reference(ref_type, id)
-            flash("Book reference deleted successfully", "success")
-        except Exception:
-            flash("Failed to delete book reference")
-        return redirect("/")
+    delete_reference_bytype(ref_type, id)
+    flash(f"{ref_type} reference deleted successfully", "success")
+    # except Exception:
+    #     flash(f"Failed to delete {ref_type} reference")
+    return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:

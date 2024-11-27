@@ -16,7 +16,7 @@ def validate_reference(ref_type, **fields):
             errors["author"] = "Author length must be smaller than 100 characters."
 
     if ref_type == "book":
-        if not fields.get("publisher") or len(fields["publisher"]) < 5:
+        if fields.get("publisher") and len(fields["publisher"]) < 5 :
             errors["publisher"] = "Publisher must be at least 5 characters long."
         if not fields.get("ISBN") or len(fields["ISBN"]) != 13:
             errors["ISBN"] = "ISBN must be exactly 13 digits."

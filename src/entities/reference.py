@@ -59,6 +59,3 @@ class Inproceedings(Reference):
     def __str__(self):
         return f"Inproceedings: {self.id}, Title: {self.title}, Author: {self.author}"
  
-    # def __str__(self):
-    #     is_done = "done" if self.done else "not done"
-    #     return f"{self.content}, {is_done}"
