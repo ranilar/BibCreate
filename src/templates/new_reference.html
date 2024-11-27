@@ -22,10 +22,10 @@ Create a new reference
   <div>
     <label for="ref_type">Type:</label>
     <select name="ref_type" id="ref_type" required onchange="toggleFields()">
-      <option value="book" >Book</option>
-      <option value="article">Article</option>
-      <option value="misc">Misc</option>
-      <option value="inproceedings">Inproceedings</option>
+      <option value="book" {% if ref_type == 'book' %}selected{% endif %}>Book</option>
+      <option value="article" {% if ref_type == 'article' %}selected{% endif %}>Article</option>
+      <option value="misc" {% if ref_type == 'misc' %}selected{% endif %}>Misc</option>
+      <option value="inproceedings" {% if ref_type == 'inproceedings' %}selected{% endif %}>Inproceedings</option>
     </select>
   </div>
   
