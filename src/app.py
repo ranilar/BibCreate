@@ -80,7 +80,14 @@ def update_reference(reference_id):
 def edit_book(book_id):
     pass
 
-
+@app.route("/delete/<id>", methods=["POST"]) #TESTI
+def delete_bookreference(id):
+    try:
+        delete_bookreference(id)  # Kutsutaan funktiota, joka poistaa viitteen tietokannasta
+        flash("Book reference deleted successfully", "success")
+    except Exception as e:
+        flash(f"Error deleting book reference: {str(e)}", "error")
+    return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:
