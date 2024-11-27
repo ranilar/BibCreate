@@ -8,18 +8,12 @@ def get_references_bytype(ref_type):
     references = result.fetchall()
 
     if ref_type == "book":
-        return [
-            Book(
-                reference[0], reference[1], reference[2], reference[3], reference[4], reference[5]
-            )
-            for reference in references
-    ]
-
-    elif ref_type == "article":
+        return [Book(*reference) for reference in references]
+    if ref_type == "article":
         return [Article(*reference) for reference in references]
-    elif ref_type == "misc":
+    if ref_type == "misc":
         return [Misc(*reference) for reference in references]
-    elif ref_type == "inproceedings":
+    if ref_type == "inproceedings":
         return [Inproceedings(*reference) for reference in references]
 
 def create_book(title, author, year, publisher, ISBN):
@@ -101,30 +95,30 @@ def create_inproceedings(title, author, year, booktitle, DOI, address, month, ur
             "organization": organization,
         },
     )
-    db.session.commit()    
+    db.session.commit()
 
 def manage_bookreference(id):
     #todo
     pass
 
 # deletions by reference type (maybe joined together later??? )
-def delete_reference(ref_type, id):
+def delete_reference_bytype(ref_type, ref_id):
     if ref_type == "book":
         sql = text("DELETE FROM book_references WHERE id = :id")
-        db.session.execute(sql, {"id": id})
+        db.session.execute(sql, {"id": ref_id})
         db.session.commit()
-            
+
     elif ref_type == "article":
         sql = text("DELETE FROM article_references WHERE id = :id")
-        db.session.execute(sql, {"id": id})
+        db.session.execute(sql, {"id": ref_id})
         db.session.commit()
 
     elif ref_type == "misc":
         sql = text("DELETE FROM misc_references WHERE id = :id")
-        db.session.execute(sql, {"id": id})
+        db.session.execute(sql, {"id": ref_id})
         db.session.commit()
 
     elif ref_type == "inproceedings":
         sql = text("DELETE FROM inproceedings_references WHERE id = :id")
-        db.session.execute(sql, {"id": id})
+        db.session.execute(sql, {"id": ref_id})
         db.session.commit()
