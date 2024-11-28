@@ -9,7 +9,7 @@ class TestTReferenceValidation(unittest.TestCase):
     def test_valid_book_reference_does_not_raise_error(self):
         validate_reference(
             "book",
-            title="Valid Title",
+            title="ME",
             author="Valid Author",
             year="2024",
             publisher="Valid Publisher",
@@ -24,9 +24,9 @@ class TestTReferenceValidation(unittest.TestCase):
                 author="Valid Author",
                 year="2024",
                 publisher="Valid Publisher",
-                ISBN="1234567890123"
+                ISBN="1234"
             )
-        self.assertIn("title", context.exception.args[0])
+        self.assertIn("ISBN", context.exception.args[0])
 
 
 if __name__ == "__main__":

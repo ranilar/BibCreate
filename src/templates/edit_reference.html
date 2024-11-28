@@ -6,40 +6,149 @@ Edit Reference
 
 {% block body %}
 <h1>Edit Reference</h1>
-<form action="/edit_reference/{{ reference_id }}" method="post">
-  
-  {% if reference is instance of Book %}
+<form action="/edit_reference/{{ reference.id }}" method="post">
+
+  {% if ref_type == "book" %}
+
   <div>
-      <label for="author">Author:</label><br>
-      <input type="text" name="author" id="author" value="{{ reference.author }}" required><br><br>
-  </div>
-    <div>
-      <label for="year">Year:</label><br>
-      <input type="number" name="year" id="year" value="{{ reference.year }}" required><br><br>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
   </div>
   <div>
-      <label for="year">Year:</label><br>
-      <input type="number" name="year" id="year" value="{{ reference.year }}" required><br><br>
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
   </div>
   <div>
-      <label for="publisher">Publisher:</label><br>
-      <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}" required><br><br>
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
   </div>
   <div>
-      <label for="ISBN">ISBN:</label><br>
-      <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}" required><br><br>
+    <label for="publisher">Publisher:</label><br>
+    <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}"><br><br>
   </div>
-  {% endif %}
-  
-  {% if reference is instance of Article %}
-  <!-- Article-specific fields -->
-  {% endif %}
-  
-  {% if reference is instance of Misc %}
-  <!-- Misc-specific fields -->
+  <div>
+    <label for="ISBN">ISBN:</label><br>
+    <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}"><br><br>
+  </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="book">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
   {% endif %}
 
-  {% if reference is instance of Inproceedings %}
-  <!-- Inproceedings-specific fields -->
+  {% if ref_type == "article" %}
+
+  <div>
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
+  </div>
+  <div>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
+  </div>
+  <div>
+    <label for="journal">Journal:</label><br>
+    <input type="text" name="journal" id="journal" value="{{ reference.journal }}"><br><br>
+  </div>
+  <div>
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
+  </div>
+  <div>
+    <label for="volume">Volume:</label><br>
+    <input type="text" name="volume" id="volume" value="{{ reference.volume }}"><br><br>
+  </div>
+  <div>
+    <label for="DOI">DOI:</label><br>
+    <input type="text" name="DOI" id="DOI" value="{{ reference.DOI }}"><br><br>
+  </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="article">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+  {% endif %}
+
+  {% if ref_type == "misc" %}
+
+  <div>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
+  </div>
+  <div>
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
+  </div>
+  <div>
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
+  </div>
+  <div>
+    <label for="url">URL:</label><br>
+    <input type="url" name="url" id="url" value="{{ reference.url }}"><br><br>
+  </div>
+  <div>
+    <label for="note">Note:</label><br>
+    <input type="text" name="note" id="note" value="{{ reference.note }}"><br><br>
+  </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="misc">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+  {% endif %}
+
+  {% if ref_type == "inproceedings" %}
+
+  <div>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
+  </div>
+  <div>
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
+  </div>
+  <div>
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
+  </div>
+  <div>
+    <label for="booktitle">Book Title:</label><br>
+    <input type="text" name="booktitle" id="booktitle" value="{{ reference.booktitle }}"><br><br>
+  </div>
+  <div>
+    <label for="DOI">DOI:</label><br>
+    <input type="text" name="DOI" id="DOI" value="{{ reference.DOI }}"><br><br>
+  </div>
+  <div>
+    <label for="address">Address:</label><br>
+    <input type="text" name="address" id="address" value="{{ reference.address }}"><br><br>
+  </div>
+  <div>
+    <label for="month">Month:</label><br>
+    <input type="text" name="month" id="month" value="{{ reference.month }}"><br><br>
+  </div>
+  <div>
+    <label for="url">URL:</label><br>
+    <input type="url" name="url" id="url" value="{{ reference.url }}"><br><br>
+  </div>
+  <div>
+    <label for="organization">Organization:</label><br>
+    <input type="text" name="organization" id="organization" value="{{ reference.organization }}"><br><br>
+  </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="inproceedings">
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+  {% endif %}
+
+
+
 </form>
 {% endblock %}
