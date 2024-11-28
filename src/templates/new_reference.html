@@ -18,7 +18,6 @@ Create a new reference
       </ul>
     {% endif %}
   {% endwith %}
-
   <div>
     <label for="ref_type">Type:</label>
     <select name="ref_type" id="ref_type" required onchange="toggleFields()">
@@ -108,7 +107,6 @@ Create a new reference
     }
   }
 
-  // Trigger the toggle on page load if form data exists
   document.addEventListener("DOMContentLoaded", function () {
     toggleFields();
   });
