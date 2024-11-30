@@ -24,7 +24,7 @@ def index():
             'ISBN': book.ISBN,
             'id': book.id
         })
-    
+
     for article in articles:
         all_references.append({
             'type': 'article',
@@ -36,7 +36,7 @@ def index():
             'DOI': article.DOI,
             'id': article.id
         })
-    
+
     for misc in miscs:
         all_references.append({
             'type': 'misc',
@@ -47,7 +47,7 @@ def index():
             'note': misc.note,
             'id': misc.id
         })
-    
+
     for inproceeding in inproceedings:
         all_references.append({
             'type': 'inproceeding',
@@ -63,17 +63,18 @@ def index():
             'id': inproceeding.id
         })
 
-#todo sorting
+# todo sorting
 
     return render_template(
         "index.html",
-        all_references=all_references  
+        all_references=all_references
     )
 
 
 @app.route("/new_reference")
 def new():
     return render_template("new_reference.html")
+
 
 @app.route("/create_reference", methods=["POST"])
 def reference_creation():
@@ -98,11 +99,14 @@ def reference_creation():
     try:
         validate_reference(ref_type, **fields)
         if ref_type == "book":
-            create_book(fields["title"], fields["author"], fields["year"], fields["publisher"], fields["ISBN"])
+            create_book(fields["title"], fields["author"],
+                        fields["year"], fields["publisher"], fields["ISBN"])
         elif ref_type == "article":
-            create_article(fields["title"], fields["author"], fields["journal"], fields["year"], fields["volume"], fields["DOI"])
+            create_article(fields["title"], fields["author"], fields["journal"],
+                           fields["year"], fields["volume"], fields["DOI"])
         elif ref_type == "misc":
-            create_misc(fields["title"], fields["author"], fields["year"], fields["url"], fields["note"])
+            create_misc(fields["title"], fields["author"],
+                        fields["year"], fields["url"], fields["note"])
         elif ref_type == "inproceedings":
             create_inproceedings(
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
@@ -119,6 +123,7 @@ def reference_creation():
         return redirect("/new_reference")
     return redirect("/")
 
+
 @app.route("/delete/<id>", methods=["POST"])
 def delete_reference(id):
     ref_type = request.form.get("ref_type")
@@ -128,41 +133,47 @@ def delete_reference(id):
     #     flash(f"Failed to delete {ref_type} reference")
     return redirect("/")
 
+
 @app.route("/edit_reference/<reference_id>", methods=["GET", "POST"])
 def edit_reference(reference_id):
 
-    ref_type = request.args.get("ref_type") if request.method == "GET" else request.form.get("ref_type")
+    ref_type = request.args.get(
+        "ref_type") if request.method == "GET" else request.form.get("ref_type")
     reference_obj = get_reference(ref_type, reference_id)
-    
+
     if not reference_obj:
         flash("Reference not found.", "error")
-        return redirect("/") 
+        return redirect("/")
 
     if request.method == "GET":
         return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type)
 
     elif request.method == "POST":
         reference_obj.title = request.form.get("title")
-        
+
         if ref_type == "book":
             reference_obj.author = request.form.get("author")
-            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.year = int(request.form.get(
+                "year")) if request.form.get("year") else None
             reference_obj.publisher = request.form.get("publisher")
             reference_obj.ISBN = request.form.get("ISBN")
         elif ref_type == "article":
             reference_obj.author = request.form.get("author")
             reference_obj.journal = request.form.get("journal")
-            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.year = int(request.form.get(
+                "year")) if request.form.get("year") else None
             reference_obj.volume = request.form.get("volume")
             reference_obj.DOI = request.form.get("DOI")
         elif ref_type == "misc":
             reference_obj.author = request.form.get("author")
-            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.year = int(request.form.get(
+                "year")) if request.form.get("year") else None
             reference_obj.url = request.form.get("url")
             reference_obj.note = request.form.get("note")
         elif ref_type == "inproceedings":
             reference_obj.author = request.form.get("author")
-            reference_obj.year = int(request.form.get("year")) if request.form.get("year") else None
+            reference_obj.year = int(request.form.get(
+                "year")) if request.form.get("year") else None
             reference_obj.booktitle = request.form.get("booktitle")
             reference_obj.DOI = request.form.get("DOI")
             reference_obj.address = request.form.get("address")
@@ -171,7 +182,7 @@ def edit_reference(reference_id):
             reference_obj.organization = request.form.get("organization")
 
         save_reference(reference_obj, reference_id, ref_type)
-            
+
         flash("Reference updated successfully!", "success")
         return redirect("/")
 
@@ -181,4 +192,4 @@ if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        return jsonify({ 'message': "db reset" })   
+        return jsonify({'message': "db reset"})
