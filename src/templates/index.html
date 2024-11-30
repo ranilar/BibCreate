@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-bibcreate
+Bibcreate
 {% endblock %}
 
 {% block body %}
 
-<h2>bibcreate</h2>
+<h1>bibcreate</h1>
 
 <form action="/create_reference" method="post">
     {% with messages = get_flashed_messages() %}
@@ -20,137 +20,154 @@ bibcreate
     {% endwith %}
 </form>
   
+<h3>All Citations</h3>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+    {% for reference in all_references %}
+    <tr>
+        <td>{{ reference.title }}</td>
+        <td>{{ reference.author }}</td>
+        <td>{{ reference.type }}</td>
+        <td>
+            <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
+                <input type="hidden" name="ref_type" value="{{ reference.type }}">
+                <button type="submit" style="background-color: red; color: white; padding: 7px 12px;">x</button>
+            </form>
+            <a href="/edit_reference/{{ reference.id }}?ref_type={{ reference.type}}" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
-    <h3>Book Citations</h3>
-    <table border="1">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Publisher</th>
-            <th>ISBN</th>
-        </tr>
-        {% for book in books %}
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.year }}</td>
-            <td>{{ book.publisher }}</td>
-            <td>{{ book.ISBN }}</td>
-            <td>
-                <form action="/delete/{{ book.id }}" method="post" style="display: inline;">
+<h3>Book Citations</h3>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Publisher</th>
+        <th>ISBN</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in all_references if book.type == 'book' %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.year }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.ISBN }}</td>
+        <td>
+            <form action="/delete/{{ book.id }}" method="post" style="display: inline;">
                 <input type="hidden" name="ref_type" value="book">
-                <button type="delete"style="background-color: red; 
-                  color: white; padding: 7px 12px;">x</button>
-                </form>
-            </td>
-            <td>
-                <a href="/edit_reference/{{ book.id }}?ref_type=book" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
-      </td>
+                <button type="submit" style="background-color: red; color: white; padding: 7px 12px;">x</button>
+            </form>
+            <a href="/edit_reference/{{ book.id }}?ref_type=book" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+        </td>
     </tr>
-        {% endfor %}
-    </table>
-    <h3>Article Citations</h3>
-    <table border="1">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Journal</th>
-            <th>Year</th>
-            <th>Volume</th>
-            <th>DOI</th>
-        </tr>
-        {% for article in articles %}
-        <tr>
-            <td>{{ article.title }}</td>
-            <td>{{ article.author }}</td>
-            <td>{{ article.journal }}</td>
-            <td>{{ article.year }}</td>
-            <td>{{ article.volume }}</td>
-            <td>{{ article.DOI }}</td>
-            <td>
+    {% endfor %}
+</table>
+
+<h3>Article Citations</h3>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Journal</th>
+        <th>Year</th>
+        <th>Volume</th>
+        <th>DOI</th>
+        <th>Actions</th>
+    </tr>
+    {% for article in all_references if article.type == 'article' %}
+    <tr>
+        <td>{{ article.title }}</td>
+        <td>{{ article.author }}</td>
+        <td>{{ article.journal }}</td>
+        <td>{{ article.year }}</td>
+        <td>{{ article.volume }}</td>
+        <td>{{ article.DOI }}</td>
+        <td>
             <form action="/delete/{{ article.id }}" method="post" style="display: inline;">
-              <input type="hidden" name="ref_type" value="article">
-              <button type="delete"style="background-color: red; 
-                  color: white; padding: 7px 12px;">x</button>
-      </td>
-            <td>
-                <a href="/edit_reference/{{ article.id }}?ref_type=article" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
-      </td>
+                <input type="hidden" name="ref_type" value="article">
+                <button type="submit" style="background-color: red; color: white; padding: 7px 12px;">x</button>
+            </form>
+            <a href="/edit_reference/{{ article.id }}?ref_type=article" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+        </td>
     </tr>
-        {% endfor %}
-    </table>
-    
-    <h3>Misc Citations</h3>
-    <table border="1">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>URL</th>
-            <th>Note</th>
-        </tr>
-        {% for misc in miscs %}
-        <tr>
-            <td>{{ misc.title }}</td>
-            <td>{{ misc.author }}</td>
-            <td>{{ misc.year }}</td>
-            <td>{{ misc.url }}</td>
-            <td>{{ misc.note }}</td>
-            <td>
+    {% endfor %}
+</table>
+
+<h3>Misc Citations</h3>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>URL</th>
+        <th>Note</th>
+        <th>Actions</th>
+    </tr>
+    {% for misc in all_references if misc.type == 'misc' %}
+    <tr>
+        <td>{{ misc.title }}</td>
+        <td>{{ misc.author }}</td>
+        <td>{{ misc.year }}</td>
+        <td>{{ misc.url }}</td>
+        <td>{{ misc.note }}</td>
+        <td>
             <form action="/delete/{{ misc.id }}" method="post" style="display: inline;">
-              <input type="hidden" name="ref_type" value="misc">
-              <button type="delete"style="background-color: red; 
-                  color: white; padding: 7px 12px;">x</button>
-          </form>
-      </td>
-      <td>
-        <a href="/edit_reference/{{ misc.id }}?ref_type=misc" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
-</td>
+                <input type="hidden" name="ref_type" value="misc">
+                <button type="submit" style="background-color: red; color: white; padding: 7px 12px;">x</button>
+            </form>
+            <a href="/edit_reference/{{ misc.id }}?ref_type=misc" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+        </td>
     </tr>
-        {% endfor %}
-    </table>
-    
-    <h3>Inproceedings Citations</h3>
-    <table border="1">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Booktitle</th>
-            <th>DOI</th>
-            <th>Address</th>
-            <th>Month</th>
-            <th>URL</th>
-            <th>Organization</th>
-        </tr>
-        {% for inproceedings in inproceedings %}
-        <tr>
-            <td>{{ inproceedings.title }}</td>
-            <td>{{ inproceedings.author }}</td>
-            <td>{{ inproceedings.year }}</td>
-            <td>{{ inproceedings.booktitle }}</td>
-            <td>{{ inproceedings.DOI }}</td>
-            <td>{{ inproceedings.address }}</td>
-            <td>{{ inproceedings.month }}</td>
-            <td>{{ inproceedings.url }}</td>
-            <td>{{ inproceedings.organization }}</td>
-            <td>
-            <form action="/delete/{{ inproceedings.id }}" method="post" style="display: inline;">
-              <input type="hidden" name="ref_type" value="inproceedings">
-              <button type="delete"style="background-color: red; 
-                  color: white; padding: 7px 12px;">x</button>
-          </form>
-      </td>
-      <td>
-        <a href="/edit_reference/{{ inproceedings.id }}?ref_type=inproceedings" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
-</td>
+    {% endfor %}
+</table>
+
+<h3>Inproceedings Citations</h3>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Booktitle</th>
+        <th>DOI</th>
+        <th>Address</th>
+        <th>Month</th>
+        <th>URL</th>
+        <th>Organization</th>
+        <th>Actions</th>
     </tr>
-        {% endfor %}
-    </table>
-    
+    {% for inproceeding in all_references if inproceeding.type == 'inproceeding' %}
+    <tr>
+        <td>{{ inproceeding.title }}</td>
+        <td>{{ inproceeding.author }}</td>
+        <td>{{ inproceeding.year }}</td>
+        <td>{{ inproceeding.booktitle }}</td>
+        <td>{{ inproceeding.DOI }}</td>
+        <td>{{ inproceeding.address }}</td>
+        <td>{{ inproceeding.month }}</td>
+        <td>{{ inproceeding.url }}</td>
+        <td>{{ inproceeding.organization }}</td>
+        <td>
+            <form action="/delete/{{ inproceeding.id }}" method="post" style="display: inline;">
+                <input type="hidden" name="ref_type" value="inproceeding">
+                <button type="submit" style="background-color: red; color: white; padding: 7px 12px;">x</button>
+            </form>
+            <a href="/edit_reference/{{ inproceeding.id }}?ref_type=inproceeding" style="background-color: green; color: white; padding: 7px 12px; text-decoration: none;">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
 <div>
   <a href="/new_reference">Create a new reference</a>
 </div>
+
 {% endblock %}
