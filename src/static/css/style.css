@@ -1,6 +1,95 @@
 body {
-    margin: auto;
+    margin: 0 auto; /* Keskittää sisällön */
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: larger;
+}
+
+.reference-row:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* "All references" table */
+table {
+    margin: 20px auto; /* Keskittää taulukon */
+    width: 80%; /* Taulukon leveys 80% näytöstä */
+    max-width: 800px; /* Maksimileveys 800px */
+    border-collapse: collapse; /* Poistaa solujen välin */
+    text-align: center; /* Tekstin keskitys */
+}
+
+/* Cell appearance */
+th, td {
+    border: 1px solid #ddd; /* Solujen reunat */
+    padding: 8px 12px; /* Solujen sisäiset marginaalit */
+}
+
+th {
+    background-color: #f4f4f4; /* Otsikkosolujen taustaväri */
+}
+
+/* Table button hover */
+.table-btn:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+/* "Create a new reference" */
+.styled-form {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.form-input {
+    width: 80%;
+    padding: 8px 12px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ddd; /* Solujen reunat */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button */
+.button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 10px 0;
+    background-color: #f4f4f4;
+    color: black;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Button hover */
+.button:hover {
+    background-color: #cbc7c7; /* Tummempi vihreä hover-efekti */
+    cursor: pointer; /* Muuttaa osoittimen kädeksi */
+}
+
+/* Box for validation messages */
+.message-box {
+    border: 1px solid #ddd; /* Yhtenäinen reunus */
+    padding: 10px 15px; /* Kompakti sisätila */
+    margin: 20px auto; /* Keskittää laatikon */
+    width: 50%; /* Kavennettu leveys */
+    max-width: 400px; /* Maksimileveys */
+    border-radius: 4px; /* Kevyt pyöristys */
+    background-color: #f4f4f4; /* Vaalea taustaväri */
+    text-align: center; /* Keskittää tekstin */
+}
+
+.message-box ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.message-box li {
+    margin-bottom: 5px; /* Pienempi riviväli */
 }
