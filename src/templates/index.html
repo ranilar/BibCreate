@@ -10,21 +10,24 @@ Bibcreate
 <form action="/create_reference" method="post">
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <ul>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
+        <div class="message-box">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
       {% endif %}
     {% endwith %}
 </form>
 
 <div>
-    <a href="/new_reference">Create a new reference</a>
+    <a href="/new_reference" class="button">Create a new reference</a>
 </div>
 
 <h3>All references</h3>
 <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+
     <tr>
         <th>Title</th>
         <th>Author</th>
@@ -32,18 +35,32 @@ Bibcreate
         <th>Delete</th>
     </tr>
     {% for reference in all_references %}
-    <tr>
+    <tr class="reference-row" data-id="{{ reference.id }}">
         <td>{{ reference.title }}</td>
         <td>{{ reference.author }}</td>
         <td>{{ reference.type }}</td>
         <td>
+            <!-- MUISTA SIIRTÄÄ DELETE NAPIN ULKOASUN MÄÄRITTELY CSS PUOLELLE -->
             <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
                 <input type="hidden" name="ref_type" value="{{ reference.type }}">
                 <button type="submit" style="background-color: rgb(228, 96, 96); color: white; padding: 7px 12px;">x</button>
             </form>
         </td>
     </tr>
+
     {% endfor %}
 </table>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // JavaScript for row click action // TÄMÄ EI TOIMI VIELÄ
+    document.querySelectorAll('.reference-row').forEach(row => {
+        row.addEventListener('click', function() {
+            var referenceId = this.getAttribute('data-id');
+            window.location.href = '/edit_reference/' + referenceId;  // Redirect to a new page
+        });
+    });
+</script>
 {% endblock %}
