@@ -12,12 +12,62 @@ def index():
     miscs = get_references_bytype("misc")
     inproceedings = get_references_bytype("inproceedings")
 
+    all_references = []
+
+    for book in books:
+        all_references.append({
+            'type': 'book',
+            'title': book.title,
+            'author': book.author,
+            'year': book.year,
+            'publisher': book.publisher,
+            'ISBN': book.ISBN,
+            'id': book.id
+        })
+    
+    for article in articles:
+        all_references.append({
+            'type': 'article',
+            'title': article.title,
+            'author': article.author,
+            'year': article.year,
+            'journal': article.journal,
+            'volume': article.volume,
+            'DOI': article.DOI,
+            'id': article.id
+        })
+    
+    for misc in miscs:
+        all_references.append({
+            'type': 'misc',
+            'title': misc.title,
+            'author': misc.author,
+            'year': misc.year,
+            'url': misc.url,
+            'note': misc.note,
+            'id': misc.id
+        })
+    
+    for inproceeding in inproceedings:
+        all_references.append({
+            'type': 'inproceeding',
+            'title': inproceeding.title,
+            'author': inproceeding.author,
+            'year': inproceeding.year,
+            'booktitle': inproceeding.booktitle,
+            'DOI': inproceeding.DOI,
+            'address': inproceeding.address,
+            'month': inproceeding.month,
+            'url': inproceeding.url,
+            'organization': inproceeding.organization,
+            'id': inproceeding.id
+        })
+
+#todo sorting
+
     return render_template(
         "index.html",
-        books=books,
-        articles=articles,
-        miscs=miscs,
-        inproceedings=inproceedings
+        all_references=all_references  
     )
 
 
