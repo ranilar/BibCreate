@@ -9,7 +9,7 @@ tables = {
         "author TEXT NOT NULL, "
         "year INTEGER NOT NULL, "
         "publisher TEXT NOT NULL, "
-        "ISBN TEXT NOT NULL"
+        "ISBN TEXT"
     ),
     "article_references": (
         "id SERIAL PRIMARY KEY, "
@@ -32,8 +32,8 @@ tables = {
         "id SERIAL PRIMARY KEY, "
         "title TEXT NOT NULL, "
         "author TEXT NOT NULL, "
-        "year INTEGER, "
-        "booktitle TEXT, "
+        "year INTEGER NOT NULL, "
+        "booktitle TEXT NOT NULL, "
         "DOI TEXT, "
         "address TEXT, "
         "month TEXT, "
@@ -41,6 +41,7 @@ tables = {
         "organization TEXT "
     )
 }
+
 
 
 def table_exists(name):
