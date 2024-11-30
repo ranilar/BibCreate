@@ -57,6 +57,8 @@ def create_article(title, author, journal, year, volume, DOI):
         },
     )
     db.session.commit()
+
+
 def create_misc(title, author, year, url, note):
     sql = text(
         """
@@ -75,7 +77,9 @@ def create_misc(title, author, year, url, note):
         },
     )
     db.session.commit()
-def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):    
+
+
+def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):
     sql = text(
         """
         INSERT INTO inproceedings_references (title, author, year, booktitle, DOI, address, month, url, organization)
@@ -96,7 +100,7 @@ def create_inproceedings(title, author, year, booktitle, DOI, address, month, ur
             "organization": organization,
         },
     )
-    db.session.commit()    
+    db.session.commit()
 
 
 def get_reference(ref_type, ref_id):
@@ -146,8 +150,9 @@ def delete_reference_bytype(ref_type, ref_id):
         db.session.execute(sql, {"id": ref_id})
         db.session.commit()
 
+
 def save_reference(reference, reference_id, ref_type):
-    if ref_type=="book":
+    if ref_type == "book":
         sql = text("""
             UPDATE book_references
             SET title = :title, author = :author, year = :year, publisher = :publisher, ISBN = :ISBN
@@ -165,7 +170,7 @@ def save_reference(reference, reference_id, ref_type):
             },
         )
 
-    elif ref_type=="article":
+    elif ref_type == "article":
         sql = text("""
             UPDATE article_references
             SET title = :title, author = :author, journal = :journal, year = :year, volume = :volume, DOI = :DOI
@@ -184,7 +189,7 @@ def save_reference(reference, reference_id, ref_type):
             },
         )
 
-    elif ref_type=="misc":
+    elif ref_type == "misc":
         sql = text("""
             UPDATE misc_references
             SET title = :title, author = :author, year = :year, url = :url, note = :note
@@ -202,7 +207,7 @@ def save_reference(reference, reference_id, ref_type):
             },
         )
 
-    elif ref_type=="inproceedings":
+    elif ref_type == "inproceedings":
         sql = text("""
             UPDATE inproceedings_references
             SET title = :title, author = :author, year = :year, booktitle = :booktitle, DOI = :DOI,
@@ -224,6 +229,5 @@ def save_reference(reference, reference_id, ref_type):
                 "organization": reference.organization,
             },
         )
-
 
     db.session.commit()
