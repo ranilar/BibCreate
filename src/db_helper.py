@@ -28,7 +28,7 @@ tables = {
         "url TEXT, "
         "note TEXT "
     ),
-    "inproceedings_references": (
+    "inproceeding_references": (
         "id SERIAL PRIMARY KEY, "
         "title TEXT NOT NULL, "
         "author TEXT NOT NULL, "

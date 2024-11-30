@@ -1,6 +1,6 @@
 from config import db
 from sqlalchemy import text
-from entities.reference import Book, Article, Misc, Inproceedings
+from entities.reference import Book, Article, Misc, Inproceeding
 
 
 def get_references_bytype(ref_type):
@@ -14,8 +14,8 @@ def get_references_bytype(ref_type):
         return [Article(*reference) for reference in references]
     if ref_type == "misc":
         return [Misc(*reference) for reference in references]
-    if ref_type == "inproceedings":
-        return [Inproceedings(*reference) for reference in references]
+    if ref_type == "inproceeding":
+        return [Inproceeding(*reference) for reference in references]
 
 
 def create_book(title, author, year, publisher, ISBN):
@@ -79,10 +79,10 @@ def create_misc(title, author, year, url, note):
     db.session.commit()
 
 
-def create_inproceedings(title, author, year, booktitle, DOI, address, month, url, organization):
+def create_inproceeding(title, author, year, booktitle, DOI, address, month, url, organization):
     sql = text(
         """
-        INSERT INTO inproceedings_references (title, author, year, booktitle, DOI, address, month, url, organization)
+        INSERT INTO inproceeding_references (title, author, year, booktitle, DOI, address, month, url, organization)
         VALUES (:title, :author, :year, :booktitle, :DOI, :address, :month, :url, :organization)
         """
     )
@@ -122,11 +122,11 @@ def get_reference(ref_type, ref_id):
         reference = result.fetchall()
         return Misc(*reference[0])
 
-    elif ref_type == "inproceedings":
-        sql = text("SELECT * FROM inproceedings_references WHERE id = :id")
+    elif ref_type == "inproceeding":
+        sql = text("SELECT * FROM inproceeding_references WHERE id = :id")
         result = db.session.execute(sql, {"id": ref_id})
         reference = result.fetchall()
-        return Inproceedings(*reference[0])
+        return Inproceeding(*reference[0])
 
 
 def delete_reference_bytype(ref_type, ref_id):
@@ -145,8 +145,8 @@ def delete_reference_bytype(ref_type, ref_id):
         db.session.execute(sql, {"id": ref_id})
         db.session.commit()
 
-    elif ref_type == "inproceedings":
-        sql = text("DELETE FROM inproceedings_references WHERE id = :id")
+    elif ref_type == "inproceeding":
+        sql = text("DELETE FROM inproceeding_references WHERE id = :id")
         db.session.execute(sql, {"id": ref_id})
         db.session.commit()
 
@@ -207,9 +207,9 @@ def save_reference(reference, reference_id, ref_type):
             },
         )
 
-    elif ref_type == "inproceedings":
+    elif ref_type == "inproceeding":
         sql = text("""
-            UPDATE inproceedings_references
+            UPDATE inproceeding_references
             SET title = :title, author = :author, year = :year, booktitle = :booktitle, DOI = :DOI,
                 address = :address, month = :month, url = :url, organization = :organization
             WHERE id = :id

@@ -47,9 +47,9 @@ class Misc(Reference):
         return f"BMisc: {self.id}, Title: {self.title}, Author: {self.author}"
 
 
-class Inproceedings(Reference):
+class Inproceeding(Reference):
     def __init__(self, id, title, author=None, year=None, booktitle=None, DOI=None, address=None, month=None, url=None, organization=None):
-        super().__init__(id, title, "inproceedings")
+        super().__init__(id, title, "inproceeding")
         self.author = author
         self.year = year
         self.booktitle = booktitle
@@ -60,4 +60,4 @@ class Inproceedings(Reference):
         self.organization = organization
 
     def __str__(self):
-        return f"Inproceedings: {self.id}, Title: {self.title}, Author: {self.author}"
+        return f"Inproceeding: {self.id}, Title: {self.title}, Author: {self.author}"

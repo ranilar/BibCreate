@@ -24,7 +24,7 @@ Create a new reference
       <option value="book" {% if ref_type == 'book' %}selected{% endif %}>Book</option>
       <option value="article" {% if ref_type == 'article' %}selected{% endif %}>Article</option>
       <option value="misc" {% if ref_type == 'misc' %}selected{% endif %}>Misc</option>
-      <option value="inproceedings" {% if ref_type == 'inproceedings' %}selected{% endif %}>Inproceedings</option>
+      <option value="inproceeding" {% if ref_type == 'inproceeding' %}selected{% endif %}>inproceeding</option>
     </select>
   </div>
   
@@ -68,12 +68,12 @@ Create a new reference
     <input type="text" name="note" id="note" value="{{ form_data.get('note', '') if form_data else '' }}"><br><br>
   </div>
   
-  <div id="inproceedings-fields" class="type-specific" style="display: none;">
+  <div id="inproceeding-fields" class="type-specific" style="display: none;">
     <label for="booktitle">Booktitle:</label><br>
     <input type="text" name="booktitle" id="booktitle" value="{{ form_data.get('booktitle', '') if form_data else '' }}"><br><br>
   
-    <label for="DOI-inproceedings">DOI:</label><br>
-    <input type="text" name="DOI-inproceedings" id="DOI-inproceedings" value="{{ form_data.get('DOI-inproceedings', '') if form_data else '' }}"><br><br>
+    <label for="DOI-inproceeding">DOI:</label><br>
+    <input type="text" name="DOI-inproceeding" id="DOI-inproceeding" value="{{ form_data.get('DOI-inproceeding', '') if form_data else '' }}"><br><br>
   
     <label for="address">Address:</label><br>
     <input type="text" name="address" id="address" value="{{ form_data.get('address', '') if form_data else '' }}"><br><br>
@@ -81,8 +81,8 @@ Create a new reference
     <label for="month">Month:</label><br>
     <input type="text" name="month" id="month" value="{{ form_data.get('month', '') if form_data else '' }}"><br><br>
   
-    <label for="url-inproceedings">URL:</label><br>
-    <input type="url" name="url-inproceedings" id="url-inproceedings" value="{{ form_data.get('url-inproceedings', '') if form_data else '' }}"><br><br>
+    <label for="url-inproceeding">URL:</label><br>
+    <input type="url" name="url-inproceeding" id="url-inproceeding" value="{{ form_data.get('url-inproceeding', '') if form_data else '' }}"><br><br>
   
     <label for="organization">Organization:</label><br>
     <input type="text" name="organization" id="organization" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
@@ -108,8 +108,8 @@ Create a new reference
       document.getElementById("article-fields").style.display = "block";
     } else if (refType === "misc") {
       document.getElementById("misc-fields").style.display = "block";
-    } else if (refType === "inproceedings") {
-      document.getElementById("inproceedings-fields").style.display = "block";
+    } else if (refType === "inproceeding") {
+      document.getElementById("inproceeding-fields").style.display = "block";
     }
   }
 

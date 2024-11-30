@@ -26,7 +26,7 @@ def validate_reference(ref_type, **fields):
             errors["journal"] = "Journal must be at least 2 characters long."
         if fields.get("volume") and not fields["volume"].isdigit():
             errors["volume"] = "Volume must be a number."
-    elif ref_type == "inproceedings":
+    elif ref_type == "inproceeding":
         if not fields.get("booktitle") or len(fields["booktitle"]) < 1:
             errors["booktitle"] = "Booktitle must include at least 1 character."
         if fields.get("DOI") and len(fields["DOI"]) < 5:

@@ -10,7 +10,7 @@ def index():
     books = get_references_bytype("book")
     articles = get_references_bytype("article")
     miscs = get_references_bytype("misc")
-    inproceedings = get_references_bytype("inproceedings")
+    inproceedingit = get_references_bytype("inproceeding")
 
     all_references = []
 
@@ -48,7 +48,7 @@ def index():
             'id': misc.id
         })
 
-    for inproceeding in inproceedings:
+    for inproceeding in inproceedingit:
         all_references.append({
             'type': 'inproceeding',
             'title': inproceeding.title,
@@ -107,8 +107,8 @@ def reference_creation():
         elif ref_type == "misc":
             create_misc(fields["title"], fields["author"],
                         fields["year"], fields["url"], fields["note"])
-        elif ref_type == "inproceedings":
-            create_inproceedings(
+        elif ref_type == "inproceeding":
+            create_inproceeding(
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
                 fields["DOI"], fields["address"], fields["month"], fields["url"], fields["organization"]
             )
@@ -170,7 +170,7 @@ def edit_reference(reference_id):
                 "year")) if request.form.get("year") else None
             reference_obj.url = request.form.get("url")
             reference_obj.note = request.form.get("note")
-        elif ref_type == "inproceedings":
+        elif ref_type == "inproceeding":
             reference_obj.author = request.form.get("author")
             reference_obj.year = int(request.form.get(
                 "year")) if request.form.get("year") else None
@@ -192,4 +192,5 @@ if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
+        return redirect("/")
         return jsonify({'message': "db reset"})

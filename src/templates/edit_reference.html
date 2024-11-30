@@ -102,7 +102,7 @@ Edit Reference
 </div>
   {% endif %}
 
-  {% if ref_type == "inproceedings" %}
+  {% if ref_type == "inproceeding" %}
 
   <div>
     <label for="title">Title:</label><br>
@@ -142,7 +142,7 @@ Edit Reference
   </div>
   <div>
     <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
-        <input type="hidden" name="ref_type" value="inproceedings">
+        <input type="hidden" name="ref_type" value="inproceeding">
         <button type="submit">Save Changes</button>
     </form>
 </div>
