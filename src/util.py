@@ -4,36 +4,52 @@ class UserInputError(Exception):
 
 def validate_reference(ref_type, **fields):
     errors = {}
+    
+    required_fields = {
+        "book": ["author", "title", "publisher", "year"],
+        "article": ["author", "title", "journal", "year"],
+        "inproceeding": ["author", "title", "booktitle", "year"],
+        "misc": ["title"]
+    }
 
-    # Yhteiset kentät
-    if ref_type != "misc":
-        if not fields.get("title") or len(fields["title"]) < 1:
-            errors["title"] = "Title must include at least 1 character."
-        if fields.get("title") and len(fields["title"]) > 100:
-            errors["title"] = "Title length must not be more than 100 characters."
-        if not fields.get("author") or len(fields["author"]) < 1:
-            errors["author"] = "Author must include at least 1 character."
-        if fields.get("author") and len(fields["author"]) > 100:
-            errors["author"] = "Author length must not be more than 100 characters."
+    for field in required_fields.get(ref_type, []):
+        if not fields.get(field):
+            errors[field] = f"{field.capitalize()} is required."
 
+    fields_with_limits = {
+        "title": (1, 100),
+        "author": (1, 100),
+        "publisher": (1, 100),
+        "journal": (1, 100),
+        "booktitle": (1, 100),
+        "note": (0, 100),
+        "address": (0, 100),
+        "month": (0, 100),
+        "organization": (0, 100),
+        "DOI": (0, 100),  
+    }
+
+    for field, (min_length, max_length) in fields_with_limits.items():
+        value = fields.get(field)
+        if value:
+            if len(value) < min_length:
+                errors[field] = f"{field.capitalize()} must be at least {min_length} characters long."
+            if len(value) > max_length:
+                errors[field] = f"{field.capitalize()} must not exceed {max_length} characters."
+    
     if ref_type == "book":
-        if fields.get("publisher") and len(fields["publisher"]) < 2:
-            errors["publisher"] = "Publisher must be at least 2 characters long."
-        if not fields.get("ISBN") or len(fields["ISBN"]) != 13:
-            errors["ISBN"] = "ISBN must be exactly 13 digits."
-    elif ref_type == "article":
-        if not fields.get("journal") or len(fields["journal"]) < 2:
-            errors["journal"] = "Journal must be at least 2 characters long."
-        if fields.get("volume") and not fields["volume"].isdigit():
-            errors["volume"] = "Volume must be a number."
-    elif ref_type == "inproceeding":
-        if not fields.get("booktitle") or len(fields["booktitle"]) < 1:
-            errors["booktitle"] = "Booktitle must include at least 1 character."
-        if fields.get("DOI") and len(fields["DOI"]) < 5:
-            errors["DOI"] = "DOI must be at least 5 characters long."
-    elif ref_type == "misc":
-        if not any(fields.values()):
-            errors["misc"] = "At least one field must be filled for a Misc reference."
+        isbn_value = fields.get("ISBN")
+        if isbn_value:
+            if len(isbn_value) != 13:
+                errors["ISBN"] = "ISBN must be exactly 13 characters long."
+            elif not isbn_value.isdigit():
+                errors["ISBN"] = "ISBN must contain only numeric characters."
+
+    numeric_fields = ["year", "volume"]
+    for field in numeric_fields:
+        value = fields.get(field)
+        if value and not value.isdigit():
+            errors[field] = f"{field.capitalize()} must be a valid number."
 
     if errors:
         raise UserInputError(errors)

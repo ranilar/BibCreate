@@ -16,11 +16,11 @@ class TestTReferenceValidation(unittest.TestCase):
             ISBN="1234567890123"
         )
 
-    def test_book_reference_with_invalid_title_raises_error(self):
+    def test_book_reference_with_invalid_ISBN_raises_error(self):
         with self.assertRaises(UserInputError) as context:
             validate_reference(
                 "book",
-                title="Sh",
+                title="Valid",
                 author="Valid Author",
                 year="2024",
                 publisher="Valid Publisher",
@@ -31,3 +31,4 @@ class TestTReferenceValidation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
