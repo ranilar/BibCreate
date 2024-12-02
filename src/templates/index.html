@@ -28,47 +28,39 @@ Bibcreate
 <h3>All references</h3>
 <!-- SEARCH BAR -- EI VIELÄ TEE MITÄÄN -->
 <div style="text-align: center; position: relative;">
-  <form action="/search" method="GET" style=style="display: inline-block; position: relative;">
+  <form action="/search" method="GET" style="display: inline-block; position: relative;">
     <input type="text" name="query" placeholder="Search for reference..." required>
     <button type="submit">Search</button>
   </form>
 </div>
 
 <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
-
-    <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Type</th>
-        <th>Delete</th>
-    </tr>
-    {% for reference in all_references %}
-    <tr class="reference-row" data-id="{{ reference.id }}">
-        <td>{{ reference.title }}</td>
-        <td>{{ reference.author }}</td>
-        <td>{{ reference.type }}</td>
-        <td>
-            <!-- MUISTA SIIRTÄÄ DELETE NAPIN ULKOASUN MÄÄRITTELY CSS PUOLELLE -->
-            <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
-                <input type="hidden" name="ref_type" value="{{ reference.type }}">
-                <button type="submit" style="background-color: rgb(228, 96, 96); color: white; padding: 7px 12px;">x</button>
-            </form>
-        </td>
-    </tr>
-
-    {% endfor %}
+  <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Type</th>
+      <th>Delete</th>
+  </tr>
+  {% for reference in all_references %}
+  <tr class="reference-row" data-id="{{ reference.id }}" onclick="editReference('{{ reference.id }}', '{{ reference.type }}')">
+      <td>{{ reference.title }}</td>
+      <td>{{ reference.author }}</td>
+      <td>{{ reference.type }}</td>
+      <td>
+          <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
+              <input type="hidden" name="ref_type" value="{{ reference.type }}">
+              <button type="submit" style="background-color: rgb(228, 96, 96); color: white; padding: 7px 12px;">x</button>
+          </form>
+      </td>
+  </tr>
+  {% endfor %}
 </table>
 
-{% endblock %}
-
-{% block extra_js %}
 <script>
-    // JavaScript for row click action // TÄMÄ EI TOIMI VIELÄ
-    document.querySelectorAll('.reference-row').forEach(row => {
-        row.addEventListener('click', function() {
-            var referenceId = this.getAttribute('data-id');
-            window.location.href = '/edit_reference/' + referenceId;  // Redirect to a new page
-        });
-    });
+  function editReference(id, type) {
+      // Ohjaa käyttäjä oikealle muokkaussivulle
+      const url = `/edit_reference/${id}?ref_type=${type}`;
+      window.location.href = url;
+  }
 </script>
 {% endblock %}
