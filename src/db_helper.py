@@ -43,7 +43,6 @@ tables = {
 }
 
 
-
 def table_exists(name):
     """Check if a table exists in the database."""
     sql_table_existence = text(

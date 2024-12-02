@@ -100,8 +100,10 @@ def reference_creation():
         validate_reference(ref_type, **fields)
 
         # valinnaisten kenttien kohdalla tyhjä merkkijono muutetaan None
-        optional_fields = ["publisher", "ISBN", "volume", "DOI", "url", "note", "address", "month", "organization"]
-        fields = {key: (value if key not in optional_fields or value != "" else None) for key, value in fields.items()}
+        optional_fields = ["publisher", "ISBN", "volume", "DOI",
+                           "url", "note", "address", "month", "organization"]
+        fields = {key: (value if key not in optional_fields or value !=
+                        "" else None) for key, value in fields.items()}
 
         if ref_type == "book":
             create_book(fields["title"], fields["author"],
@@ -197,5 +199,5 @@ if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        #return redirect("/")
+        # return redirect("/")
         return jsonify({'message': "db reset"})

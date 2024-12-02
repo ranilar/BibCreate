@@ -4,7 +4,7 @@ class UserInputError(Exception):
 
 def validate_reference(ref_type, **fields):
     errors = {}
-    
+
     required_fields = {
         "book": ["author", "title", "publisher", "year"],
         "article": ["author", "title", "journal", "year"],
@@ -26,7 +26,7 @@ def validate_reference(ref_type, **fields):
         "address": (0, 100),
         "month": (0, 100),
         "organization": (0, 100),
-        "DOI": (0, 100),  
+        "DOI": (0, 100),
     }
 
     for field, (min_length, max_length) in fields_with_limits.items():
@@ -36,7 +36,7 @@ def validate_reference(ref_type, **fields):
                 errors[field] = f"{field.capitalize()} must be at least {min_length} characters long."
             if len(value) > max_length:
                 errors[field] = f"{field.capitalize()} must not exceed {max_length} characters."
-    
+
     if ref_type == "book":
         isbn_value = fields.get("ISBN")
         if isbn_value:
