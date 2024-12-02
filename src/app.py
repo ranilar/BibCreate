@@ -191,6 +191,24 @@ def edit_reference(reference_id):
         flash("Reference updated successfully!", "success")
         return redirect("/")
 
+# Reitti viitehakutuloksien hakemiseen
+@app.route("/search_for_reference", methods=["GET"])
+def search_for_reference():
+    # Lyhyt validointi
+    query = request.args.get("query")
+    if not query:
+        flash("Search query cannot be empty", "error")
+        return redirect("/")
+    if len(query) < 2:
+        flash("Search query must be at least 2 characters long.", "error")
+        return redirect("/")
+    if len(query) > 30:
+        flash("Search query is limited to 30 characters.", "error")
+        return redirect("/")
+    # Kutsu hakumetodia
+    # results = search_for_reference(query)
+    # print(results)
+
 
 # testausta varten oleva reitti
 if test_env:

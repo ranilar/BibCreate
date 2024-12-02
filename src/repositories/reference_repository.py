@@ -231,3 +231,11 @@ def save_reference(reference, reference_id, ref_type):
         )
 
     db.session.commit()
+
+# Hakee databaseen tallennettuja viitteitä.
+def search_for_reference(query):
+    pass
+    # todo
+    #sql = text("""
+    #    SELECT * FROM book_references, article_references, misc_references
+    #""")
