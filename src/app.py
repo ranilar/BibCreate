@@ -153,7 +153,11 @@ def edit_reference(reference_id):
         return redirect("/")
 
     if request.method == "GET":
-        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type)
+
+        # Aappo tekee tänne coodin, joka generoi oikeaa bibtexiä
+        bibtex_code = f"@{ref_type} {{ {reference_obj.title}\n Work in Progress }}"
+
+        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, bibtex_code=bibtex_code)
 
     elif request.method == "POST":
         reference_obj.title = request.form.get("title")

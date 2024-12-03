@@ -148,7 +148,49 @@ Edit Reference
 </div>
   {% endif %}
 
-
-
 </form>
+
+<div id="bibtex-overlay" class="overlay">
+  <div class="overlay-content">
+      <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <pre id="bibtex-code" class="codebox">{{ bibtex_code }}</pre>
+  </div>
+</div>
+
+<script>
+  function showBibtex() {
+    document.getElementById('bibtex-overlay').style.display = 'flex';
+  }
+  
+  function copyToClipboard() {
+
+    const codeText = document.getElementById('bibtex-code').textContent;
+    
+    // Create a temporary input field to copy the text
+    const tempInput = document.createElement('textarea');
+    tempInput.value = codeText;
+    document.body.appendChild(tempInput);
+    
+    tempInput.select();
+    document.execCommand('copy');
+    
+    // Remove the temporary input field
+    document.body.removeChild(tempInput);
+    
+    alert('BibTeX code copied to clipboard!');
+  }
+  
+  // Close the overlay when clicking outside of the content
+  window.onclick = function(event) {
+    const overlay = document.getElementById('bibtex-overlay');
+    if (event.target == overlay) {
+      overlay.style.display = 'none';
+    }
+  }
+</script>
+
+<br>
+
+<button onclick="showBibtex()">Show BibTex Code</button>
+
 {% endblock %}
