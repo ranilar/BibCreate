@@ -239,3 +239,26 @@ def save_reference(reference, reference_id, ref_type):
         )
 
     db.session.commit()
+
+
+def create_or_get_tag(tag_name):
+    """
+    Luo uuden tagin tai hakee olemassa olevan tagin ID:n.
+    """
+    sql = text("""
+        INSERT INTO tags (name) VALUES (:name)
+        ON CONFLICT (name) DO NOTHING
+        RETURNING id
+    """)
+    result = db.session.execute(sql, {"name": tag_name})
+    tag_id = result.fetchone()
+
+    if tag_id:
+        return tag_id[0]
+
+    # Jos tagia ei luotu, haetaan sen ID
+    sql = text("SELECT id FROM tags WHERE name = :name")
+    result = db.session.execute(sql, {"name": tag_name})
+    tag_id = result.fetchone()[0]
+    db.session.commit()
+    return tag_id
