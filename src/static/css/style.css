@@ -98,7 +98,7 @@ th {
     display: inline-block;
     width: 30px; /* Pienempi leveys */
     height: 30px; /* Pienempi korkeus */
-    background-color: #ff4d4d; /* Punainen taustaväri */
+    background-color: #f74a4a; /* Punainen taustaväri */
     color: white; /* Valkoinen X-kirjain */
     font-size: 16px; /* Pienempi fonttikoko */
     font-weight: bold; /* Tekstin vahvuus */
@@ -112,7 +112,7 @@ th {
 
 /* Hover-tila */
 .delete-button:hover {
-    background-color: #e60000; /* Tummempi punainen hover-efekti */
+    background-color: #e60000e4; /* Tummempi punainen hover-efekti */
 }
 
 /* Box for validation messages */
