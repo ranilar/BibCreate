@@ -262,3 +262,20 @@ def create_or_get_tag(tag_name):
     tag_id = result.fetchone()[0]
     db.session.commit()
     return tag_id
+
+
+def link_tag_to_reference(tag_id, ref_id, ref_type):
+    """
+    Linkitä tagi viitteeseen `tags_references`-taulun kautta.
+    """
+    sql = text("""
+        INSERT INTO tags_references (tag_id, reference_id, reference_type)
+        VALUES (:tag_id, :reference_id, :reference_type)
+        ON CONFLICT DO NOTHING
+    """)
+    db.session.execute(sql, {
+        "tag_id": tag_id,
+        "reference_id": ref_id,
+        "reference_type": ref_type
+    })
+    db.session.commit()
