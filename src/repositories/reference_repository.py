@@ -23,9 +23,10 @@ def create_book(title, author, year, publisher, ISBN):
         """
         INSERT INTO book_references (title, author, year, publisher, ISBN)
         VALUES (:title, :author, :year, :publisher, :ISBN)
+        RETURNING id
     """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -36,6 +37,7 @@ def create_book(title, author, year, publisher, ISBN):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_article(title, author, journal, year, volume, DOI):
@@ -43,9 +45,10 @@ def create_article(title, author, journal, year, volume, DOI):
         """
         INSERT INTO article_references (title, author, journal, year, volume, DOI)
         VALUES (:title, :author, :journal, :year, :volume, :DOI)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -57,6 +60,7 @@ def create_article(title, author, journal, year, volume, DOI):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_misc(title, author, year, url, note):
@@ -64,9 +68,10 @@ def create_misc(title, author, year, url, note):
         """
         INSERT INTO misc_references (title, author, year, url, note)
         VALUES (:title, :author, :year, :url, :note)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -77,6 +82,7 @@ def create_misc(title, author, year, url, note):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_inproceeding(title, author, year, booktitle, DOI, address, month, url, organization):
@@ -84,9 +90,10 @@ def create_inproceeding(title, author, year, booktitle, DOI, address, month, url
         """
         INSERT INTO inproceeding_references (title, author, year, booktitle, DOI, address, month, url, organization)
         VALUES (:title, :author, :year, :booktitle, :DOI, :address, :month, :url, :organization)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -101,6 +108,7 @@ def create_inproceeding(title, author, year, booktitle, DOI, address, month, url
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def get_reference(ref_type, ref_id):
