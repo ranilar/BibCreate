@@ -1,9 +1,21 @@
 class Reference:
+    _non_bibtex_fields = {"id", "ref_type", "unique_id"}
+
     def __init__(self, id, title, ref_type):
         self.id = id
         self.title = title
         self.ref_type = ref_type
 
+    def generate_bibtex_code(self):
+        # Käytetään nyt id + title ilman välejä comboa bibtex tunnisteena
+        details = [f"@{self.ref_type}{{{self.id}_{self.title.replace(' ', '_')},"]
+        
+        for field, value in vars(self).items():
+            if field not in Reference._non_bibtex_fields and value is not None:
+                details.append(f"   {field} = {{{value}}},")
+
+        details.append("}")
+        return "\n".join(details)
 
 class Book(Reference):
     def __init__(self, id, title, author=None, year=None, publisher=None, ISBN=None):
@@ -44,7 +56,7 @@ class Misc(Reference):
         self.note = note
 
     def __str__(self):
-        return f"BMisc: {self.id}, Title: {self.title}, Author: {self.author}"
+        return f"Misc: {self.id}, Title: {self.title}, Author: {self.author}"
 
 
 class Inproceeding(Reference):

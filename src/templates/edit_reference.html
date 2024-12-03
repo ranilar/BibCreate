@@ -153,7 +153,7 @@ Edit Reference
 <div id="bibtex-overlay" class="overlay">
   <div class="overlay-content">
       <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
-      <pre id="bibtex-code" class="codebox">{{ bibtex_code }}</pre>
+      <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre>
   </div>
 </div>
 
