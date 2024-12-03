@@ -1,13 +1,30 @@
+h1 {
+    color: #535a3bda; 
+    font-family: 'Copperplate', Papyrus, fantasy;
+    text-align: center;
+    font-size: 60px;
+}
+
+h2 {
+    color: #a7b99e; 
+    font-family: "Julius Sans One", sans-serif;
+    text-align: center;
+    font-size: 30px;
+}
+
+h3 {
+    color: #a7b99e; 
+    font-family: "Julius Sans One", sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+
 body {
     margin: 0 auto; /* Keskittää sisällön */
     text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    color: #535a3b;
     font-size: larger;
-}
-
-.reference-row:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
 }
 
 /* "All references" table */
@@ -21,17 +38,22 @@ table {
 
 /* Cell appearance */
 th, td {
-    border: 1px solid #ddd; /* Solujen reunat */
+    border: 1px solid #a7b99e; /* Solujen reunat */
     padding: 8px 12px; /* Solujen sisäiset marginaalit */
 }
 
 th {
-    background-color: #f4f4f4; /* Otsikkosolujen taustaväri */
+    background-color: #eff7d3; /* Otsikkosolujen taustaväri */
+}
+
+.reference-row:hover {
+    background-color: #cedcc3;
+    cursor: pointer;
 }
 
 /* Table button hover */
 .table-btn:hover {
-    background-color: #e0e0e0;
+    background-color: #cedcc3;
     cursor: pointer;
 }
 
@@ -47,7 +69,7 @@ th {
     width: 80%;
     padding: 8px 12px;
     margin: 5px 0 10px 0;
-    border: 1px solid #ddd; /* Solujen reunat */
+    border: 1px solid #a7b99e; /* Solujen reunat */
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -57,10 +79,9 @@ th {
     display: inline-block;
     padding: 8px 12px;
     margin: 10px 0;
-    background-color: #f4f4f4;
-    color: black;
+    background-color: #cedcc3;
+    color: #535a3b;
     text-decoration: none;
-    border: 1px solid #ddd;
     border-radius: 4px;
     text-align: center;
     font-size: 16px;
@@ -68,19 +89,41 @@ th {
 
 /* Button hover */
 .button:hover {
-    background-color: #cbc7c7; /* Tummempi vihreä hover-efekti */
+    background-color: #a7b99e; /* Tummempi hover-efekti */
     cursor: pointer; /* Muuttaa osoittimen kädeksi */
+}
+
+/* Delete-painike */
+.delete-button {
+    display: inline-block;
+    width: 30px; /* Pienempi leveys */
+    height: 30px; /* Pienempi korkeus */
+    background-color: #ff4d4d; /* Punainen taustaväri */
+    color: white; /* Valkoinen X-kirjain */
+    font-size: 16px; /* Pienempi fonttikoko */
+    font-weight: bold; /* Tekstin vahvuus */
+    text-align: center; /* Keskittää tekstin vaakasuunnassa */
+    line-height: 30px; /* Keskittää tekstin pystysuunnassa */
+    border: none; /* Poistaa oletusreunukset */
+    border-radius: 4px; /* Kevyesti pyöristetyt kulmat */
+    cursor: pointer; /* Käsi-osoitin hover-tilassa */
+    transition: background-color 0.3s ease; /* Sulava värianimaatio */
+}
+
+/* Hover-tila */
+.delete-button:hover {
+    background-color: #e60000; /* Tummempi punainen hover-efekti */
 }
 
 /* Box for validation messages */
 .message-box {
-    border: 1px solid #ddd; /* Yhtenäinen reunus */
+    border: 1px solid #cedcc3; /* Yhtenäinen reunus */
     padding: 10px 15px; /* Kompakti sisätila */
     margin: 20px auto; /* Keskittää laatikon */
     width: 50%; /* Kavennettu leveys */
     max-width: 400px; /* Maksimileveys */
     border-radius: 4px; /* Kevyt pyöristys */
-    background-color: #f4f4f4; /* Vaalea taustaväri */
+    background-color: #eff7d3; /* Vaalea taustaväri */
     text-align: center; /* Keskittää tekstin */
 }
 
@@ -92,6 +135,40 @@ th {
 
 .message-box li {
     margin-bottom: 5px; /* Pienempi riviväli */
+}
+
+.first-color { 
+	background: #eff7d3; 
+}
+	
+.second-color { 
+	background: #cedcc3; 
+}
+
+.third-color { 
+	background: #a7b99e; 
+}
+
+.fourth-color { 
+	background: #535a3b; 
+}
+
+.vertical-container {
+    position: fixed;
+    top: 0;
+    width: 300px; /* Kontainerin leveys */
+    height: 100%; /* Koko sivun korkeus */
+    z-index: -1; /* Siirretään taustalle, jotta ei häiritse sisältöä */
+}
+
+.vertical-container.left {
+    left: 0; /* Asetetaan vasempaan reunaan */
+    background-color: #a7b99e; /* Väriksi toinen väreistä */
+}
+
+.vertical-container.right {
+    right: 0; /* Asetetaan oikeaan reunaan */
+    background-color: #a7b99e; /* Väriksi toinen väreistä */
 }
 
 .overlay {

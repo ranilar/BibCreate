@@ -5,7 +5,6 @@ Bibcreate
 {% endblock %}
 
 {% block body %}
-<h1>Bibcreate</h1>
 
 <form action="/create_reference" method="post">
     {% with messages = get_flashed_messages() %}
@@ -25,7 +24,9 @@ Bibcreate
     <a href="/new_reference" class="button">Create a new reference</a>
 </div>
 
-<h3>All references</h3>
+<br>
+<br>
+
 <!-- SEARCH BAR -- EI VIELÄ TEE MITÄÄN -->
 <div style="text-align: center; position: relative;">
   <form action="/search" method="GET" style="display: inline-block; position: relative;">
@@ -33,6 +34,10 @@ Bibcreate
     <button type="submit">Search</button>
   </form>
 </div>
+
+<br>
+
+<h2>All references</h2>
 
 <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
   <tr>
@@ -47,10 +52,10 @@ Bibcreate
       <td>{{ reference.author }}</td>
       <td>{{ reference.type }}</td>
       <td>
-          <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
-              <input type="hidden" name="ref_type" value="{{ reference.type }}">
-              <button type="submit" style="background-color: rgb(228, 96, 96); color: white; padding: 7px 12px;">x</button>
-          </form>
+        <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
+          <input type="hidden" name="ref_type" value="{{ reference.type }}">
+          <button type="submit" class="delete-button">x</button>
+      </form>
       </td>
   </tr>
   {% endfor %}
