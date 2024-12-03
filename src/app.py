@@ -196,6 +196,7 @@ def edit_reference(reference_id):
 def search_for_reference():
     # Lyhyt validointi
     query = request.args.get("query")
+    print(query)
     if not query:
         flash("Search query cannot be empty", "error")
         return redirect("/")
@@ -206,8 +207,9 @@ def search_for_reference():
         flash("Search query is limited to 30 characters.", "error")
         return redirect("/")
     # Kutsu hakumetodia
-    # results = search_for_reference(query)
-    # print(results)
+    results = search_db_for_reference(query)
+    print(results)
+
 
 
 # testausta varten oleva reitti

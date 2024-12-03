@@ -233,9 +233,37 @@ def save_reference(reference, reference_id, ref_type):
     db.session.commit()
 
 # Hakee databaseen tallennettuja viitteitä.
-def search_for_reference(query):
-    pass
-    # todo
-    #sql = text("""
-    #    SELECT * FROM book_references, article_references, misc_references
-    #""")
+def search_db_for_reference(query):
+    print(query)
+    sql = text("""
+        SELECT title, author, CAST(year AS TEXT) AS year, 'book' AS source
+        FROM book_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT title, author, CAST(year AS TEXT) AS year, 'article' AS source
+        FROM article_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT title, author, CAST(year AS TEXT) AS year, 'misc' AS source
+        FROM misc_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT title, author, CAST(year AS TEXT) AS year, 'inproceedings' AS source
+        FROM inproceeding_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query;
+    """)
+    result = db.session.execute(
+        sql,
+        {
+            "query": "%"+query+"%"
+        },
+    )
+    references = result.fetchall()
+    print(references)
+    return references 
