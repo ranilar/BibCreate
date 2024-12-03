@@ -39,6 +39,18 @@ tables = {
         "month TEXT, "
         "url TEXT, "
         "organization TEXT "
+    ),
+    "tags": (
+        "id SERIAL PRIMARY KEY, "
+        "name TEXT NOT NULL UNIQUE"
+    ),
+    "tags_references": (
+        "id SERIAL PRIMARY KEY, "
+        "tag_id INT NOT NULL, "
+        "reference_id INT NOT NULL, "
+        "reference_type TEXT NOT NULL CHECK (reference_type IN ('book', 'article', 'misc', 'inproceedings')), "
+        "FOREIGN KEY (tag_id) REFERENCES tags (id), "
+        "UNIQUE (tag_id, reference_id, reference_type)"
     )
 }
 
