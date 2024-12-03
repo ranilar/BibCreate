@@ -49,7 +49,7 @@ tables = {
         "tag_id INT NOT NULL, "
         "reference_id INT NOT NULL, "
         "reference_type TEXT NOT NULL CHECK (reference_type IN ('book', 'article', 'misc', 'inproceedings')), "
-        "FOREIGN KEY (tag_id) REFERENCES tags (id), "
+        "FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE, "
         "UNIQUE (tag_id, reference_id, reference_type)"
     )
 }
@@ -73,7 +73,7 @@ def setup_tables():
     for table_name, schema in tables.items():
         if table_exists(table_name):
             print(f"Table {table_name} exists, dropping it.")
-            sql = text(f"DROP TABLE {table_name}")
+            sql = text(f"DROP TABLE {table_name} CASCADE")
             db.session.execute(sql)
 
         print(f"Creating table {table_name}")
@@ -89,13 +89,13 @@ def setup_tables():
 def reset_db():
     for table_name in tables.keys():
         print(f"Clearing contents from table {table_name}")
-        sql = text(f"DELETE FROM {table_name}")
+        sql = text(f"DELETE FROM {table_name} CASCADE")
         db.session.execute(sql)
-        db.session.commit()
+        # db.session.commit()
 
     setup_tables()
 
-    db.session.execute(sql)
+    # db.session.execute(sql)
     db.session.commit()
     print("All tables have been created successfully.")
 
