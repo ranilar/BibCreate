@@ -1,5 +1,5 @@
 class Reference:
-    _non_bibtex_fields = {"id", "ref_type", "unique_id"}
+    _non_bibtex_fields = {"id", "ref_type"}
 
     def __init__(self, id, title, ref_type):
         self.id = id
