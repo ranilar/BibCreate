@@ -138,6 +138,12 @@ def get_reference(ref_type, ref_id):
 
 
 def delete_reference_bytype(ref_type, ref_id):
+    sql = text("""
+        DELETE FROM tags_references
+        WHERE reference_id = :reference_id AND reference_type = :reference_type
+    """)
+    db.session.execute(sql, {"reference_id": ref_id, "reference_type": ref_type})
+    
     if ref_type == "book":
         sql = text("DELETE FROM book_references WHERE id = :id")
         db.session.execute(sql, {"id": ref_id})
