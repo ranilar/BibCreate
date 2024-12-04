@@ -150,6 +150,20 @@ Edit Reference
 
 </form>
 
+<h3>Tags</h3>
+<form action="/add_tag" method="post">
+  <input type="hidden" name="ref_id" value="{{ reference.id }}">
+  <input type="hidden" name="ref_type" value="{{ ref_type }}">
+  
+  <div>
+    <label for="tag_name">New Tag:</label>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter tag">
+  </div>
+
+  <button type="submit">Add Tag</button>
+</form>
+
+
 <div id="bibtex-overlay" class="overlay">
   <div class="overlay-content">
       <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
