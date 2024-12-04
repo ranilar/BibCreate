@@ -12,7 +12,7 @@ class Reference:
         
         for field, value in vars(self).items():
             if field not in Reference._non_bibtex_fields and value is not None:
-                details.append(f"   {field} = {{{value}}},")
+                details.append(f"    {field} = {{{value}}},")
 
         details.append("}")
         return "\n".join(details)
