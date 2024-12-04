@@ -33,7 +33,7 @@ Edit Reference
   <div>
     <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
         <input type="hidden" name="ref_type" value="book">
-        <button type="submit">Save Changes</button>
+        <button class="button" type="submit">Save Changes</button>
     </form>
 </div>
   {% endif %}
@@ -67,7 +67,7 @@ Edit Reference
   <div>
     <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
         <input type="hidden" name="ref_type" value="article">
-        <button type="submit">Save Changes</button>
+        <button class="button" type="submit">Save Changes</button>
     </form>
 </div>
   {% endif %}
@@ -97,7 +97,7 @@ Edit Reference
   <div>
     <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
         <input type="hidden" name="ref_type" value="misc">
-        <button type="submit">Save Changes</button>
+        <button class="button" type="submit">Save Changes</button>
     </form>
 </div>
   {% endif %}
@@ -143,7 +143,7 @@ Edit Reference
   <div>
     <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
         <input type="hidden" name="ref_type" value="inproceeding">
-        <button type="submit">Save Changes</button>
+        <button class="button" type="submit">Save Changes</button>
     </form>
 </div>
   {% endif %}
@@ -189,8 +189,15 @@ Edit Reference
   }
 </script>
 
+<button class="button" onclick="showBibtex()">Show BibTex Code</button>
+
+<br>
 <br>
 
-<button onclick="showBibtex()">Show BibTex Code</button>
+<div>
+  <a href="/" class="button">Back to Citations List</a>
+</div>
+
+<br>
 
 {% endblock %}
