@@ -200,6 +200,26 @@ def edit_reference(reference_id):
         return redirect("/")
 
 
+@app.route("/add_tag", methods=["POST"])
+def add_tag_in_edit():
+    tag_name = request.form.get("tag_name")
+    ref_id = request.form.get("ref_id")
+    ref_type = request.form.get("ref_type")
+
+    if not tag_name or not ref_id or not ref_type:
+        flash("Missing required information for adding a tag.", "error")
+        return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
+
+    try:
+        tag_id = create_or_get_tag(tag_name)
+        link_tag_to_reference(tag_id, ref_id, ref_type)
+        flash(f"Tag '{tag_name}' added successfully.", "success")
+    except Exception as e:
+        flash(f"Error adding tag: {str(e)}", "error")
+
+    return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
+
+
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")
