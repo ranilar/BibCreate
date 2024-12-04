@@ -56,6 +56,8 @@ def validate_reference(ref_type, **fields):
 
 
 def validate_tag(tag_name):
-    if 1 <= len(tag_name) <= 50:
+    if not tag_name:
         return True
-    raise ValueError("Tag name must be between 1 and 50 characters.")
+    if len(tag_name) < 1 or len(tag_name) > 50:
+         raise ValueError("Tag name must be between 1 and 50 characters.")
+    return True
