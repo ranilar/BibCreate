@@ -6,7 +6,17 @@ Edit Reference
 
 {% block body %}
 <h2>Edit Reference</h2>
-<form action="/edit_reference/{{ reference.id }}" method="post">
+
+<form action="/edit_reference/{{ reference.id }}" method="post" class="styled-form">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="message-box">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
 
   {% if ref_type == "book" %}
 

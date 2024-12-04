@@ -100,6 +100,7 @@ def reference_creation():
 
     try:
         validate_reference(ref_type, **fields)
+        validate_tag(tag_name)
 
         # valinnaisten kenttien kohdalla tyhjä merkkijono muutetaan None
         optional_fields = ["publisher", "ISBN", "volume", "DOI",
@@ -214,9 +215,12 @@ def add_tag_in_edit():
         return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
 
     try:
+        validate_tag(tag_name)
         tag_id = create_or_get_tag(tag_name)
         link_tag_to_reference(tag_id, ref_id, ref_type)
-        flash(f"Tag '{tag_name}' added successfully.", "success")
+        flash(f"Tag '{tag_name}' added successfully", "success")
+    except ValueError as ve:
+        flash(f"Error: {str(ve)}", "error")
     except Exception as e:
         flash(f"Error adding tag: {str(e)}", "error")
 
