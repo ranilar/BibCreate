@@ -52,20 +52,26 @@ Bibcreate
       <td>{{ reference.author }}</td>
       <td>{{ reference.type }}</td>
       <td>
-        <form action="/delete/{{ reference.id }}" method="post" style="display: inline;">
+        <form action="/delete/{{ reference.id }}" method="post" style="display: inline;" onsubmit="return confirmDelete(' {{ reference.title  }}')">
           <input type="hidden" name="ref_type" value="{{ reference.type }}">
-          <button type="submit" class="delete-button">x</button>
+          <button type="submit" class="delete-button" onclick="event.stopPropagation();">X</button>
       </form>
       </td>
   </tr>
   {% endfor %}
 </table>
 
+
+<!-- js tueksi, jos kehittäessä tjs tueksi, jos kehittäessä tulee paljon, siirto staticsin?ulee paljon, siirto staticsin? -->
 <script>
   function editReference(id, type) {
-      // Ohjaa käyttäjä oikealle muokkaussivulle
       const url = `/edit_reference/${id}?ref_type=${type}`;
       window.location.href = url;
+  }
+</script>
+<script>
+  function confirmDelete(title) {
+    return confirm("Haluatko varmasti poistaa viitteen"+title+"?");
   }
 </script>
 {% endblock %}

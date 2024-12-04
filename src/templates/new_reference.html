@@ -85,8 +85,9 @@ Create a new reference
     <label for="organization">Organization:</label><br>
     <input type="text" name="organization" id="organization" class="form-input" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
   </div>
+  
+  <button type="submit" class="table-btn">Add</button>
 
-  <button type="submit" class="button2">Add</button>
 </form>
   
   <div>
@@ -104,9 +105,11 @@ Create a new reference
 
   <br><br> 
 
+
   <div>
     <a href="/" class="button">Back to Citations List</a>
   </div>
+  
 
 <script>
   function toggleFields() {
