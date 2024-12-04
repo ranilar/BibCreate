@@ -96,6 +96,8 @@ def reference_creation():
         "organization": request.form.get("organization"),
     }
 
+    tag_name = request.form.get("tag_name", "").strip()
+
     try:
         validate_reference(ref_type, **fields)
 
@@ -106,19 +108,23 @@ def reference_creation():
                         "" else None) for key, value in fields.items()}
 
         if ref_type == "book":
-            create_book(fields["title"], fields["author"],
-                        fields["year"], fields["publisher"], fields["ISBN"])
+            ref_id = create_book(fields["title"], fields["author"],
+                                 fields["year"], fields["publisher"], fields["ISBN"])
         elif ref_type == "article":
-            create_article(fields["title"], fields["author"], fields["journal"],
-                           fields["year"], fields["volume"], fields["DOI"])
+            ref_id = create_article(fields["title"], fields["author"], fields["journal"],
+                                    fields["year"], fields["volume"], fields["DOI"])
         elif ref_type == "misc":
-            create_misc(fields["title"], fields["author"],
-                        fields["year"], fields["url"], fields["note"])
+            ref_id = create_misc(fields["title"], fields["author"],
+                                 fields["year"], fields["url"], fields["note"])
         elif ref_type == "inproceeding":
-            create_inproceeding(
+            ref_id = create_inproceeding(
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
                 fields["DOI"], fields["address"], fields["month"], fields["url"], fields["organization"]
             )
+        if tag_name:
+            tag_id = create_or_get_tag(tag_name)
+            link_tag_to_reference(tag_id, ref_id, ref_type)
+
         flash(f"{ref_type.capitalize()} citation added successfully", "success")
     except UserInputError as error:
         for field, message in error.args[0].items():
