@@ -43,7 +43,7 @@ After deleting a article reference, site doesnt display it
     Input Text  DOI-article  10.1000/182
     Click Button  Add
     Page Should Contain  Douglas Adam
-    Click Button  x
+    Click Button  X
     Page Should Not Contain   Douglas Adam
 
 After deleting a misc reference, site doesnt display it
@@ -57,7 +57,7 @@ After deleting a misc reference, site doesnt display it
     Input Text  note  Classic sci-fi book reference
     Click Button  Add
     Page Should Contain  Dougla Adams
-    Click Button  x
+    Click Button  X
     Page Should Not Contain   Dougla Adams
 
 After deleting a inproceeding reference, site doesnt display it
@@ -75,7 +75,7 @@ After deleting a inproceeding reference, site doesnt display it
     Input Text  organization  Galactic Publishing
     Click Button  Add
     Page Should Contain  Douglas Ad
-    Click Button  x
+    Click Button  X
     Page Should Not Contain   Douglas Ad
 
 *** Keywords ***
