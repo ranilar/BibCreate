@@ -48,7 +48,7 @@ tables = {
         "id SERIAL PRIMARY KEY, "
         "tag_id INT NOT NULL, "
         "reference_id INT NOT NULL, "
-        "reference_type TEXT NOT NULL CHECK (reference_type IN ('book', 'article', 'misc', 'inproceedings')), "
+        "reference_type TEXT NOT NULL CHECK (reference_type IN ('book', 'article', 'misc', 'inproceeding')), "
         "FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE, "
         "UNIQUE (tag_id, reference_id, reference_type)"
     )
