@@ -150,17 +150,25 @@ Edit Reference
 
 </form>
 
-<h3>Tags</h3>
+<h3>Manage tags</h3>
+  {% if tags %}
+    <ul style="padding-left: 0;">
+      {% for tag in tags %}
+        <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+{% else %}
+    <p>No tags associated with this reference</p>
+{% endif %}
+
 <form action="/add_tag" method="post">
   <input type="hidden" name="ref_id" value="{{ reference.id }}">
   <input type="hidden" name="ref_type" value="{{ ref_type }}">
-  
   <div>
-    <label for="tag_name">New Tag:</label>
-    <input type="text" name="tag_name" id="tag_name" placeholder="Enter tag">
+    <label for="tag_name">New tag:</label><br>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)"><br>
+    <button type="submit" class="button">Add Tag</button>
   </div>
-
-  <button type="submit">Add Tag</button>
 </form>
 
 

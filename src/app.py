@@ -124,6 +124,7 @@ def reference_creation():
         if tag_name:
             tag_id = create_or_get_tag(tag_name)
             link_tag_to_reference(tag_id, ref_id, ref_type)
+            flash(f"Tag '{tag_name}' added successfully", "success")
 
         flash(f"{ref_type.capitalize()} citation added successfully", "success")
     except UserInputError as error:
@@ -157,9 +158,11 @@ def edit_reference(reference_id):
     if not reference_obj:
         flash("Reference not found.", "error")
         return redirect("/")
+    
+    tags = get_tags_for_reference(reference_id, ref_type)
 
     if request.method == "GET":
-        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type)
+        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
 
     elif request.method == "POST":
         reference_obj.title = request.form.get("title")

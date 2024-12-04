@@ -249,9 +249,6 @@ def save_reference(reference, reference_id, ref_type):
 
 
 def create_or_get_tag(tag_name):
-    """
-    Luo uuden tagin tai hakee olemassa olevan tagin ID:n.
-    """
     sql = text("""
         INSERT INTO tags (name) VALUES (:name)
         ON CONFLICT (name) DO NOTHING
@@ -272,9 +269,6 @@ def create_or_get_tag(tag_name):
 
 
 def link_tag_to_reference(tag_id, ref_id, ref_type):
-    """
-    Linkitä tagi viitteeseen `tags_references`-taulun kautta.
-    """
     sql = text("""
         INSERT INTO tags_references (tag_id, reference_id, reference_type)
         VALUES (:tag_id, :reference_id, :reference_type)
@@ -286,3 +280,14 @@ def link_tag_to_reference(tag_id, ref_id, ref_type):
         "reference_type": ref_type
     })
     db.session.commit()
+
+def get_tags_for_reference(ref_id, ref_type):
+    tags_sql = text("""
+        SELECT t.name 
+        FROM tags t
+        JOIN tags_references tr 
+        ON t.id = tr.tag_id
+        WHERE tr.reference_id = :ref_id AND tr.reference_type = :ref_type
+    """)
+    tags_result = db.session.execute(tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
+    return [row.name for row in tags_result]
