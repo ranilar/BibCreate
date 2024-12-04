@@ -85,27 +85,28 @@ Create a new reference
     <label for="organization">Organization:</label><br>
     <input type="text" name="organization" id="organization" class="form-input" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
   </div>
+
+  <button type="submit" class="button2">Add</button>
+</form>
   
   <div>
     <h3>Tags</h3>
     <ul id="tags-list">
     </ul>
-
     <div>
       <form action="/add_tag" method="post">
         <input type="hidden" name="ref_type" value="{{ ref_type }}">
         <input type="text" name="tag_name" id="tag_name" placeholder="Enter tag">
-        <button type="submit" class="button">Add Tag</button>
+        <button type="submit" class="button2">Add Tag</button>
       </form>
     </div>
   </div>
 
-  <button type="submit" class="table-btn">Add</button>
-</form>
+  <br><br> 
 
-<div>
-  <a href="/" class="button">Back to Citations List</a>
-</div>
+  <div>
+    <a href="/" class="button">Back to Citations List</a>
+  </div>
 
 <script>
   function toggleFields() {
