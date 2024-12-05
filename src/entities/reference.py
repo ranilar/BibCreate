@@ -1,5 +1,5 @@
 class Reference:
-    _non_bibtex_fields = {"id", "ref_type", "unique_id"}
+    _non_bibtex_fields = {"id", "ref_type"}
 
     def __init__(self, id, title, ref_type):
         self.id = id
@@ -13,7 +13,7 @@ class Reference:
 
         for field, value in vars(self).items():
             if field not in Reference._non_bibtex_fields and value is not None:
-                details.append(f"   {field} = {{{value}}},")
+                details.append(f"    {field} = {{{value}}},")
 
         details.append("}")
         return "\n".join(details)
