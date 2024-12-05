@@ -233,9 +233,7 @@ def save_reference(reference, reference_id, ref_type):
     db.session.commit()
 
 # Hakee databaseen tallennettuja viitteitä.
-# TODO: HAKEE TAGIN PERUSTEELLA
 def search_db_for_reference(query):
-    print(query)
     sql = text("""
         SELECT id, title, author, CAST(year AS TEXT) AS year, 'book' AS type
         FROM book_references
@@ -266,5 +264,4 @@ def search_db_for_reference(query):
         },
     )
     references = result.fetchall()
-    print(references)
-    return references 
+    return references

@@ -213,7 +213,7 @@ def search_for_reference():
     results = search_db_for_reference(query)
     return render_template(
         "index.html",
-        all_references=results
+        all_references=results, query=query
     )
 
 # testausta varten oleva reitti
