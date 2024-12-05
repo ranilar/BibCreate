@@ -86,24 +86,13 @@ Create a new reference
     <input type="text" name="organization" id="organization" class="form-input" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
   </div>
   
-  <button type="submit" class="table-btn">Add</button>
-
-</form>
-  
   <div>
-    <h3>Tags</h3>
-    <ul id="tags-list">
-    </ul>
-    <div>
-      <form action="/add_tag" method="post">
-        <input type="hidden" name="ref_type" value="{{ ref_type }}">
-        <input type="text" name="tag_name" id="tag_name" placeholder="Enter tag">
-        <button type="submit" class="button2">Add Tag</button>
-      </form>
-    </div>
+    <label for="tag_name">Tag:</label><br>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)">
   </div>
 
-  <br><br> 
+  <button type="submit"class="button2">Add</button>
+</form>
 
 
   <div>
