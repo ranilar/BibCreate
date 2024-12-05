@@ -247,7 +247,7 @@ th {
     border: none;
     text-align: center;
     width: 100%;
-    transition: background-color 0.3s ease;
+
 }
 
 .search-form input:hover {
@@ -263,7 +263,7 @@ th {
     font-size: 16px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+
 }
 
 .search-form button:hover {
