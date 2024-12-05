@@ -165,3 +165,38 @@ Editing inproceeding works
     Input Text  organization  Galactic Editing
     Click Button    Save Changes
     Page Should Contain  Douglas Editor
+
+#Ref search tests
+Searching for a reference
+    Reset References
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adam
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Click Button  Add
+    Page Should Contain  Douglas Adam
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Biker's Guide to the Galaxy
+    Input Text  author  Douglas Adam
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Click Button  Add
+    Page Should Contain  Douglas Adam
+    Input Text  query  The Hitch
+    Click Button  Search
+    Page Should Contain  The Hitchhiker's Guide to the Galaxy
+    Page Should Not Contain  The Biker's Guide to the Galaxy
+    Click Element  xpath://tr[td[text()='Douglas Adam']]
+    Input Text  title  The Hitchhiker's Guide to the Editing
+    Input Text  author  Douglas Editor
+    Input Text  year  1979
+    Click Button    Save Changes
+    Page Should Contain  Douglas Editor

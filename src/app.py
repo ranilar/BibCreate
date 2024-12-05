@@ -96,8 +96,11 @@ def reference_creation():
         "organization": request.form.get("organization"),
     }
 
+    tag_name = request.form.get("tag_name", "").strip()
+
     try:
         validate_reference(ref_type, **fields)
+        validate_tag(tag_name)
 
         # valinnaisten kenttien kohdalla tyhjä merkkijono muutetaan None
         optional_fields = ["publisher", "ISBN", "volume", "DOI",
@@ -106,19 +109,24 @@ def reference_creation():
                         "" else None) for key, value in fields.items()}
 
         if ref_type == "book":
-            create_book(fields["title"], fields["author"],
-                        fields["year"], fields["publisher"], fields["ISBN"])
+            ref_id = create_book(fields["title"], fields["author"],
+                                 fields["year"], fields["publisher"], fields["ISBN"])
         elif ref_type == "article":
-            create_article(fields["title"], fields["author"], fields["journal"],
-                           fields["year"], fields["volume"], fields["DOI"])
+            ref_id = create_article(fields["title"], fields["author"], fields["journal"],
+                                    fields["year"], fields["volume"], fields["DOI"])
         elif ref_type == "misc":
-            create_misc(fields["title"], fields["author"],
-                        fields["year"], fields["url"], fields["note"])
+            ref_id = create_misc(fields["title"], fields["author"],
+                                 fields["year"], fields["url"], fields["note"])
         elif ref_type == "inproceeding":
-            create_inproceeding(
+            ref_id = create_inproceeding(
                 fields["title"], fields["author"], fields["year"], fields["booktitle"],
                 fields["DOI"], fields["address"], fields["month"], fields["url"], fields["organization"]
             )
+        if tag_name:
+            tag_id = create_or_get_tag(tag_name)
+            link_tag_to_reference(tag_id, ref_id, ref_type)
+            flash(f"Tag '{tag_name}' added successfully", "success")
+
         flash(f"{ref_type.capitalize()} citation added successfully", "success")
     except UserInputError as error:
         for field, message in error.args[0].items():
@@ -151,9 +159,11 @@ def edit_reference(reference_id):
     if not reference_obj:
         flash("Reference not found.", "error")
         return redirect("/")
+    
+    tags = get_tags_for_reference(reference_id, ref_type)
 
     if request.method == "GET":
-        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type)
+        return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
 
     elif request.method == "POST":
         reference_obj.title = request.form.get("title")
@@ -192,6 +202,51 @@ def edit_reference(reference_id):
 
         flash("Reference updated successfully!", "success")
         return redirect("/")
+
+# Reitti viitehakutuloksien hakemiseen
+@app.route("/search_for_reference", methods=["GET"])
+def search_for_reference():
+
+    # Lyhyt validointi
+    query = request.args.get("query")
+    if not query:
+        flash("Search query cannot be empty", "error")
+        return redirect("/")
+    if len(query) < 2:
+        flash("Search query must be at least 2 characters long.", "error")
+        return redirect("/")
+    if len(query) > 30:
+        flash("Search query is limited to 30 characters.", "error")
+        return redirect("/")
+
+    # Kutsu hakumetodia ja palauta
+    results = search_db_for_reference(query)
+    return render_template(
+        "index.html",
+        all_references=results, query=query
+    )
+
+@app.route("/add_tag", methods=["POST"])
+def add_tag_in_edit():
+    tag_name = request.form.get("tag_name")
+    ref_id = request.form.get("ref_id")
+    ref_type = request.form.get("ref_type")
+
+    if not tag_name or not ref_id or not ref_type:
+        flash("Missing required information for adding a tag.", "error")
+        return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
+
+    try:
+        validate_tag(tag_name)
+        tag_id = create_or_get_tag(tag_name)
+        link_tag_to_reference(tag_id, ref_id, ref_type)
+        flash(f"Tag '{tag_name}' added successfully", "success")
+    except ValueError as ve:
+        flash(f"Error: {str(ve)}", "error")
+    except Exception as e:
+        flash(f"Error adding tag: {str(e)}", "error")
+
+    return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
 
 
 # testausta varten oleva reitti

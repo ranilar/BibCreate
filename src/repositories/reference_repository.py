@@ -23,9 +23,10 @@ def create_book(title, author, year, publisher, ISBN):
         """
         INSERT INTO book_references (title, author, year, publisher, ISBN)
         VALUES (:title, :author, :year, :publisher, :ISBN)
+        RETURNING id
     """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -36,6 +37,7 @@ def create_book(title, author, year, publisher, ISBN):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_article(title, author, journal, year, volume, DOI):
@@ -43,9 +45,10 @@ def create_article(title, author, journal, year, volume, DOI):
         """
         INSERT INTO article_references (title, author, journal, year, volume, DOI)
         VALUES (:title, :author, :journal, :year, :volume, :DOI)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -57,6 +60,7 @@ def create_article(title, author, journal, year, volume, DOI):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_misc(title, author, year, url, note):
@@ -64,9 +68,10 @@ def create_misc(title, author, year, url, note):
         """
         INSERT INTO misc_references (title, author, year, url, note)
         VALUES (:title, :author, :year, :url, :note)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -77,6 +82,7 @@ def create_misc(title, author, year, url, note):
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def create_inproceeding(title, author, year, booktitle, DOI, address, month, url, organization):
@@ -84,9 +90,10 @@ def create_inproceeding(title, author, year, booktitle, DOI, address, month, url
         """
         INSERT INTO inproceeding_references (title, author, year, booktitle, DOI, address, month, url, organization)
         VALUES (:title, :author, :year, :booktitle, :DOI, :address, :month, :url, :organization)
+        RETURNING id
         """
     )
-    db.session.execute(
+    result = db.session.execute(
         sql,
         {
             "title": title,
@@ -101,6 +108,7 @@ def create_inproceeding(title, author, year, booktitle, DOI, address, month, url
         },
     )
     db.session.commit()
+    return result.fetchone()[0]
 
 
 def get_reference(ref_type, ref_id):
@@ -130,6 +138,13 @@ def get_reference(ref_type, ref_id):
 
 
 def delete_reference_bytype(ref_type, ref_id):
+    sql = text("""
+        DELETE FROM tags_references
+        WHERE reference_id = :reference_id AND reference_type = :reference_type
+    """)
+    db.session.execute(sql, {"reference_id": ref_id,
+                       "reference_type": ref_type})
+
     if ref_type == "book":
         sql = text("DELETE FROM book_references WHERE id = :id")
         db.session.execute(sql, {"id": ref_id})
@@ -231,3 +246,82 @@ def save_reference(reference, reference_id, ref_type):
         )
 
     db.session.commit()
+
+
+def create_or_get_tag(tag_name):
+    sql = text("""
+        INSERT INTO tags (name) VALUES (:name)
+        ON CONFLICT (name) DO NOTHING
+        RETURNING id
+    """)
+    result = db.session.execute(sql, {"name": tag_name})
+    tag_id = result.fetchone()
+
+    if tag_id:
+        return tag_id[0]
+
+    # Jos tagia ei luotu, haetaan sen ID
+    sql = text("SELECT id FROM tags WHERE name = :name")
+    result = db.session.execute(sql, {"name": tag_name})
+    tag_id = result.fetchone()[0]
+    db.session.commit()
+    return tag_id
+
+
+def link_tag_to_reference(tag_id, ref_id, ref_type):
+    sql = text("""
+        INSERT INTO tags_references (tag_id, reference_id, reference_type)
+        VALUES (:tag_id, :reference_id, :reference_type)
+        ON CONFLICT DO NOTHING
+    """)
+    db.session.execute(sql, {
+        "tag_id": tag_id,
+        "reference_id": ref_id,
+        "reference_type": ref_type
+    })
+    db.session.commit()
+
+def get_tags_for_reference(ref_id, ref_type):
+    tags_sql = text("""
+        SELECT t.name 
+        FROM tags t
+        JOIN tags_references tr 
+        ON t.id = tr.tag_id
+        WHERE tr.reference_id = :ref_id AND tr.reference_type = :ref_type
+    """)
+    tags_result = db.session.execute(tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
+    return [row.name for row in tags_result]
+
+# Hakee databaseen tallennettuja viitteitä.
+def search_db_for_reference(query):
+    sql = text("""
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'book' AS type
+        FROM book_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'article' AS type
+        FROM article_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'misc' AS type
+        FROM misc_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'inproceedings' AS type
+        FROM inproceeding_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query;
+    """)
+    result = db.session.execute(
+        sql,
+        {
+            "query": "%"+query+"%"
+        },
+    )
+    references = result.fetchall()
+    return references 

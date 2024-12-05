@@ -1,61 +1,47 @@
-{% extends "layout.html" %} {% block title %} Edit Reference {% endblock %} {%
-  block body %}
-  <h2>Edit Reference</h2>
-  <form action="/edit_reference/{{ reference.id }}" method="post">
-    {% if ref_type == "book" %}
-  
-    <div>
-      <label for="title">Title:</label><br />
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value="{{ reference.title }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="author">Author:</label><br />
-      <input
-        type="text"
-        name="author"
-        id="author"
-        value="{{ reference.author }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="year">Year:</label><br />
-      <input
-        type="number"
-        name="year"
-        id="year"
-        value="{{ reference.year }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="publisher">Publisher:</label><br />
-      <input
-        type="text"
-        name="publisher"
-        id="publisher"
-        value="{{ reference.publisher }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="ISBN">ISBN:</label><br />
-      <input
-        type="text"
-        name="ISBN"
-        id="ISBN"
-        value="{{ reference.ISBN }}"
-      /><br /><br />
-    </div>
-    <div>
-      <form
-        action="/edit_reference/{{ reference.id }}"
-        method="post"
-        style="display: inline"
-      >
-        <input type="hidden" name="ref_type" value="book" />
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Reference
+{% endblock %}
+
+{% block body %}
+<h2>Edit Reference</h2>
+<form action="/edit_reference/{{ reference.id }}" method="post">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="message-box">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  {% if ref_type == "book" %}
+
+  <div>
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
+  </div>
+  <div>
+    <label for="author">Author:</label><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
+  </div>
+  <div>
+    <label for="year">Year:</label><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
+  </div>
+  <div>
+    <label for="publisher">Publisher:</label><br>
+    <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}"><br><br>
+  </div>
+  <div>
+    <label for="ISBN">ISBN:</label><br>
+    <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}"><br><br>
+  </div>
+  <div>
+    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
+        <input type="hidden" name="ref_type" value="book">
         <button class="button" type="submit">Save Changes</button>
       </form>
     </div>
@@ -273,25 +259,46 @@
       >
         <input type="hidden" name="ref_type" value="inproceeding" />
         <button class="button" type="submit">Save Changes</button>
-      </form>
-    </div>
-    {% endif %}
-  </form>
-  
-  <div id="bibtex-overlay" class="overlay">
-    <div class="overlay-content">
-      <button id="copy-button" class="copy-button" onclick="copyToClipboard()">
-        Copy to Clipboard
-      </button>
-      <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre
-      >
-    </div>
+    </form>
+</div>
+  {% endif %}
+
+</form>
+
+
+<h3>Manage tags</h3>
+  {% if tags %}
+    <ul style="padding-left: 0;">
+      {% for tag in tags %}
+        <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+{% else %}
+    <p>No tags associated with this reference</p>
+{% endif %}
+
+<form action="/add_tag" method="post">
+  <input type="hidden" name="ref_id" value="{{ reference.id }}">
+  <input type="hidden" name="ref_type" value="{{ ref_type }}">
+  <div>
+    <label for="tag_name">New tag:</label><br>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)"><br>
+    <button type="submit" class="button">Add Tag</button>
   </div>
-  
-  <script>
-    function showBibtex() {
-      document.getElementById("bibtex-overlay").style.display = "flex"
-    }
+</form>
+
+
+<div id="bibtex-overlay" class="overlay">
+  <div class="overlay-content">
+      <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre>
+  </div>
+</div>
+
+<script>
+  function showBibtex() {
+    document.getElementById('bibtex-overlay').style.display = 'flex';
+  }
   
     function copyToClipboard() {
       const codeText = document.getElementById("bibtex-code").textContent

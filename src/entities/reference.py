@@ -8,14 +8,16 @@ class Reference:
 
     def generate_bibtex_code(self):
         # Käytetään nyt id + title ilman välejä comboa bibtex tunnisteena
-        details = [f"@{self.ref_type}{{{self.id}_{self.title.replace(' ', '_')},"]
-        
+        details = [
+            f"@{self.ref_type}{{{self.id}_{self.title.replace(' ', '_')},"]
+
         for field, value in vars(self).items():
             if field not in Reference._non_bibtex_fields and value is not None:
                 details.append(f"    {field} = {{{value}}},")
 
         details.append("}")
         return "\n".join(details)
+
 
 class Book(Reference):
     def __init__(self, id, title, author=None, year=None, publisher=None, ISBN=None):

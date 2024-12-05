@@ -20,11 +20,21 @@
   <br />
   <br />
   
-  <!-- SEARCH BAR -- EI VIELÄ TEE MITÄÄN -->
+  {% if query %}
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="/" class="button">Back to Citations List</a>
+</div>
+<style>
+    .search-form {
+        display: none;
+    }
+</style>
+  {% else %}
   <div style="text-align: center; position: relative">
     <form
-      action="/search"
+      action="/search_for_reference"
       method="GET"
+      class="search-form"
       style="display: inline-block; position: relative"
     >
       <input
@@ -32,15 +42,16 @@
         name="query"
         placeholder="Search for reference..."
         required
+        value="{{ query }}"
       />
       <button type="submit">Search</button>
     </form>
   </div>
-  
+  {% endif %}
   <br />
   
   <h2>All references</h2>
-  
+
   <table
     border="1"
     style="width: 100%; border-collapse: collapse; text-align: center"
