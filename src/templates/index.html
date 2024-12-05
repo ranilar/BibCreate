@@ -53,6 +53,7 @@
     </tr>
     {% for reference in all_references %}
     <tr
+      id="edit-button"
       class="reference-row"
       data-id="{{ reference.id }}"
       onclick="editReference('{{ reference.id }}', '{{ reference.type }}')"
