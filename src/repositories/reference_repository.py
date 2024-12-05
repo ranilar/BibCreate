@@ -291,3 +291,37 @@ def get_tags_for_reference(ref_id, ref_type):
     """)
     tags_result = db.session.execute(tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
     return [row.name for row in tags_result]
+
+# Hakee databaseen tallennettuja viitteitä.
+def search_db_for_reference(query):
+    sql = text("""
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'book' AS type
+        FROM book_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'article' AS type
+        FROM article_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'misc' AS type
+        FROM misc_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
+        
+        UNION
+        
+        SELECT id, title, author, CAST(year AS TEXT) AS year, 'inproceedings' AS type
+        FROM inproceeding_references
+        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query;
+    """)
+    result = db.session.execute(
+        sql,
+        {
+            "query": "%"+query+"%"
+        },
+    )
+    references = result.fetchall()
+    return references 
