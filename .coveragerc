@@ -1,0 +1,7 @@
+[run]
+source = src/entities
+
+[report]
+exclude_lines =
+    def __init__
+    def __str__
