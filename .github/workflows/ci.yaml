@@ -54,7 +54,7 @@ jobs:
         run: bash run_robot_tests.sh
 
       - name: Coverage report
-        run: poetry run coverage xml
+        run: coverage run --branch -m pytest src/entities
       - name: Coverage report to Codecov
         uses: codecov/codecov-action@v4
         env:
