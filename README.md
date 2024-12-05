@@ -1,4 +1,5 @@
 # BibCreate
+[![codecov](https://codecov.io/gh/ranilar/BibCreate/graph/badge.svg?token=4OKVYBREZ7)](https://codecov.io/gh/ranilar/BibCreate)
 Create bibtex citations.
 
 Tiimitapaamiset viikottain: 
