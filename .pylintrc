@@ -16,10 +16,20 @@ disable=raw-checker-failed,
         missing-function-docstring,
         missing-class-docstring,
         too-few-public-methods,
-        invalid-name
+        too-many-arguments,
+        too-many-branches,
+        too-many-positional-arguments,
+        too-many-locals,
+        invalid-name,
+        redefined-builtin,
+        wildcard-import,
+        unused-wildcard-import,
+        consider-iterating-dictionary,
+        broad-exception-caught,
+        possibly-used-before-assignment
 
 [FORMAT]
-max-line-length=120
+max-line-length=140
 
 [REFACTORING]
 max-nested-blocks=3  

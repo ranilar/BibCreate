@@ -1,6 +1,7 @@
 import unittest
 from entities.reference import Misc, Book
 
+
 class TestReference(unittest.TestCase):
     def setUp(self):
         pass

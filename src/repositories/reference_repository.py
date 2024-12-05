@@ -1,5 +1,5 @@
-from config import db
 from sqlalchemy import text
+from config import db
 from entities.reference import Book, Article, Misc, Inproceeding
 
 
@@ -16,7 +16,7 @@ def get_references_bytype(ref_type):
         return [Misc(*reference) for reference in references]
     if ref_type == "inproceeding":
         return [Inproceeding(*reference) for reference in references]
-
+    return []
 
 def create_book(title, author, year, publisher, ISBN):
     sql = text(
@@ -118,24 +118,25 @@ def get_reference(ref_type, ref_id):
         reference = result.fetchall()
         return Book(*reference[0])
 
-    elif ref_type == "article":
+    if ref_type == "article":
         sql = text("SELECT * FROM article_references WHERE id = :id")
         result = db.session.execute(sql, {"id": ref_id})
         reference = result.fetchall()
         return Article(*reference[0])
 
-    elif ref_type == "misc":
+    if ref_type == "misc":
         sql = text("SELECT * FROM misc_references WHERE id = :id")
         result = db.session.execute(sql, {"id": ref_id})
         reference = result.fetchall()
         return Misc(*reference[0])
 
-    elif ref_type == "inproceeding":
+    if ref_type == "inproceeding":
         sql = text("SELECT * FROM inproceeding_references WHERE id = :id")
         result = db.session.execute(sql, {"id": ref_id})
         reference = result.fetchall()
         return Inproceeding(*reference[0])
 
+    return None
 
 def delete_reference_bytype(ref_type, ref_id):
     sql = text("""

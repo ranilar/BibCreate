@@ -1,5 +1,5 @@
-from config import db, app
 from sqlalchemy import text
+from config import db, app
 
 # Define your table names and their schemas
 tables = {
