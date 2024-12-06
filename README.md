@@ -47,7 +47,6 @@ poetry install
 
 #### 4. Create a .env file in the directory.
 
-
 For DATABASE_URL you can use either a local instance of PostgreSQL or hosted solution such as aiven.io. Add following contents to .env file:
 ```
 DATABASE_URL=postgresql:///DATABASE_NAME
