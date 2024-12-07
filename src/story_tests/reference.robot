@@ -200,3 +200,33 @@ Searching for a reference
     Input Text  year  1979
     Click Button    Save Changes
     Page Should Contain  Douglas Editor
+
+Searching with tag
+    Reset References
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adam
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Input Text  tag_name  readinglist
+    Click Button  Add
+    Page Should Contain  Douglas Adam
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Biker's Guide to the Galaxy
+    Input Text  author  Douglas Biker
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Input Text  tag_name  done reading
+    Click Button  Add
+    Page Should Contain  Douglas Biker
+    Input Text  query  done reading
+    Click Button  Search
+    Page Should Contain  The Biker's Guide to the Galaxy
+    Page Should Not Contain  The hitchhiker's Guide to the Galaxy
