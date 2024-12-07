@@ -8,9 +8,7 @@ To klo 10.00-10.45,
 To klo 11-11.30
 
 ## Links
-Backlogs:
-https://docs.google.com/spreadsheets/d/1VMvwVkrx3sCwMhOg9KaBRGVdFl2taQKhlVoZCgXNELQ/edit?gid=1#gid=1
-
+[Product Backlogs](https://docs.google.com/spreadsheets/d/1VMvwVkrx3sCwMhOg9KaBRGVdFl2taQKhlVoZCgXNELQ/edit?gid=1#gid=1)
 
 ## Definition of Done
 - The acceptance criteria of the user story are met
