@@ -18,6 +18,7 @@ def get_references_bytype(ref_type):
         return [Inproceeding(*reference) for reference in references]
     return []
 
+
 def create_book(title, author, year, publisher, ISBN):
     sql = text(
         """
@@ -137,6 +138,7 @@ def get_reference(ref_type, ref_id):
         return Inproceeding(*reference[0])
 
     return None
+
 
 def delete_reference_bytype(ref_type, ref_id):
     sql = text("""
@@ -282,6 +284,7 @@ def link_tag_to_reference(tag_id, ref_id, ref_type):
     })
     db.session.commit()
 
+
 def get_tags_for_reference(ref_id, ref_type):
     tags_sql = text("""
         SELECT t.name 
@@ -290,33 +293,44 @@ def get_tags_for_reference(ref_id, ref_type):
         ON t.id = tr.tag_id
         WHERE tr.reference_id = :ref_id AND tr.reference_type = :ref_type
     """)
-    tags_result = db.session.execute(tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
+    tags_result = db.session.execute(
+        tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
     return [row.name for row in tags_result]
 
 # Hakee databaseen tallennettuja viitteitä.
+
+
 def search_db_for_reference(query):
     sql = text("""
-        SELECT id, title, author, CAST(year AS TEXT) AS year, 'book' AS type
-        FROM book_references
-        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
-        
+        SELECT B.id, B.title, B.author, CAST(B.year AS TEXT) AS year, 'book' AS type
+        FROM book_references B
+        LEFT JOIN tags_references TR ON TR.reference_id = B.id AND TR.reference_type = 'book'
+        LEFT JOIN tags T ON T.id = TR.tag_id
+        WHERE B.title ILIKE :query OR B.author ILIKE :query OR CAST(B.year AS TEXT) ILIKE :query OR T.name ILIKE :query
+
         UNION
-        
-        SELECT id, title, author, CAST(year AS TEXT) AS year, 'article' AS type
-        FROM article_references
-        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
-        
+
+        SELECT A.id, A.title, A.author, CAST(A.year AS TEXT) AS year, 'article' AS type
+        FROM article_references A
+        LEFT JOIN tags_references TR ON TR.reference_id = A.id AND TR.reference_type = 'article'
+        LEFT JOIN tags T ON T.id = TR.tag_id
+        WHERE A.title ILIKE :query OR A.author ILIKE :query OR CAST(A.year AS TEXT) ILIKE :query OR T.name ILIKE :query
+
         UNION
-        
-        SELECT id, title, author, CAST(year AS TEXT) AS year, 'misc' AS type
-        FROM misc_references
-        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query
-        
+
+        SELECT M.id, M.title, M.author, CAST(M.year AS TEXT) AS year, 'misc' AS type
+        FROM misc_references M
+        LEFT JOIN tags_references TR ON TR.reference_id = M.id AND TR.reference_type = 'misc'
+        LEFT JOIN tags T ON T.id = TR.tag_id
+        WHERE M.title ILIKE :query OR M.author ILIKE :query OR CAST(M.year AS TEXT) ILIKE :query OR T.name ILIKE :query
+
         UNION
-        
-        SELECT id, title, author, CAST(year AS TEXT) AS year, 'inproceedings' AS type
-        FROM inproceeding_references
-        WHERE title ILIKE :query OR author ILIKE :query OR CAST(year AS TEXT) ILIKE :query;
+
+        SELECT I.id, I.title, I.author, CAST(I.year AS TEXT) AS year, 'inproceeding' AS type
+        FROM inproceeding_references I
+        LEFT JOIN tags_references TR ON TR.reference_id = I.id AND TR.reference_type = 'inproceeding'
+        LEFT JOIN tags T ON T.id = TR.tag_id
+        WHERE I.title ILIKE :query OR I.author ILIKE :query OR CAST(I.year AS TEXT) ILIKE :query OR T.name ILIKE :query
     """)
     result = db.session.execute(
         sql,
@@ -325,4 +339,4 @@ def search_db_for_reference(query):
         },
     )
     references = result.fetchall()
-    return references 
+    return references
