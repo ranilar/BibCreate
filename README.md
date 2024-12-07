@@ -11,6 +11,7 @@ To klo 11-11.30
 Backlogs:
 https://docs.google.com/spreadsheets/d/1VMvwVkrx3sCwMhOg9KaBRGVdFl2taQKhlVoZCgXNELQ/edit?gid=1#gid=1
 
+
 ## Definition of Done
 - The acceptance criteria of the user story are met
 - Functionality has been tested
