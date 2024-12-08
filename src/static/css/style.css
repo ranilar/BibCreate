@@ -71,11 +71,27 @@ h1 {
     width: 80%;
     padding: 8px 12px;
     margin: 5px 0 10px 0;
-    border: 1px solid #a7b99e; /* Solujen reunat */
+    border: 1px solid #a7b99e;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: white; /* Asetetaan taustaväri valkoiseksi */
+    color: black; /* Asetetaan tekstiväri mustaksi */
   }
   
+  .form-input select {
+    background-color: white; /* Varmistetaan, että kaikki select-elementit ovat valkoisia */
+    color: black; /* Varmistetaan, että teksti on mustaa */
+  }
+  
+  div {
+  text-align: center; /* Keskittää sisällön "Create a new reference" Type kohta */
+  margin-top: 20px; /* Lisää tilaa yläpuolelle */
+}
+
+.form-input {
+  margin-top: 5px; /* Lisää tilaa valikon ja otsikon väliin */
+}
+
   /* Button */
   .button {
     display: inline-block;
@@ -271,3 +287,4 @@ h1 {
 .search-form button:hover {
     background-color: #a7b99e;
 }
+

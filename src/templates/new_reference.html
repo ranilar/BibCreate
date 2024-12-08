@@ -18,8 +18,8 @@ Create a new reference
       </ul>
     {% endif %}
   {% endwith %}
-  <div>
-    <label for="ref_type">Type:</label>
+  <div style="text-align: center;">
+    <label for="ref_type">Type:</label><br>
     <select name="ref_type" id="ref_type" required onchange="toggleFields()" class="form-input">
       <option value="book" {% if ref_type == 'book' %}selected{% endif %}>Book</option>
       <option value="article" {% if ref_type == 'article' %}selected{% endif %}>Article</option>
