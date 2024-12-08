@@ -133,7 +133,7 @@ def reference_creation():
     return redirect("/")
 
 
-@app.route("/delete/<id>", methods=["POST"])
+@app.route("/delete/<ref_id>", methods=["POST"])
 def delete_reference(ref_id):
     ref_type = request.form.get("ref_type")
     delete_reference_bytype(ref_type, ref_id)
