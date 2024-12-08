@@ -16,7 +16,7 @@ After adding a book reference, site displays it
     Input Text  year  1978
     Input Text  publisher  Harmony Books
     Input Text  ISBN  9789510218440
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
 
 After deleting a book reference, site doesnt display it
@@ -39,7 +39,7 @@ Editing book reference works
     Input Text  year  1978
     Input Text  publisher  Harmony Books
     Input Text  ISBN  9789510218440
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Element  xpath://tr[td[text()='Douglas Adams']]
     Input Text  title  The Hitchhiker's Guide to the Editing
@@ -62,7 +62,7 @@ After deleting a article reference, site doesnt display it
     Input Text  year  1978
     Input Text  volume  42
     Input Text  DOI-article  10.1000/182
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adam
     Click Button  X
     Page Should Not Contain   Douglas Adam
@@ -77,7 +77,7 @@ Editing article reference works
     Input Text  year  1978
     Input Text  volume  42
     Input Text  DOI-article  10.1000/182
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Element  xpath://tr[td[text()='Douglas Adams']]
     Input Text  title  The Hitchhiker's Guide to the Editing
@@ -98,7 +98,7 @@ After deleting a misc reference, site doesnt display it
     Input Text  year  1978
     Input Text  url-misc  https://example.com/hitchhikers-guide
     Input Text  note  Classic sci-fi book reference
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Dougla Adams
     Click Button  X
     Page Should Not Contain   Dougla Adams
@@ -112,7 +112,7 @@ Editing misc reference works
     Input Text  year  1978
     Input Text  url-misc  https://example.com/hitchhikers-guide
     Input Text  note  Classic sci-fi book reference
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Element  xpath://tr[td[text()='Douglas Adams']]
     Input Text  title  The Hitchhiker's Guide to the Editing
@@ -136,7 +136,7 @@ After deleting a inproceeding reference, site doesnt display it
     Input Text  month  October
     Input Text  url-inproceeding  https://example.com/galactic-conference
     Input Text  organization  Galactic Publishing
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Button  X
     Page Should Not Contain   Douglas Adams
@@ -154,7 +154,7 @@ Editing inproceeding works
     Input Text  month  October
     Input Text  url-inproceeding  https://example.com/galactic-conference
     Input Text  organization  Galactic Publishing
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Element  xpath://tr[td[text()='Douglas Adams']]
     Input Text  title  The Hitchhiker's Guide to the Editing
@@ -178,7 +178,7 @@ Searching for a reference
     Input Text  year  1978
     Input Text  volume  42
     Input Text  DOI-article  10.1000/182
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adam
     Click Link  Create a new reference
     Select From List By Value  ref_type  article
@@ -188,7 +188,7 @@ Searching for a reference
     Input Text  year  1978
     Input Text  volume  42
     Input Text  DOI-article  10.1000/182
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adam
     Input Text  query  The Hitch
     Click Button  Search
@@ -200,3 +200,33 @@ Searching for a reference
     Input Text  year  1979
     Click Button    Save Changes
     Page Should Contain  Douglas Editor
+
+Searching with tag
+    Reset References
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adam
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Input Text  tag_name  readinglist
+    Click Button  Add a New Reference
+    Page Should Contain  Douglas Adam
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  article
+    Input Text  title  The Biker's Guide to the Galaxy
+    Input Text  author  Douglas Biker
+    Input Text  journal  Intergalactic Science Journal
+    Input Text  year  1978
+    Input Text  volume  42
+    Input Text  DOI-article  10.1000/182
+    Input Text  tag_name  done reading
+    Click Button  Add a New Reference
+    Page Should Contain  Douglas Biker
+    Input Text  query  done reading
+    Click Button  Search
+    Page Should Contain  The Biker's Guide to the Galaxy
+    Page Should Not Contain  The hitchhiker's Guide to the Galaxy

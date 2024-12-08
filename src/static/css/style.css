@@ -10,7 +10,7 @@ h1 {
     font-family: "Julius Sans One", sans-serif;
     text-align: center;
     font-size: 30px;
-    text-shadow: 1px 2px#535a3bda;
+    text-shadow: 1px 2px#535a3bad;
   }
   
   h3 {
@@ -71,49 +71,75 @@ h1 {
     width: 80%;
     padding: 8px 12px;
     margin: 5px 0 10px 0;
-    border: 1px solid #a7b99e; /* Solujen reunat */
+    border: 1px solid #a7b99e;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: white; /* Asetetaan taustaväri valkoiseksi */
+    color: black; /* Asetetaan tekstiväri mustaksi */
   }
   
-  /* Button */
+  .form-input select {
+    background-color: white; /* Varmistetaan, että kaikki select-elementit ovat valkoisia */
+    color: black; /* Varmistetaan, että teksti on mustaa */
+  }
+  
+  div {
+  text-align: center; /* Keskittää sisällön "Create a new reference" Type kohta */
+  margin-top: 20px; /* Lisää tilaa yläpuolelle */
+}
+
+.form-input {
+  margin-top: 5px; /* Lisää tilaa valikon ja otsikon väliin */
+}
+
+.button, .button2 {
+  background-color: #a7b99e; /* Taustaväri */
+  color: white; /* Tekstin väri */
+  padding: 10px 20px; /* Sisäinen tyhjä tila */
+  border: 2px solid #535a3b; /* Reunaviiva */
+  border-radius: 5px; /* Pyöristetyt kulmat */
+  text-align: center; /* Tekstin keskitys */
+  text-decoration: none; /* Ei alleviivausta */
+  display: inline-block; /* Elementti näkyy rivillä, mutta käyttäytyy kuin lohko */
+  font-size: 16px; /* Fontin koko */
+  font-weight: bold;
+  transition: all 0.3s; /* Animaatio kaikille ominaisuuksille */
+  margin: 10px 20px; /* Ulkoinen tyhjä tila */
+}
+
+/* Hover-efektit */
+.button:hover, .button2:hover {
+  background-color: #788a70; /* Tummempi taustaväri hover-tilassa */
+  color: white; /* Tekstin väri hover-tilassa */
+  cursor: pointer; /* Kursori muuttuu kädeksi hover-tilassa */
+  box-shadow: 0 0 8px #788a70; /* Hehku hover-tilassa */
+}
+
+/* Erityismääritykset toiselle napille */
+.button2 {
+  background-color: transparent; /* Läpinäkyvä tausta */
+  color: #535a3b; /* Tummempi tekstin väri */
+  border-color: #a7b99e; /* Tummempi reunaviiva */
+}
+
+.button2:hover {
+  background-color: #788a70; /* Tumma tausta hover-tilassa */
+  color: white; /* Valkoinen teksti hover-tilassa */
+  border-color: #788a70;
+}
+
   .button {
+    border: none; /* Poistaa mahdolliset oletusreunukset */
+    outline: none; /* Poistaa fokuksen yhteydessä näkyvän kehyksen */
+    font-family: inherit; /* Varmistaa, että fontti periytyy ympäristöstään */
+  }
+  
+  a.button {
     display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0;
-    background-color: #cedcc3;
-    color: #535a3b;
-    text-decoration: none;
-    border-radius: 4px;
     text-align: center;
-    font-size: 16px;
+    vertical-align: middle;
   }
-  
-  /* Button hover */
-  .button:hover {
-    background-color: #a7b99e; /* Tummempi hover-efekti */
-    cursor: pointer; /* Muuttaa osoittimen kädeksi */
-  }
-  
-  /* Button2 */
-  .button2 {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0;
-    background-color: #eff7d3;
-    color: #535a3b;
-    text-decoration: none;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 16px;
-  }
-  
-  /* Button hover */
-  .button2:hover {
-    background-color: #cedcc3; /* Tummempi hover-efekti */
-    cursor: pointer; /* Muuttaa osoittimen kädeksi */
-  }
-  
+
   /* Delete-painike */
   .delete-button {
     display: inline-block;
@@ -270,4 +296,60 @@ h1 {
 
 .search-form button:hover {
     background-color: #a7b99e;
+}
+
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Väli input-kentän ja napin välillä */
+  margin: 20px auto;
+  width: 80%; /* Hakupalkin leveys */
+  max-width: 800px; /* Maksimileveys */
+}
+
+/* Search Input, INDEX sivu */
+.search-input {
+  flex-grow: 1; /* Input-kenttä vie kaiken tilan napin rinnalla */
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #d0d8c5; /* Vaalea vihertävä reunus */
+  border-radius: 5px;
+  background-color: white;
+  color: #535a3b;
+  outline: none; /* Poistaa sinisen kehyksen fokuksessa */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input::placeholder {
+  color: #b2b9a9;
+  font-style: italic;
+}
+
+/* Hover and Focus State for Input */
+.search-input:focus {
+  border-color: #a7b99e; /* Hieman tummempi vihreä */
+  box-shadow: 0 0 5px #d0d8c5; /* Pehmeä hehku */
+}
+
+/* Search Button */
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white; /* Teksti on valkoinen */
+  background-color: #a7b99e; /* Vaaleanvihreä taustaväri */
+  border: 2px solid #a7b99e;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover State for Button */
+.search-button:hover {
+  background-color: #788a70; /* Vaaleampi vihreä hover-efektissä */
+  color: white; /* Tumma teksti hover-tilassa */
+  border-color: #788a70;
+  box-shadow: 0 0 8px #788a70; /* Hehku hover-tilassa */
 }

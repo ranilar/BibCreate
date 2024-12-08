@@ -14,7 +14,7 @@ Ensure Reference Exists and Ensure BibTeX Format is Visible
     Input Text  year  1978
     Input Text  publisher  Harmony Books
     Input Text  ISBN  9789510218440
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
     Click Element  //tr[td[text()='Douglas Adams']]
     Click Element  show-bibtex-button

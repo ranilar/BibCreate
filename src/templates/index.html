@@ -22,7 +22,7 @@
   
   {% if query %}
   <div style="text-align: center; margin-top: 20px;">
-    <a href="/" class="button">Back to Citations List</a>
+    <a href="/" class="button2">All References</a>
 </div>
 <style>
     .search-form {
@@ -30,27 +30,23 @@
     }
 </style>
   {% else %}
-  <div style="text-align: center; position: relative">
-    <form
-      action="/search_for_reference"
-      method="GET"
-      class="search-form"
-      style="display: inline-block; position: relative"
-    >
-      <input
-        type="text"
-        name="query"
-        placeholder="Search for reference..."
-        required
-        value="{{ query }}"
-      />
-      <button type="submit">Search</button>
+  <div style="text-align: center; margin-top: 20px;">
+    <form action="/search_for_reference" method="GET" class="search-bar">
+        <input
+            type="text"
+            name="query"
+            placeholder="Search for reference..."
+            required
+            value="{{ query }}"
+            class="search-input"
+        />
+        <button type="submit" class="search-button">Search</button>
     </form>
-  </div>
+</div>
   {% endif %}
   <br />
   
-  <h2>All references</h2>
+<h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
   <table
     border="1"
@@ -93,7 +89,6 @@
     {% endfor %}
   </table>
   
-  <!-- js tueksi, jos kehittäessä tjs tueksi, jos kehittäessä tulee paljon, siirto staticsin?ulee paljon, siirto staticsin? -->
   <script>
     function editReference(id, type) {
       const url = `/edit_reference/${id}?ref_type=${type}`
@@ -102,8 +97,8 @@
   </script>
   <script>
     function confirmDelete(title) {
-      return confirm("Haluatko varmasti poistaa viitteen" + title + "?")
+      return confirm("Are you sure you want to remove reference" + title + "?")
     }
   </script>
+  <br />
   {% endblock %}
-  
