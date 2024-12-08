@@ -50,7 +50,7 @@
   {% endif %}
   <br />
   
-  <h2>All references</h2>
+<h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
   <table
     border="1"
@@ -93,7 +93,6 @@
     {% endfor %}
   </table>
   
-  <!-- js tueksi, jos kehittäessä tjs tueksi, jos kehittäessä tulee paljon, siirto staticsin?ulee paljon, siirto staticsin? -->
   <script>
     function editReference(id, type) {
       const url = `/edit_reference/${id}?ref_type=${type}`
@@ -105,5 +104,6 @@
       return confirm("Haluatko varmasti poistaa viitteen" + title + "?")
     }
   </script>
+  <br />
   {% endblock %}
   
