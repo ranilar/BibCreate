@@ -14,7 +14,7 @@ Create Book Reference With Tag
     Input Text  publisher  Good Books
     Input Text  ISBN  7864738164889
     Input Text  tag_name  prio
-    Click Button  Add
+    Click Button  Add a New Reference
     Wait Until Page Contains  Tag 'prio' added successfully
 
 Add More Tags To an Existing Book Reference
@@ -36,7 +36,7 @@ Add First Tag To an Existing Misc Reference
     Select From List By Value  ref_type  misc
     Input Text  title  History of Computing
     Input Text  url-misc  https://example.com/history
-    Click Button  Add
+    Click Button  Add a New Reference
     Page Should Contain  History of Computing
     Click Element  xpath://tr[td[text()='History of Computing']]
     Page Should Contain  No tags associated with this reference
@@ -44,8 +44,3 @@ Add First Tag To an Existing Misc Reference
     Click Button  Add Tag
     Page Should Contain  MVP
     Click Button  Save Changes
-
-
-
-
-
