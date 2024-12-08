@@ -1,21 +1,20 @@
 h1 {
     color: #535a3bda;
-    font-family: "Copperplate", Papyrus, fantasy;
+    font-family: "Rubik Spray Paint", system-ui;
     text-align: center;
     font-size: 60px;
   }
   
   h2 {
     color: #a7b99e;
-    font-family: "Julius Sans One", sans-serif;
+    font-family: "Andale Mono", monospace;
     text-align: center;
     font-size: 30px;
-    text-shadow: 1px 2px#535a3bad;
   }
   
   h3 {
     color: #a7b99e;
-    font-family: "Julius Sans One", sans-serif;
+    font-family: "Andale Mono", monospace;
     text-align: center;
     font-size: 20px;
   }
@@ -23,7 +22,7 @@ h1 {
   body {
     margin: 0 auto; /* Keskittää sisällön */
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: "Rubik Spray Paint", system-ui;
     color: #535a3b;
     font-size: larger;
   }
@@ -45,7 +44,7 @@ h1 {
   }
   
   th {
-    background-color: #eff7d3; /* Otsikkosolujen taustaväri */
+    background-color: #deebb0ac; /* Otsikkosolujen taustaväri */
   }
   
   .reference-row:hover {
@@ -160,6 +159,7 @@ h1 {
   /* Hover-tila */
   .delete-button:hover {
     background-color: #e60000e4; /* Tummempi punainen hover-efekti */
+    box-shadow: 0 0 2px #e60000e4; /* Hehku hover-tilassa */
   }
   
   /* Box for validation messages */
@@ -183,23 +183,7 @@ h1 {
   .message-box li {
     margin-bottom: 5px; /* Pienempi riviväli */
   }
-  
-  .first-color {
-    background: #eff7d3;
-  }
-  
-  .second-color {
-    background: #cedcc3;
-  }
-  
-  .third-color {
-    background: #a7b99e;
-  }
-  
-  .fourth-color {
-    background: #535a3b;
-  }
-  
+
   .vertical-container {
     position: fixed;
     top: 0;
