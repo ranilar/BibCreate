@@ -10,7 +10,7 @@ h1 {
     font-family: "Julius Sans One", sans-serif;
     text-align: center;
     font-size: 30px;
-    text-shadow: 1px 2px#535a3bda;
+    text-shadow: 1px 2px#535a3bad;
   }
   
   h3 {
@@ -92,44 +92,52 @@ h1 {
   margin-top: 5px; /* Lisää tilaa valikon ja otsikon väliin */
 }
 
-  /* Button */
+.button, .button2 {
+  background-color: #cedcc3; /* Taustaväri */
+  color: #535a3b; /* Tekstin väri */
+  padding: 10px 20px; /* Sisäinen tyhjä tila */
+  border: 2px solid #535a3b; /* Reunaviiva */
+  border-radius: 5px; /* Pyöristetyt kulmat */
+  text-align: center; /* Tekstin keskitys */
+  text-decoration: none; /* Ei alleviivausta */
+  display: inline-block; /* Elementti näkyy rivillä, mutta käyttäytyy kuin lohko */
+  font-size: 16px; /* Fontin koko */
+  transition: all 0.3s; /* Animaatio kaikille ominaisuuksille */
+  margin: 10px 20px; /* Ulkoinen tyhjä tila */
+}
+
+/* Hover-efektit */
+.button:hover, .button2:hover {
+  background-color: #788a70; /* Tummempi taustaväri hover-tilassa */
+  color: white; /* Tekstin väri hover-tilassa */
+  cursor: pointer; /* Kursori muuttuu kädeksi hover-tilassa */
+}
+
+/* Erityismääritykset toiselle napille */
+.button2 {
+  background-color: transparent; /* Läpinäkyvä tausta */
+  color: #535a3b; /* Tummempi tekstin väri */
+  border-color: #a7b99e; /* Tummempi reunaviiva */
+}
+
+.button2:hover {
+  background-color: #788a70; /* Tumma tausta hover-tilassa */
+  color: white; /* Valkoinen teksti hover-tilassa */
+  border-color: #788a70;
+}
+
   .button {
+    border: none; /* Poistaa mahdolliset oletusreunukset */
+    outline: none; /* Poistaa fokuksen yhteydessä näkyvän kehyksen */
+    font-family: inherit; /* Varmistaa, että fontti periytyy ympäristöstään */
+  }
+  
+  a.button {
     display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0;
-    background-color: #cedcc3;
-    color: #535a3b;
-    text-decoration: none;
-    border-radius: 4px;
     text-align: center;
-    font-size: 16px;
+    vertical-align: middle;
   }
-  
-  /* Button hover */
-  .button:hover {
-    background-color: #a7b99e; /* Tummempi hover-efekti */
-    cursor: pointer; /* Muuttaa osoittimen kädeksi */
-  }
-  
-  /* Button2 */
-  .button2 {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0;
-    background-color: #eff7d3;
-    color: #535a3b;
-    text-decoration: none;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 16px;
-  }
-  
-  /* Button hover */
-  .button2:hover {
-    background-color: #cedcc3; /* Tummempi hover-efekti */
-    cursor: pointer; /* Muuttaa osoittimen kädeksi */
-  }
-  
+
   /* Delete-painike */
   .delete-button {
     display: inline-block;
