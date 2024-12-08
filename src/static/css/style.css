@@ -1,81 +1,83 @@
 h1 {
-    color: #535a3bda; 
-    font-family: 'Copperplate', Papyrus, fantasy;
+    color: #535a3bda;
+    font-family: "Copperplate", Papyrus, fantasy;
     text-align: center;
     font-size: 60px;
-}
-
-h2 {
-    color: #a7b99e; 
+  }
+  
+  h2 {
+    color: #a7b99e;
     font-family: "Julius Sans One", sans-serif;
     text-align: center;
     font-size: 30px;
-}
-
-h3 {
-    color: #a7b99e; 
+    text-shadow: 1px 2px#535a3bda;
+  }
+  
+  h3 {
+    color: #a7b99e;
     font-family: "Julius Sans One", sans-serif;
     text-align: center;
     font-size: 20px;
-}
-
-body {
+  }
+  
+  body {
     margin: 0 auto; /* Keskittää sisällön */
     text-align: center;
     font-family: Arial, sans-serif;
     color: #535a3b;
     font-size: larger;
-}
-
-/* "All references" table */
-table {
+  }
+  
+  /* "All references" table */
+  table {
     margin: 20px auto; /* Keskittää taulukon */
     width: 80%; /* Taulukon leveys 80% näytöstä */
-    max-width: 800px; /* Maksimileveys 800px */
+    max-width: 50%; /* Maksimileveys 800px */
     border-collapse: collapse; /* Poistaa solujen välin */
     text-align: center; /* Tekstin keskitys */
-}
-
-/* Cell appearance */
-th, td {
+  }
+  
+  /* Cell appearance */
+  th,
+  td {
     border: 1px solid #a7b99e; /* Solujen reunat */
     padding: 8px 12px; /* Solujen sisäiset marginaalit */
-}
-
-th {
+  }
+  
+  th {
     background-color: #eff7d3; /* Otsikkosolujen taustaväri */
-}
-
-.reference-row:hover {
+  }
+  
+  .reference-row:hover {
     background-color: #cedcc3;
     cursor: pointer;
-}
-
-/* Table button hover */
-.table-btn:hover {
+  }
+  
+  /* Table button hover */
+  .table-btn:hover {
     background-color: #cedcc3;
     cursor: pointer;
-}
-
-/* "Create a new reference" */
-.styled-form {
+  }
+  
+  /* "Create a new reference" */
+  .styled-form {
     margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
+    width: 60%;
+    /* max-width: 600px; */
     text-align: center;
-}
-
-.form-input {
+  }
+  
+  .form-input {
     width: 80%;
     padding: 8px 12px;
     margin: 5px 0 10px 0;
     border: 1px solid #a7b99e; /* Solujen reunat */
     border-radius: 4px;
     box-sizing: border-box;
-}
-
-/* Button */
-.button {
+  }
+  
+  /* Button */
+  .button {
     display: inline-block;
     padding: 8px 12px;
     margin: 10px 0;
@@ -85,16 +87,16 @@ th {
     border-radius: 4px;
     text-align: center;
     font-size: 16px;
-}
-
-/* Button hover */
-.button:hover {
+  }
+  
+  /* Button hover */
+  .button:hover {
     background-color: #a7b99e; /* Tummempi hover-efekti */
     cursor: pointer; /* Muuttaa osoittimen kädeksi */
-}
-
-/* Button2 */
-.button2 {
+  }
+  
+  /* Button2 */
+  .button2 {
     display: inline-block;
     padding: 8px 12px;
     margin: 10px 0;
@@ -104,16 +106,16 @@ th {
     border-radius: 4px;
     text-align: center;
     font-size: 16px;
-}
-
-/* Button hover */
-.button2:hover {
-    background-color: #cedcc3;; /* Tummempi hover-efekti */
+  }
+  
+  /* Button hover */
+  .button2:hover {
+    background-color: #cedcc3; /* Tummempi hover-efekti */
     cursor: pointer; /* Muuttaa osoittimen kädeksi */
-}
-
-/* Delete-painike */
-.delete-button {
+  }
+  
+  /* Delete-painike */
+  .delete-button {
     display: inline-block;
     width: 30px; /* Pienempi leveys */
     height: 30px; /* Pienempi korkeus */
@@ -127,15 +129,15 @@ th {
     border-radius: 4px; /* Kevyesti pyöristetyt kulmat */
     cursor: pointer; /* Käsi-osoitin hover-tilassa */
     transition: background-color 0.3s ease; /* Sulava värianimaatio */
-}
-
-/* Hover-tila */
-.delete-button:hover {
+  }
+  
+  /* Hover-tila */
+  .delete-button:hover {
     background-color: #e60000e4; /* Tummempi punainen hover-efekti */
-}
-
-/* Box for validation messages */
-.message-box {
+  }
+  
+  /* Box for validation messages */
+  .message-box {
     border: 1px solid #cedcc3; /* Yhtenäinen reunus */
     padding: 10px 15px; /* Kompakti sisätila */
     margin: 20px auto; /* Keskittää laatikon */
@@ -144,53 +146,53 @@ th {
     border-radius: 4px; /* Kevyt pyöristys */
     background-color: #eff7d3; /* Vaalea taustaväri */
     text-align: center; /* Keskittää tekstin */
-}
-
-.message-box ul {
-    list-style: none; 
-    padding: 0; 
-    margin: 0; 
-}
-
-.message-box li {
+  }
+  
+  .message-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .message-box li {
     margin-bottom: 5px; /* Pienempi riviväli */
-}
-
-.first-color { 
-	background: #eff7d3; 
-}
-	
-.second-color { 
-	background: #cedcc3; 
-}
-
-.third-color { 
-	background: #a7b99e; 
-}
-
-.fourth-color { 
-	background: #535a3b; 
-}
-
-.vertical-container {
+  }
+  
+  .first-color {
+    background: #eff7d3;
+  }
+  
+  .second-color {
+    background: #cedcc3;
+  }
+  
+  .third-color {
+    background: #a7b99e;
+  }
+  
+  .fourth-color {
+    background: #535a3b;
+  }
+  
+  .vertical-container {
     position: fixed;
     top: 0;
-    width: 300px; /* Kontainerin leveys */
+    width: 20%; /* Kontainerin leveys */
     height: 100%; /* Koko sivun korkeus */
     z-index: -1; /* Siirretään taustalle, jotta ei häiritse sisältöä */
-}
-
-.vertical-container.left {
+  }
+  
+  .vertical-container.left {
     left: 0; /* Asetetaan vasempaan reunaan */
     background-color: #a7b99e; /* Väriksi toinen väreistä */
-}
-
-.vertical-container.right {
+  }
+  
+  .vertical-container.right {
     right: 0; /* Asetetaan oikeaan reunaan */
     background-color: #a7b99e; /* Väriksi toinen väreistä */
-}
-
-.overlay {
+  }
+  
+  .overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -201,9 +203,9 @@ th {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
-
-.overlay-content {
+  }
+  
+  .overlay-content {
     background: white;
     border-radius: 8px;
     padding: 20px;
@@ -213,9 +215,9 @@ th {
     text-align: center;
     display: flex;
     flex-direction: column;
-}
-
-.codebox {
+  }
+  
+  .codebox {
     background-color: #f8f9fa;
     padding: 15px;
     border: 1px solid #dee2e6;
@@ -223,7 +225,7 @@ th {
     text-align: left;
     max-height: 400px;
     overflow-y: auto;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 14px;
 }
 

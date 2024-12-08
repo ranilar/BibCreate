@@ -1,5 +1,8 @@
 [run]
-source = src/entities
+source = [
+    src/entities
+    src/util.py
+]
 
 [report]
 exclude_lines =

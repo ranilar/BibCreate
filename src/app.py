@@ -62,9 +62,6 @@ def index():
             'organization': inproceeding.organization,
             'id': inproceeding.id
         })
-
-# todo sorting
-
     return render_template(
         "index.html",
         all_references=all_references
@@ -133,19 +130,15 @@ def reference_creation():
             flash(f"{field}: {message}", "error")
         return render_template("new_reference.html", ref_type=ref_type, form_data=fields)
 
-    except Exception as error:
-        flash(str(error), "error")
-        return redirect("/new_reference")
     return redirect("/")
 
 
 @app.route("/delete/<id>", methods=["POST"])
-def delete_reference(id):
+def delete_reference(ref_id):
     ref_type = request.form.get("ref_type")
-    delete_reference_bytype(ref_type, id)
+    delete_reference_bytype(ref_type, ref_id)
     flash(f"{ref_type} reference deleted successfully", "success")
-    # except Exception:
-    #     flash(f"Failed to delete {ref_type} reference")
+
     return redirect("/")
 
 
@@ -165,7 +158,7 @@ def edit_reference(reference_id):
     if request.method == "GET":
         return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
 
-    elif request.method == "POST":
+    if request.method == "POST":
         reference_obj.title = request.form.get("title")
 
         if ref_type == "book":
@@ -202,6 +195,8 @@ def edit_reference(reference_id):
 
         flash("Reference updated successfully!", "success")
         return redirect("/")
+    flash("Unknown error occurred.", "error")
+    return redirect("/")
 
 # Reitti viitehakutuloksien hakemiseen
 @app.route("/search_for_reference", methods=["GET"])
@@ -254,5 +249,4 @@ if test_env:
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        # return redirect("/")
         return jsonify({'message': "db reset"})
