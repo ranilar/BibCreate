@@ -48,13 +48,7 @@ h1 {
   }
   
   .reference-row:hover {
-    background-color: #cedcc3;
-    cursor: pointer;
-  }
-  
-  /* Table button hover */
-  .table-btn:hover {
-    background-color: #cedcc3;
+    background-color: #cedcc3ad;
     cursor: pointer;
   }
   
@@ -237,49 +231,6 @@ h1 {
     overflow-y: auto;
     font-family: "Courier New", Courier, monospace;
     font-size: 14px;
-}
-
-/* Search formi */
-.search-form {
-    display: inline-block;
-    text-align: center;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 800px; 
-}
-
-.search-form input {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0;
-    background-color: #cedcc3;
-    color: #535a3b;
-    border-radius: 4px;
-    font-size: 16px;
-    border: none;
-    text-align: center;
-    width: 100%;
-
-}
-
-.search-form input:hover {
-    background-color: #a7b99e;
-}
-
-.search-form button {
-    padding: 8px 12px;
-    margin-top: 10px;
-    background-color: #cedcc3;
-    color: #535a3b;
-    border-radius: 4px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-
-}
-
-.search-form button:hover {
-    background-color: #a7b99e;
 }
 
 /* Search Bar Container */
