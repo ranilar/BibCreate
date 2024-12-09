@@ -287,15 +287,15 @@ def link_tag_to_reference(tag_id, ref_id, ref_type):
 
 def get_tags_for_reference(ref_id, ref_type):
     tags_sql = text("""
-        SELECT t.name 
+        SELECT t.id, t.name 
         FROM tags t
         JOIN tags_references tr 
         ON t.id = tr.tag_id
         WHERE tr.reference_id = :ref_id AND tr.reference_type = :ref_type
     """)
     tags_result = db.session.execute(
-        tags_sql, {"ref_id": ref_id, "ref_type": ref_type})
-    return [row.name for row in tags_result]
+        tags_sql, {"ref_id": ref_id, "ref_type": ref_type}).mappings()
+    return [{"id": row.id, "name": row.name} for row in tags_result]
 
 # Hakee databaseen tallennettuja viitteitä.
 
