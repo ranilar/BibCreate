@@ -56,7 +56,15 @@ Edit Reference
 {% if tags %}
   <ul class="tag-list">
     {% for tag in tags %}
-      <li class="tag-item">{{ tag }}</li>
+    <li class="tag-item">
+      {{ tag.name }}
+      <form action="/delete_tag" method="post" class="inline-form">
+        <input type="hidden" name="tag_id" value="{{ tag.id }}">
+        <input type="hidden" name="ref_id" value="{{ reference.id }}">
+        <input type="hidden" name="ref_type" value="{{ ref_type }}">
+        <button type="submit" class="remove-button">✖</button>
+      </form>
+    </li>
     {% endfor %}
   </ul>
 {% else %}
