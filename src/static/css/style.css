@@ -48,7 +48,7 @@ h1 {
   }
   
   .reference-row:hover {
-    background-color: #cedcc3ad;
+    background-color: whitesmoke;
     cursor: pointer;
   }
   
@@ -188,7 +188,7 @@ h1 {
   
   .vertical-container.left {
     left: 0; /* Asetetaan vasempaan reunaan */
-    background-color: #a7b99e; /* Väriksi toinen väreistä */
+    background-color: #a3b59a; /* Väriksi toinen väreistä */
   }
   
   .vertical-container.right {
