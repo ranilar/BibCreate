@@ -301,10 +301,38 @@ h1 {
 }
 
 .tag-item {
+  position: relative;
   background-color: #535a3b96;
   color: white;
-  padding: 5px 10px;
   border-radius: 4px;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; 
   font-size: 16px;
   font-weight: bold;
-}
+  }
+  
+  /* Remove Tag Button */
+  .remove-button {
+  position: absolute; 
+  top: -7px;
+  right: -7px;
+  background-color: #dddada;
+  border: 1px solid #cccccc;
+  border-radius: 50%;
+  color: #8b8989;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .remove-button:hover {
+  color: #2b2b2b;
+  border-color: #292828;
+  }
