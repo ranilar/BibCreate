@@ -288,3 +288,23 @@ h1 {
   border-color: #788a70;
   box-shadow: 0 0 8px #788a70; /* Hehku hover-tilassa */
 }
+
+/* Tag List */
+.tag-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tag-item {
+  background-color: #535a3b96;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}

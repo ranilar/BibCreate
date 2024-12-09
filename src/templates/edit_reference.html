@@ -5,10 +5,11 @@ Edit Reference
 {% endblock %}
 
 {% block body %}
+
 <!-- Show BibTeX Section -->
 <div id="bibtex-overlay" class="overlay">
   <div class="overlay-content">
-    <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <button id="copy-button" class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
     <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre>
   </div>
 </div>
@@ -20,22 +21,15 @@ Edit Reference
 
   function copyToClipboard() {
     const codeText = document.getElementById("bibtex-code").textContent;
-
-    // Create a temporary input field to copy the text
     const tempInput = document.createElement("textarea");
     tempInput.value = codeText;
     document.body.appendChild(tempInput);
-
     tempInput.select();
     document.execCommand("copy");
-
-    // Remove the temporary input field
     document.body.removeChild(tempInput);
-
     alert("BibTeX code copied to clipboard!");
   }
 
-  // Close the overlay when clicking outside of the content
   window.onclick = function (event) {
     const overlay = document.getElementById("bibtex-overlay");
     if (event.target == overlay) {
@@ -44,7 +38,7 @@ Edit Reference
   };
 </script>
 
-<button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTex Code</button>
+<button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
 
 <!-- Flash Messages Section -->
 {% with messages = get_flashed_messages() %}
@@ -57,15 +51,12 @@ Edit Reference
   {% endif %}
 {% endwith %}
 
-<br />
-<br />
-
 <!-- Manage Tags Section -->
 <h2>Current Tags</h2>
 {% if tags %}
-  <ul style="list-style-type: none; padding-left: 0;">
+  <ul class="tag-list">
     {% for tag in tags %}
-      <li style="margin-bottom: 5px;">{{ tag }}</li>
+      <li class="tag-item">{{ tag }}</li>
     {% endfor %}
   </ul>
 {% else %}
@@ -73,272 +64,97 @@ Edit Reference
 {% endif %}
 
 <!-- Add New Tag Form -->
-<form action="/add_tag" method="post" style="margin-top: 15px;">
+<form action="/add_tag" method="post" class="styled-form">
   <input type="hidden" name="ref_id" value="{{ reference.id }}">
   <input type="hidden" name="ref_type" value="{{ ref_type }}">
   <div>
+<br />
     <label for="tag_name">Add a New Tag:</label><br>
-    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)" style="margin-bottom: 10px;"><br>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)" class="form-input"><br><br>
     <button type="submit" class="button">Add Tag</button>
   </div>
 </form>
 
 <br />
-
 <!-- Edit Reference Section -->
 <h2>Edit Reference</h2>
-<form action="/edit_reference/{{ reference.id }}" method="post">
-  {% if ref_type == "book" %}
+<form action="/edit_reference/{{ reference.id }}" method="post" class="styled-form">
+  <input type="hidden" name="ref_type" value="{{ ref_type }}">
 
   <div>
     <label for="title">Title:</label><br>
-    <input type="text" name="title" id="title" value="{{ reference.title }}"><br><br>
+    <input type="text" name="title" id="title" value="{{ reference.title }}" class="form-input"><br><br>
   </div>
+
   <div>
     <label for="author">Author:</label><br>
-    <input type="text" name="author" id="author" value="{{ reference.author }}"><br><br>
+    <input type="text" name="author" id="author" value="{{ reference.author }}" class="form-input"><br><br>
   </div>
+
   <div>
     <label for="year">Year:</label><br>
-    <input type="number" name="year" id="year" value="{{ reference.year }}"><br><br>
+    <input type="number" name="year" id="year" value="{{ reference.year }}" class="form-input"><br><br>
   </div>
-  <div>
-    <label for="publisher">Publisher:</label><br>
-    <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}"><br><br>
-  </div>
-  <div>
-    <label for="ISBN">ISBN:</label><br>
-    <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}"><br><br>
-  </div>
-  <div>
-    <form action="/edit_reference/{{ reference.id }}" method="post" style="display: inline;">
-        <input type="hidden" name="ref_type" value="book">
-        <button class="button" type="submit">Save Changes</button>
-      </form>
-    </div>
-    {% endif %} {% if ref_type == "article" %}
-  
+
+  {% if ref_type == "book" %}
     <div>
-      <label for="author">Author:</label><br />
-      <input
-        type="text"
-        name="author"
-        id="author"
-        value="{{ reference.author }}"
-      /><br /><br />
+      <label for="publisher">Publisher:</label><br>
+      <input type="text" name="publisher" id="publisher" value="{{ reference.publisher }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="title">Title:</label><br />
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value="{{ reference.title }}"
-      /><br /><br />
+      <label for="ISBN">ISBN:</label><br>
+      <input type="text" name="ISBN" id="ISBN" value="{{ reference.ISBN }}" class="form-input"><br><br>
+    </div>
+  {% elif ref_type == "article" %}
+    <div>
+      <label for="journal">Journal:</label><br>
+      <input type="text" name="journal" id="journal" value="{{ reference.journal }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="journal">Journal:</label><br />
-      <input
-        type="text"
-        name="journal"
-        id="journal"
-        value="{{ reference.journal }}"
-      /><br /><br />
+      <label for="volume">Volume:</label><br>
+      <input type="text" name="volume" id="volume" value="{{ reference.volume }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="year">Year:</label><br />
-      <input
-        type="number"
-        name="year"
-        id="year"
-        value="{{ reference.year }}"
-      /><br /><br />
+      <label for="DOI">DOI:</label><br>
+      <input type="text" name="DOI" id="DOI" value="{{ reference.DOI }}" class="form-input"><br><br>
+    </div>
+  {% elif ref_type == "misc" %}
+    <div>
+      <label for="url">URL:</label><br>
+      <input type="url" name="url" id="url" value="{{ reference.url }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="volume">Volume:</label><br />
-      <input
-        type="text"
-        name="volume"
-        id="volume"
-        value="{{ reference.volume }}"
-      /><br /><br />
+      <label for="note">Note:</label><br>
+      <input type="text" name="note" id="note" value="{{ reference.note }}" class="form-input"><br><br>
+    </div>
+  {% elif ref_type == "inproceeding" %}
+    <div>
+      <label for="booktitle">Book Title:</label><br>
+      <input type="text" name="booktitle" id="booktitle" value="{{ reference.booktitle }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="DOI">DOI:</label><br />
-      <input
-        type="text"
-        name="DOI"
-        id="DOI"
-        value="{{ reference.DOI }}"
-      /><br /><br />
+      <label for="DOI">DOI:</label><br>
+      <input type="text" name="DOI" id="DOI" value="{{ reference.DOI }}" class="form-input"><br><br>
     </div>
     <div>
-      <form
-        action="/edit_reference/{{ reference.id }}"
-        method="post"
-        style="display: inline"
-      >
-        <input type="hidden" name="ref_type" value="article" />
-        <button class="button" type="submit">Save Changes</button>
-      </form>
-    </div>
-    {% endif %} {% if ref_type == "misc" %}
-  
-    <div>
-      <label for="title">Title:</label><br />
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value="{{ reference.title }}"
-      /><br /><br />
+      <label for="address">Address:</label><br>
+      <input type="text" name="address" id="address" value="{{ reference.address }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="author">Author:</label><br />
-      <input
-        type="text"
-        name="author"
-        id="author"
-        value="{{ reference.author }}"
-      /><br /><br />
+      <label for="month">Month:</label><br>
+      <input type="text" name="month" id="month" value="{{ reference.month }}" class="form-input"><br><br>
     </div>
     <div>
-      <label for="year">Year:</label><br />
-      <input
-        type="number"
-        name="year"
-        id="year"
-        value="{{ reference.year }}"
-      /><br /><br />
+      <label for="organization">Organization:</label><br>
+      <input type="text" name="organization" id="organization" value="{{ reference.organization }}" class="form-input"><br><br>
     </div>
-    <div>
-      <label for="url">URL:</label><br />
-      <input
-        type="url"
-        name="url"
-        id="url"
-        value="{{ reference.url }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="note">Note:</label><br />
-      <input
-        type="text"
-        name="note"
-        id="note"
-        value="{{ reference.note }}"
-      /><br /><br />
-    </div>
-    <div>
-      <form
-        action="/edit_reference/{{ reference.id }}"
-        method="post"
-        style="display: inline"
-      >
-        <input type="hidden" name="ref_type" value="misc" />
-        <button class="button" type="submit">Save Changes</button>
-      </form>
-    </div>
-    {% endif %} {% if ref_type == "inproceeding" %}
-  
-    <div>
-      <label for="title">Title:</label><br />
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value="{{ reference.title }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="author">Author:</label><br />
-      <input
-        type="text"
-        name="author"
-        id="author"
-        value="{{ reference.author }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="year">Year:</label><br />
-      <input
-        type="number"
-        name="year"
-        id="year"
-        value="{{ reference.year }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="booktitle">Book Title:</label><br />
-      <input
-        type="text"
-        name="booktitle"
-        id="booktitle"
-        value="{{ reference.booktitle }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="DOI">DOI:</label><br />
-      <input
-        type="text"
-        name="DOI"
-        id="DOI"
-        value="{{ reference.DOI }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="address">Address:</label><br />
-      <input
-        type="text"
-        name="address"
-        id="address"
-        value="{{ reference.address }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="month">Month:</label><br />
-      <input
-        type="text"
-        name="month"
-        id="month"
-        value="{{ reference.month }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="url">URL:</label><br />
-      <input
-        type="url"
-        name="url"
-        id="url"
-        value="{{ reference.url }}"
-      /><br /><br />
-    </div>
-    <div>
-      <label for="organization">Organization:</label><br />
-      <input
-        type="text"
-        name="organization"
-        id="organization"
-        value="{{ reference.organization }}"
-      /><br /><br />
-    </div>
-    <div>
-      <form
-        action="/edit_reference/{{ reference.id }}"
-        method="post"
-        style="display: inline"
-      >
-        <input type="hidden" name="ref_type" value="inproceeding" />
-        <button class="button" type="submit">Save Changes</button>
-    </form>
-</div>
   {% endif %}
-  <!-- Similar sections for 'misc' and 'inproceeding' as in the original code -->
+
+  <button type="submit" class="button">Save Changes</button>
 </form>
 
-<div>
+<div style="margin-top: 20px;">
   <a href="/" class="button2">All References</a>
 </div>
 
-<br />
 {% endblock %}
