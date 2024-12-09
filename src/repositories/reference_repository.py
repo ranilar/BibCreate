@@ -340,3 +340,16 @@ def search_db_for_reference(query):
     )
     references = result.fetchall()
     return references
+
+
+def delete_orphan_tags(tag_id):
+    orphan_check_sql = text("""
+        SELECT COUNT(*) FROM tags_references WHERE tag_id = :tag_id
+    """)
+    orphan_count = db.session.execute(
+        orphan_check_sql, {"tag_id": tag_id}).scalar()
+
+    if orphan_count == 0:
+        db.session.execute(text("DELETE FROM tags WHERE id = :tag_id"), {
+                           "tag_id": tag_id})
+        db.session.commit()

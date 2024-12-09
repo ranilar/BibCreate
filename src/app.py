@@ -152,7 +152,7 @@ def edit_reference(reference_id):
     if not reference_obj:
         flash("Reference not found.", "error")
         return redirect("/")
-    
+
     tags = get_tags_for_reference(reference_id, ref_type)
 
     if request.method == "GET":
@@ -199,6 +199,8 @@ def edit_reference(reference_id):
     return redirect("/")
 
 # Reitti viitehakutuloksien hakemiseen
+
+
 @app.route("/search_for_reference", methods=["GET"])
 def search_for_reference():
 
@@ -220,6 +222,7 @@ def search_for_reference():
         "index.html",
         all_references=results, query=query
     )
+
 
 @app.route("/add_tag", methods=["POST"])
 def add_tag_in_edit():
@@ -250,7 +253,6 @@ def delete_tag():
     ref_id = request.form.get("ref_id")
     ref_type = request.form.get("ref_type")
 
-
     if not tag_id or not ref_id or not ref_type:
         flash("Missing required information to delete a tag.", "error")
         return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
@@ -260,8 +262,20 @@ def delete_tag():
             DELETE FROM tags_references
             WHERE tag_id = :tag_id AND reference_id = :ref_id AND reference_type = :ref_type
         """)
-        db.session.execute(sql, {"tag_id": tag_id, "ref_id": ref_id, "ref_type": ref_type})
+        db.session.execute(
+            sql, {"tag_id": tag_id, "ref_id": ref_id, "ref_type": ref_type})
         db.session.commit()
+
+        orphan_check_sql = text("""
+            SELECT COUNT(*) FROM tags_references WHERE tag_id = :tag_id
+        """)
+        orphan_count = db.session.execute(
+            orphan_check_sql, {"tag_id": tag_id}).scalar()
+
+        if orphan_count == 0:
+            db.session.execute(text("DELETE FROM tags WHERE id = :tag_id"), {
+                               "tag_id": tag_id})
+            db.session.commit()
 
         flash("Tag deleted successfully.", "success")
     except Exception as e:
