@@ -30,6 +30,14 @@ Add More Tags To an Existing Book Reference
     Click Button  Save Changes
     Wait Until Page Contains  Reference updated successfully!
 
+Delete Tag From Reference
+    Go To  ${HOME_URL}
+    Click Element  xpath://tr[td[text()='Mr. Graffiti']]
+    Page Should Contain  prio
+    Click Element  xpath://ul[@class='tag-list']/li[contains(., 'prio')]/form/button
+    Page Should Not Contain  prio
+    Page Should Contain  Tag deleted successfully
+
 Add First Tag To an Existing Misc Reference
     Go To  ${HOME_URL}
     Click Link  Create a new reference
