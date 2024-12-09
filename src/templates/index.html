@@ -22,13 +22,21 @@
   
   {% if query %}
   <div style="text-align: center; margin-top: 20px;">
+    <form action="/search_for_reference" method="GET" class="search-bar">
+        <input
+            type="text"
+            name="query"
+            placeholder="Search for reference..."
+            required
+            value="{{ query }}"
+            class="search-input"
+        />
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+  <div style="text-align: center; margin-top: 20px;">
     <a href="/" class="button2">All References</a>
 </div>
-<style>
-    .search-form {
-        display: none;
-    }
-</style>
   {% else %}
   <div style="text-align: center; margin-top: 20px;">
     <form action="/search_for_reference" method="GET" class="search-bar">
