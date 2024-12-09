@@ -5,18 +5,89 @@ Edit Reference
 {% endblock %}
 
 {% block body %}
-<h2>Edit Reference</h2>
-<form action="/edit_reference/{{ reference.id }}" method="post">
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="message-box">
+<!-- Show BibTeX Section -->
+<div id="bibtex-overlay" class="overlay">
+  <div class="overlay-content">
+    <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre>
+  </div>
+</div>
+
+<script>
+  function showBibtex() {
+    document.getElementById('bibtex-overlay').style.display = 'flex';
+  }
+
+  function copyToClipboard() {
+    const codeText = document.getElementById("bibtex-code").textContent;
+
+    // Create a temporary input field to copy the text
+    const tempInput = document.createElement("textarea");
+    tempInput.value = codeText;
+    document.body.appendChild(tempInput);
+
+    tempInput.select();
+    document.execCommand("copy");
+
+    // Remove the temporary input field
+    document.body.removeChild(tempInput);
+
+    alert("BibTeX code copied to clipboard!");
+  }
+
+  // Close the overlay when clicking outside of the content
+  window.onclick = function (event) {
+    const overlay = document.getElementById("bibtex-overlay");
+    if (event.target == overlay) {
+      overlay.style.display = "none";
+    }
+  };
+</script>
+
+<button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTex Code</button>
+
+<!-- Flash Messages Section -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="message-box">
       {% for message in messages %}
         <li>{{ message }}</li>
       {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
+<br />
+<br />
+
+<!-- Manage Tags Section -->
+<h2>Current Tags</h2>
+{% if tags %}
+  <ul style="list-style-type: none; padding-left: 0;">
+    {% for tag in tags %}
+      <li style="margin-bottom: 5px;">{{ tag }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No tags associated with this reference.</p>
+{% endif %}
+
+<!-- Add New Tag Form -->
+<form action="/add_tag" method="post" style="margin-top: 15px;">
+  <input type="hidden" name="ref_id" value="{{ reference.id }}">
+  <input type="hidden" name="ref_type" value="{{ ref_type }}">
+  <div>
+    <label for="tag_name">Add a New Tag:</label><br>
+    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)" style="margin-bottom: 10px;"><br>
+    <button type="submit" class="button">Add Tag</button>
+  </div>
+</form>
+
+<br />
+
+<!-- Edit Reference Section -->
+<h2>Edit Reference</h2>
+<form action="/edit_reference/{{ reference.id }}" method="post">
   {% if ref_type == "book" %}
 
   <div>
@@ -262,79 +333,12 @@ Edit Reference
     </form>
 </div>
   {% endif %}
-
+  <!-- Similar sections for 'misc' and 'inproceeding' as in the original code -->
 </form>
 
-
-<h3>Manage tags</h3>
-  {% if tags %}
-    <ul style="padding-left: 0;">
-      {% for tag in tags %}
-        <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-{% else %}
-    <p>No tags associated with this reference</p>
-{% endif %}
-
-<form action="/add_tag" method="post">
-  <input type="hidden" name="ref_id" value="{{ reference.id }}">
-  <input type="hidden" name="ref_type" value="{{ ref_type }}">
-  <div>
-    <label for="tag_name">New tag:</label><br>
-    <input type="text" name="tag_name" id="tag_name" placeholder="Enter a tag (optional)"><br>
-    <button type="submit" class="button">Add Tag</button>
-  </div>
-</form>
-
-
-<div id="bibtex-overlay" class="overlay">
-  <div class="overlay-content">
-      <button id="copy-button" class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
-      <pre id="bibtex-code" class="codebox">{{ reference.generate_bibtex_code() }}</pre>
-  </div>
+<div>
+  <a href="/" class="button2">All References</a>
 </div>
 
-<script>
-  function showBibtex() {
-    document.getElementById('bibtex-overlay').style.display = 'flex';
-  }
-  
-    function copyToClipboard() {
-      const codeText = document.getElementById("bibtex-code").textContent
-  
-      // Create a temporary input field to copy the text
-      const tempInput = document.createElement("textarea")
-      tempInput.value = codeText
-      document.body.appendChild(tempInput)
-  
-      tempInput.select()
-      document.execCommand("copy")
-  
-      // Remove the temporary input field
-      document.body.removeChild(tempInput)
-  
-      alert("BibTeX code copied to clipboard!")
-    }
-  
-    // Close the overlay when clicking outside of the content
-    window.onclick = function (event) {
-      const overlay = document.getElementById("bibtex-overlay")
-      if (event.target == overlay) {
-        overlay.style.display = "none"
-      }
-    }
-  </script>
-  
-  <button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTex Code</button>
-  
-  <br />
-  <br />
-  
-  <div>
-    <a href="/" class="button2">All References</a>
-  </div>
-  
-  <br />
-  
-  {% endblock %}
+<br />
+{% endblock %}
