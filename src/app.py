@@ -244,6 +244,32 @@ def add_tag_in_edit():
     return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
 
 
+@app.route("/delete_tag", methods=["POST"])
+def delete_tag():
+    tag_id = request.form.get("tag_id")
+    ref_id = request.form.get("ref_id")
+    ref_type = request.form.get("ref_type")
+
+
+    if not tag_id or not ref_id or not ref_type:
+        flash("Missing required information to delete a tag.", "error")
+        return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
+
+    try:
+        sql = text("""
+            DELETE FROM tags_references
+            WHERE tag_id = :tag_id AND reference_id = :ref_id AND reference_type = :ref_type
+        """)
+        db.session.execute(sql, {"tag_id": tag_id, "ref_id": ref_id, "ref_type": ref_type})
+        db.session.commit()
+
+        flash("Tag deleted successfully.", "success")
+    except Exception as e:
+        flash(f"Error deleting tag: {str(e)}", "error")
+
+    return redirect(f"/edit_reference/{ref_id}?ref_type={ref_type}")
+
+
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")
