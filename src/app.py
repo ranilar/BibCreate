@@ -158,49 +158,55 @@ def edit_reference(reference_id):
     if request.method == "GET":
         return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
 
+
     if request.method == "POST":
         reference_obj.title = request.form.get("title")
 
-        if ref_type == "book":
+        try:
+            fields = {
+                "title": request.form.get("title"),
+                "author": request.form.get("author"),
+                "journal": request.form.get("journal"),
+                "year": request.form.get("year"),
+                "volume": request.form.get("volume"),
+                "DOI": request.form.get("DOI"),
+                "publisher": request.form.get("publisher"),
+                "ISBN": request.form.get("ISBN"),
+                "booktitle": request.form.get("booktitle"),
+                "address": request.form.get("address"),
+                "month": request.form.get("month"),
+                "organization": request.form.get("organization"),
+                "url": request.form.get("url"),
+                "note": request.form.get("note"),
+            }
+
+            validate_reference(ref_type, **fields)
+
             reference_obj.author = request.form.get("author")
             reference_obj.year = int(request.form.get(
                 "year")) if request.form.get("year") else None
             reference_obj.publisher = request.form.get("publisher")
             reference_obj.ISBN = request.form.get("ISBN")
-        elif ref_type == "article":
-            reference_obj.author = request.form.get("author")
             reference_obj.journal = request.form.get("journal")
-            reference_obj.year = int(request.form.get(
-                "year")) if request.form.get("year") else None
             reference_obj.volume = request.form.get("volume")
             reference_obj.DOI = request.form.get("DOI")
-        elif ref_type == "misc":
-            reference_obj.author = request.form.get("author")
-            reference_obj.year = int(request.form.get(
-                "year")) if request.form.get("year") else None
             reference_obj.url = request.form.get("url")
             reference_obj.note = request.form.get("note")
-        elif ref_type == "inproceeding":
-            reference_obj.author = request.form.get("author")
-            reference_obj.year = int(request.form.get(
-                "year")) if request.form.get("year") else None
             reference_obj.booktitle = request.form.get("booktitle")
-            reference_obj.DOI = request.form.get("DOI")
             reference_obj.address = request.form.get("address")
             reference_obj.month = request.form.get("month")
-            reference_obj.url = request.form.get("url")
             reference_obj.organization = request.form.get("organization")
 
-        save_reference(reference_obj, reference_id, ref_type)
+            save_reference(reference_obj, reference_id, ref_type)
 
-        flash("Reference updated successfully!", "success")
-        return redirect("/")
-    flash("Unknown error occurred.", "error")
-    return redirect("/")
+            flash("Reference updated successfully!", "success")
+            return redirect("/")
+        except UserInputError as error:
+            for field, message in error.args[0].items():
+                flash(f"{field}: {message}", "error")
+            return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
 
 # Reitti viitehakutuloksien hakemiseen
-
-
 @app.route("/search_for_reference", methods=["GET"])
 def search_for_reference():
 
