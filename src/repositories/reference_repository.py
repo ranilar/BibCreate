@@ -56,7 +56,7 @@ def create_article(title, author, journal, year, volume, DOI):
             "author": author,
             "journal": journal,
             "year": year,
-            "volume": volume,
+            "volume": int(volume) if volume and volume.isdigit() else None, 
             "DOI": DOI,
         },
     )
@@ -202,7 +202,7 @@ def save_reference(reference, reference_id, ref_type):
                 "author": reference.author,
                 "journal": reference.journal,
                 "year": reference.year,
-                "volume": reference.volume,
+                "volume": int(reference.volume) if reference.volume and reference.volume.isdigit() else None,
                 "DOI": reference.DOI,
             },
         )
