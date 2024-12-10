@@ -41,54 +41,54 @@ Create a new reference
   
   <div id="book-fields" class="type-specific" style="display: none;">
     <label for="publisher">Publisher:</label><br>
-    <input type="text" name="publisher" id="publisher" class="form-input" value="{{ form_data.get('publisher', '') if form_data else '' }}"><br><br>
+    <input type="text" name="publisher" id="publisher" class="form-input" placeholder="Required" value="{{ form_data.get('publisher', '') if form_data else '' }}"><br><br>
   
     <label for="ISBN">ISBN:</label><br>
-    <input type="text" name="ISBN" id="ISBN" class="form-input" value="{{ form_data.get('ISBN', '') if form_data else '' }}"><br><br>
+    <input type="text" name="ISBN" id="ISBN" class="form-input" placeholder="Optional" value="{{ form_data.get('ISBN', '') if form_data else '' }}"><br><br>
   </div>
   
   <div id="article-fields" class="type-specific" style="display: none;">
     <label for="journal">Journal:</label><br>
-    <input type="text" name="journal" id="journal" class="form-input" value="{{ form_data.get('journal', '') if form_data else '' }}"><br><br>
+    <input type="text" name="journal" id="journal" class="form-input" placeholder="Required" value="{{ form_data.get('journal', '') if form_data else '' }}"><br><br>
   
     <label for="volume">Volume:</label><br>
-    <input type="number" name="volume" id="volume" class="form-input" value="{{ form_data.get('volume', '') if form_data else '' }}"><br><br>
+    <input type="number" name="volume" id="volume" class="form-input" placeholder="Optional" value="{{ form_data.get('volume', '') if form_data else '' }}"><br><br>
   
     <label for="DOI-article">DOI:</label><br>
-    <input type="text" name="DOI-article" id="DOI-article" class="form-input" value="{{ form_data.get('DOI-article', '') if form_data else '' }}"><br><br>
+    <input type="text" name="DOI-article" id="DOI-article" class="form-input" placeholder="Optional" value="{{ form_data.get('DOI-article', '') if form_data else '' }}"><br><br>
   </div>
   
   <div id="misc-fields" class="type-specific" style="display: none;">
     <label for="url-misc">URL:</label><br>
-    <input type="url" name="url-misc" id="url-misc" class="form-input" value="{{ form_data.get('url-misc', '') if form_data else '' }}"><br><br>
+    <input type="url" name="url-misc" id="url-misc" class="form-input" placeholder="Optional" value="{{ form_data.get('url-misc', '') if form_data else '' }}"><br><br>
   
     <label for="note">Note:</label><br>
-    <input type="text" name="note" id="note" class="form-input" value="{{ form_data.get('note', '') if form_data else '' }}"><br><br>
+    <input type="text" name="note" id="note" class="form-input" placeholder="Optional" value="{{ form_data.get('note', '') if form_data else '' }}"><br><br>
   </div>
   
   <div id="inproceeding-fields" class="type-specific" style="display: none;">
     <label for="booktitle">Booktitle:</label><br>
-    <input type="text" name="booktitle" id="booktitle" class="form-input" value="{{ form_data.get('booktitle', '') if form_data else '' }}"><br><br>
+    <input type="text" name="booktitle" id="booktitle" class="form-input" placeholder="Required" value="{{ form_data.get('booktitle', '') if form_data else '' }}"><br><br>
   
     <label for="DOI-inproceeding">DOI:</label><br>
-    <input type="text" name="DOI-inproceeding" id="DOI-inproceeding" class="form-input" value="{{ form_data.get('DOI-inproceeding', '') if form_data else '' }}"><br><br>
+    <input type="text" name="DOI-inproceeding" id="DOI-inproceeding" class="form-input" placeholder="Optional" value="{{ form_data.get('DOI-inproceeding', '') if form_data else '' }}"><br><br>
   
     <label for="address">Address:</label><br>
-    <input type of text" name="address" id="address" class="form-input" value="{{ form_data.get('address', '') if form_data else '' }}"><br><br>
+    <input type="text" name="address" id="address" class="form-input" placeholder="Optional" value="{{ form_data.get('address', '') if form_data else '' }}"><br><br>
   
     <label for="month">Month:</label><br>
-    <input type="text" name="month" id="month" class="form-input" value="{{ form_data.get('month', '') if form_data else '' }}"><br><br>
+    <input type="text" name="month" id="month" class="form-input" placeholder="Optional" value="{{ form_data.get('month', '') if form_data else '' }}"><br><br>
   
     <label for="url-inproceeding">URL:</label><br>
-    <input type="url" name="url-inproceeding" id="url-inproceeding" class="form-input" value="{{ form_data.get('url-inproceeding', '') if form_data else '' }}"><br><br>
+    <input type="url" name="url-inproceeding" id="url-inproceeding" class="form-input" placeholder="Optional" value="{{ form_data.get('url-inproceeding', '') if form_data else '' }}"><br><br>
   
     <label for="organization">Organization:</label><br>
-    <input type="text" name="organization" id="organization" class="form-input" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
+    <input type="text" name="organization" id="organization" class="form-input" placeholder="Optional" value="{{ form_data.get('organization', '') if form_data else '' }}"><br><br>
   </div>
   
   <div>
-    <label for="tag_name">Tag (optional):</label><br>
-    <input type="text" name="tag_name" id="tag_name" class="form-input"><br><br>
+    <label for="tag_name">Tag:</label><br>
+    <input type="text" name="tag_name" id="tag_name" class="form-input" placeholder="Optional"> <br><br>
   </div>
 
   <button type="submit" class="button">Add a New Reference</button>
@@ -100,25 +100,36 @@ Create a new reference
 
 <script>
   function toggleFields() {
-    const refType = document.getElementById("ref_type").value;
-    const typeFields = document.querySelectorAll(".type-specific");
+  const refType = document.getElementById("ref_type").value;
+  const typeFields = document.querySelectorAll(".type-specific");
+  const commonFields = document.querySelectorAll("#common-fields input");
 
-    typeFields.forEach(field => field.style.display = "none");
-
-    if (refType === "book") {
-      document.getElementById("book-fields").style.display = "block";
-    } else if (refType === "article") {
-      document.getElementById("article-fields"). style.display = "block";
-    } else if (refType === "misc") {
-      document.getElementById("misc-fields").style.display = "block";
-    } else if (refType === "inproceeding") {
-      document.getElementById("inproceeding-fields").style.display = "block";
+  typeFields.forEach(field => field.style.display = "none");
+  
+  commonFields.forEach(field => {
+    if (refType === "misc" && field.id !== "title") {
+      field.removeAttribute("required");
+      field.setAttribute("placeholder", "Optional");
+    } else {
+      field.setAttribute("required", "required");
+      field.setAttribute("placeholder", "Required");
     }
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    toggleFields();
   });
+
+  if (refType === "book") {
+    document.getElementById("book-fields").style.display = "block";
+  } else if (refType === "article") {
+    document.getElementById("article-fields").style.display = "block";
+  } else if (refType === "misc") {
+    document.getElementById("misc-fields").style.display = "block";
+  } else if (refType === "inproceeding") {
+    document.getElementById("inproceeding-fields").style.display = "block";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  toggleFields();
+});
 </script>
 
 {% endblock %}
