@@ -58,11 +58,11 @@ Edit Reference
     {% for tag in tags %}
     <li class="tag-item">
       {{ tag.name }}
-      <form action="/delete_tag" method="post" class="inline-form">
+      <form action="/delete_tag" method="post" class="inline-form" onsubmit="return confirmTagDelete(this)">
         <input type="hidden" name="tag_id" value="{{ tag.id }}">
         <input type="hidden" name="ref_id" value="{{ reference.id }}">
         <input type="hidden" name="ref_type" value="{{ ref_type }}">
-        <button type="submit" class="remove-button">✖</button>
+        <button type="submit" class="remove-button" data-tag-name="{{ tag.name }}">✖</button>
       </form>
     </li>
     {% endfor %}
@@ -164,5 +164,12 @@ Edit Reference
 <div style="margin-top: 20px;">
   <a href="/" class="button2">All References</a>
 </div>
+
+<script>
+  function confirmTagDelete(form) {
+    const tagName = form.querySelector("button").getAttribute("data-tag-name");
+    return confirm(`Are you sure you want to remove the tag: "${tagName}"?`);
+}
+</script>
 
 {% endblock %}
