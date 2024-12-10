@@ -262,7 +262,6 @@ h1 {
   font-style: italic;
 }
 
-/* Hover and Focus State for Input */
 .search-input:focus {
   border-color: #a7b99e; /* Hieman tummempi vihreä */
   box-shadow: 0 0 5px #d0d8c5; /* Pehmeä hehku */
@@ -336,3 +335,216 @@ h1 {
   color: #2b2b2b;
   border-color: #292828;
   }
+
+/* Skaalaus keskikokoisille näytöille, esim. Ipad */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* Tekstien skaalaus */
+  h1 { 
+    font-size: 45px;
+    padding: 15px;
+  }
+
+  h2 { 
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  h3 { 
+    font-size: 18px;
+  }
+
+  body {
+    font-size: medium;
+  }
+
+  table {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+
+  /* Nappein skaalaus ja input formien skaalaus*/
+  .delete-button {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .button, .button2 {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .message-box {
+    width: 60%;
+  }
+
+  .search-bar {
+    gap: 8px;
+    width: 70%;
+    flex-direction: column;
+  }
+
+  .search-input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .search-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Skaalautuvuus esimerkiksi puhelimelle */
+@media (max-width: 768px) {
+
+  /* Tekstien skaalaus */
+  h1 { 
+    font-size: 25px;
+    padding: 15px 10px;
+  }
+
+  h2 { 
+    font-size: 18px;
+    padding: 5px;
+  }
+
+  h3 { 
+    font-size: 14px;
+  }
+
+  body {
+    font-size: small;
+    padding: 0 10px;
+  }
+
+  table {
+    width: 95%;
+    font-size: 10px;
+  }
+
+  th, td {
+    padding: 5px;
+  }
+
+  /* Nappein skaalaus ja input formien skaalaus*/
+  .delete-button {
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  .button, .button2 {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .message-box {
+    width: 80%;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 5px;
+    width: 90%;
+  }
+
+  .search-input {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .search-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* Vähän pienemmät näytöt */
+@media (min-width: 1025px) and (max-width: 1500px) {
+
+  /* Tekstien skaalaus */
+  h1 { 
+    font-size: 50px;
+    padding: 20px;
+  }
+
+  h2 { 
+    font-size: 28px;
+    padding: 10px;
+  }
+
+  h3 { 
+    font-size: 18px;
+  }
+
+  body {
+    font-size: larger;
+    margin: 0 auto;
+  }
+
+  table {
+    width: 75%; 
+    font-size: 16px;
+  }
+
+  th, td {
+    padding: 10px 15px;
+  }
+
+  /* Nappein skaalaus ja input formien skaalaus*/
+  .search-bar {
+    width: 70%; 
+    max-width: 1000px;
+    margin: 0 auto; 
+    gap: 12px; 
+  }
+
+  .search-input {
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+
+  .search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .button, .button2 {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .delete-button {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    line-height: 25px;
+  }
+
+ /* Varmistetaan, että containerit skaalautuu */
+  .message-box {
+    width: 70%; 
+    margin: 20px auto;
+  }
+  
+  .vertical-container {
+    width: 15%; 
+  }
+  
+  .vertical-container.left {
+    left: 0; 
+  }
+  
+  .vertical-container.right {
+    right: 0; 
+  }
+}
+
