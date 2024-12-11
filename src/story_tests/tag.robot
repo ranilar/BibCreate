@@ -8,10 +8,10 @@ Create Book Reference With Tag
     Go To  ${HOME_URL}
     Click Link  Create a new reference
     Select From List By Value  ref_type  book
-    Input Text  title  The Book of Tags
-    Input Text  author  Mr. Graffiti
-    Input Text  year  2005
-    Input Text  publisher  Good Books
+    Input Text  title  Ethics and Technology
+    Input Text  author  Herman T. Tavani
+    Input Text  year  2016
+    Input Text  publisher  Wiley
     Input Text  ISBN  7864738164889
     Input Text  tag_name  prio
     Click Button  Add a New Reference
@@ -19,7 +19,7 @@ Create Book Reference With Tag
 
 Add More Tags To an Existing Book Reference
     Go To  ${HOME_URL}
-    Click Element  xpath://tr[td[text()='Mr. Graffiti']]
+    Click Element  xpath://tr[td[text()='Herman T. Tavani']]
     Page Should Contain  prio
     Input Text  tag_name  essay
     Click Button  Add Tag
@@ -32,7 +32,7 @@ Add More Tags To an Existing Book Reference
 
 Delete Tag From Reference
     Go To  ${HOME_URL}
-    Click Element  xpath://tr[td[text()='Mr. Graffiti']]
+    Click Element  xpath://tr[td[text()='Herman T. Tavani']]
     Page Should Contain  prio
     Click Element  xpath://ul[@class='tag-list']/li[contains(., 'prio')]/form/button
     Handle Alert
