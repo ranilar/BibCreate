@@ -39,15 +39,15 @@ Edit Reference
 
 <button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="message-box">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+{% with messages = get_flashed_messages() %} {% if messages %}
+<div class="message-box">
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %} {% endwith %}
 
 <h2>Current Tags</h2>
 {% if tags %}
