@@ -36,9 +36,10 @@
     {% if query %}
       <a href="/" class="button2" style="margin-top: 10px;">All References</a>
     {% endif %}
-    
+
 <h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
+{% if all_references %}
   <table
     border="1"
     style="width: 100%; border-collapse: collapse; text-align: center"
@@ -79,6 +80,15 @@
     </tr>
     {% endfor %}
   </table>
+{% else %}
+<h3 style="margin-top: 20px; text-align: center;">
+  :´(  <br/>
+  <br/>
+  No references matching the search <br/>
+  Check spelling or try a different tag.
+</h3>
+</p>
+{% endif %}
   
   <script>
     function editReference(id, type) {
