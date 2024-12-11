@@ -230,3 +230,35 @@ Searching with tag
     Click Button  Search
     Page Should Contain  The Biker's Guide to the Galaxy
     Page Should Not Contain  The hitchhiker's Guide to the Galaxy
+
+Editing Book Reference With Invalid ISBN Displays Error
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  book
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adams
+    Input Text  year  1978
+    Input Text  publisher  Harmony Books
+    Input Text  ISBN  9789510218440
+    Click Button  Add a New Reference
+    Page Should Contain  Douglas Adams
+    Click Element  xpath://tr[td[text()='Douglas Adams']]
+    Input Text  ISBN  1234
+    Click Button  Save Changes
+    Page Should Contain  ISBN must be exactly 13 characters long
+
+Editing Book Reference With Empty Title Displays Error
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  book
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adams
+    Input Text  year  1978
+    Input Text  publisher  Harmony Books
+    Input Text  ISBN  9789510218440
+    Click Button  Add a New Reference
+    Page Should Contain  Douglas Adams
+    Click Element  xpath://tr[td[text()='Douglas Adams']]
+    Clear Element Text  title
+    Click Button  Save Changes
+    Page Should Contain  Title is required

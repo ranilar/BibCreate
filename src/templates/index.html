@@ -18,8 +18,7 @@
   </div>
   
   <br />
-  <br />
-  
+
   <div style="text-align: center; margin-top: 20px;">
     <form action="/search_for_reference" method="GET" class="search-bar">
         <input
@@ -32,17 +31,15 @@
         />
         <button type="submit" class="search-button">Search</button>
     </form>
-  </div>
-  {% if query %}
-  <div style="text-align: center; margin-top: 20px;">
-    <a href="/" class="button2">All References</a>
-  </div>
-  {% endif %}
+   
+    <br />
+    {% if query %}
+      <a href="/" class="button2" style="margin-top: 10px;">All References</a>
+    {% endif %}
 
-  <br />
-  
-  <h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
+<h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
+{% if all_references %}
   <table
     border="1"
     style="width: 100%; border-collapse: collapse; text-align: center"
@@ -83,6 +80,15 @@
     </tr>
     {% endfor %}
   </table>
+{% else %}
+<h3 style="margin-top: 20px; text-align: center;">
+  <br/>
+  <br/>
+  No references matching the search <br/>
+  Check spelling or try a different tag.
+</h3>
+</p>
+{% endif %}
   
   <script>
     function editReference(id, type) {

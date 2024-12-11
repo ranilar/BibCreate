@@ -35,6 +35,7 @@ Delete Tag From Reference
     Click Element  xpath://tr[td[text()='Mr. Graffiti']]
     Page Should Contain  prio
     Click Element  xpath://ul[@class='tag-list']/li[contains(., 'prio')]/form/button
+    Handle Alert
     Page Should Not Contain  prio
     Page Should Contain  Tag deleted successfully
 

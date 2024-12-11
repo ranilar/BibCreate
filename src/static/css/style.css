@@ -20,46 +20,42 @@ h1 {
   }
   
   body {
-    margin: 0 auto; /* Keskittää sisällön */
+    margin: 0 auto;
     text-align: center;
     font-family: "Rubik Spray Paint", system-ui;
     color: #535a3b;
     font-size: larger;
   }
-  
-  /* "All references" table */
+
   table {
-    margin: 20px auto; /* Keskittää taulukon */
-    width: 80%; /* Taulukon leveys 80% näytöstä */
-    max-width: 50%; /* Maksimileveys 800px */
-    border-collapse: collapse; /* Poistaa solujen välin */
-    text-align: center; /* Tekstin keskitys */
+    margin: 20px auto;
+    width: 80%;
+    max-width: 50%;
+    border-collapse: collapse;
+    text-align: center;
   }
-  
-  /* Cell appearance */
+
   th,
   td {
-    border: 1px solid #a7b99e; /* Solujen reunat */
-    padding: 8px 12px; /* Solujen sisäiset marginaalit */
+    border: 1px solid #a7b99e;
+    padding: 8px 12px;
   }
-  
+
   th {
-    background-color: #eff7d3; /* Otsikkosolujen taustaväri */
+    background-color: #eff7d3;
   }
   
   .reference-row:hover {
     background-color: whitesmoke;
     cursor: pointer;
   }
-  
-  /* "Create a new reference" */
+
   .styled-form {
     margin: 20px auto;
     width: 60%;
-    /* max-width: 600px; */
     text-align: center;
   }
-  
+
   .form-input {
     width: 80%;
     padding: 8px 12px;
@@ -67,135 +63,130 @@ h1 {
     border: 1px solid #a7b99e;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: white; /* Asetetaan taustaväri valkoiseksi */
-    color: black; /* Asetetaan tekstiväri mustaksi */
+    background-color: white;
+    color: black;
   }
-  
+
   .form-input select {
-    background-color: white; /* Varmistetaan, että kaikki select-elementit ovat valkoisia */
-    color: black; /* Varmistetaan, että teksti on mustaa */
+    background-color: white;
+    color: black;
   }
-  
+
   div {
-  text-align: center; /* Keskittää sisällön "Create a new reference" Type kohta */
-  margin-top: 20px; /* Lisää tilaa yläpuolelle */
+  text-align: center;
+  margin-top: 20px;
 }
 
 .form-input {
-  margin-top: 5px; /* Lisää tilaa valikon ja otsikon väliin */
+  margin-top: 5px;
 }
 
 .button, .button2 {
-  background-color: #a7b99e; /* Taustaväri */
-  color: white; /* Tekstin väri */
-  padding: 10px 20px; /* Sisäinen tyhjä tila */
-  border: 2px solid #535a3b; /* Reunaviiva */
-  border-radius: 5px; /* Pyöristetyt kulmat */
-  text-align: center; /* Tekstin keskitys */
-  text-decoration: none; /* Ei alleviivausta */
-  display: inline-block; /* Elementti näkyy rivillä, mutta käyttäytyy kuin lohko */
-  font-size: 16px; /* Fontin koko */
+  background-color: #a7b99e;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #535a3b;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
   font-weight: bold;
-  transition: all 0.3s; /* Animaatio kaikille ominaisuuksille */
-  margin: 10px 20px; /* Ulkoinen tyhjä tila */
+  transition: all 0.3s;
+  margin: 10px 20px;
 }
 
-/* Hover-efektit */
 .button:hover, .button2:hover {
-  background-color: #788a70; /* Tummempi taustaväri hover-tilassa */
-  color: white; /* Tekstin väri hover-tilassa */
-  cursor: pointer; /* Kursori muuttuu kädeksi hover-tilassa */
-  box-shadow: 0 0 8px #788a70; /* Hehku hover-tilassa */
+  background-color: #788a70;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 8px #788a70;
 }
 
-/* Erityismääritykset toiselle napille */
 .button2 {
-  background-color: transparent; /* Läpinäkyvä tausta */
-  color: #535a3b; /* Tummempi tekstin väri */
-  border-color: #a7b99e; /* Tummempi reunaviiva */
+  background-color: transparent;
+  color: #535a3b;
+  border-color: #a7b99e;
 }
 
 .button2:hover {
-  background-color: #788a70; /* Tumma tausta hover-tilassa */
-  color: white; /* Valkoinen teksti hover-tilassa */
+  background-color: #788a70;
+  color: white;
   border-color: #788a70;
 }
 
   .button {
-    border: none; /* Poistaa mahdolliset oletusreunukset */
-    outline: none; /* Poistaa fokuksen yhteydessä näkyvän kehyksen */
-    font-family: inherit; /* Varmistaa, että fontti periytyy ympäristöstään */
+    border: none;
+    outline: none;
+    font-family: inherit;
   }
-  
+
   a.button {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
   }
 
-  /* Delete-painike */
   .delete-button {
     display: inline-block;
-    width: 30px; /* Pienempi leveys */
-    height: 30px; /* Pienempi korkeus */
-    background-color: #f74a4a; /* Punainen taustaväri */
-    color: white; /* Valkoinen X-kirjain */
-    font-size: 16px; /* Pienempi fonttikoko */
-    font-weight: bold; /* Tekstin vahvuus */
-    text-align: center; /* Keskittää tekstin vaakasuunnassa */
-    line-height: 30px; /* Keskittää tekstin pystysuunnassa */
-    border: none; /* Poistaa oletusreunukset */
-    border-radius: 4px; /* Kevyesti pyöristetyt kulmat */
-    cursor: pointer; /* Käsi-osoitin hover-tilassa */
-    transition: background-color 0.3s ease; /* Sulava värianimaatio */
+    width: 30px;
+    height: 30px;
+    background-color: #f74a4a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
-  
-  /* Hover-tila */
+
   .delete-button:hover {
-    background-color: #e60000e4; /* Tummempi punainen hover-efekti */
-    box-shadow: 0 0 2px #e60000e4; /* Hehku hover-tilassa */
+    background-color: #e60000e4;
+    box-shadow: 0 0 2px #e60000e4;
   }
-  
-  /* Box for validation messages */
+
   .message-box {
-    border: 1px solid #cedcc3; /* Yhtenäinen reunus */
-    padding: 10px 15px; /* Kompakti sisätila */
-    margin: 20px auto; /* Keskittää laatikon */
-    width: 50%; /* Kavennettu leveys */
-    max-width: 400px; /* Maksimileveys */
-    border-radius: 4px; /* Kevyt pyöristys */
-    background-color: #eff7d3; /* Vaalea taustaväri */
-    text-align: center; /* Keskittää tekstin */
+    border: 1px solid #cedcc3;
+    padding: 10px 15px;
+    margin: 20px auto;
+    width: 50%;
+    max-width: 400px;
+    border-radius: 4px;
+    background-color: #eff7d3;
+    text-align: center;
   }
-  
+
   .message-box ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .message-box li {
-    margin-bottom: 5px; /* Pienempi riviväli */
+    margin-bottom: 5px;
   }
 
   .vertical-container {
     position: fixed;
     top: 0;
-    width: 20%; /* Kontainerin leveys */
-    height: 100%; /* Koko sivun korkeus */
-    z-index: -1; /* Siirretään taustalle, jotta ei häiritse sisältöä */
+    width: 20%;
+    height: 100%;
+    z-index: -1;
   }
-  
+
   .vertical-container.left {
-    left: 0; /* Asetetaan vasempaan reunaan */
-    background-color: #a3b59a; /* Väriksi toinen väreistä */
+    left: 0;
+    background-color: #a3b59a;
   }
-  
+
   .vertical-container.right {
-    right: 0; /* Asetetaan oikeaan reunaan */
-    background-color: #a7b99e; /* Väriksi toinen väreistä */
+    right: 0;
+    background-color: #a7b99e;
   }
-  
+
   .overlay {
     display: none;
     position: fixed;
@@ -208,7 +199,7 @@ h1 {
     align-items: center;
     z-index: 1000;
   }
-  
+
   .overlay-content {
     background: white;
     border-radius: 8px;
@@ -220,7 +211,7 @@ h1 {
     display: flex;
     flex-direction: column;
   }
-  
+
   .codebox {
     background-color: #f8f9fa;
     padding: 15px;
@@ -233,27 +224,25 @@ h1 {
     font-size: 14px;
 }
 
-/* Search Bar Container */
 .search-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Väli input-kentän ja napin välillä */
+  gap: 10px;
   margin: 20px auto;
-  width: 80%; /* Hakupalkin leveys */
-  max-width: 800px; /* Maksimileveys */
+  width: 80%;
+  max-width: 800px;
 }
 
-/* Search Input, INDEX sivu */
 .search-input {
-  flex-grow: 1; /* Input-kenttä vie kaiken tilan napin rinnalla */
+  flex-grow: 1;
   padding: 10px 15px;
   font-size: 16px;
-  border: 2px solid #d0d8c5; /* Vaalea vihertävä reunus */
+  border: 2px solid #d0d8c5;
   border-radius: 5px;
   background-color: white;
   color: #535a3b;
-  outline: none; /* Poistaa sinisen kehyksen fokuksessa */
+  outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -263,32 +252,29 @@ h1 {
 }
 
 .search-input:focus {
-  border-color: #a7b99e; /* Hieman tummempi vihreä */
-  box-shadow: 0 0 5px #d0d8c5; /* Pehmeä hehku */
+  border-color: #a7b99e;
+  box-shadow: 0 0 5px #d0d8c5;
 }
 
-/* Search Button */
 .search-button {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: white; /* Teksti on valkoinen */
-  background-color: #a7b99e; /* Vaaleanvihreä taustaväri */
+  color: white;
+  background-color: #a7b99e;
   border: 2px solid #a7b99e;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Hover State for Button */
 .search-button:hover {
-  background-color: #788a70; /* Vaaleampi vihreä hover-efektissä */
-  color: white; /* Tumma teksti hover-tilassa */
+  background-color: #788a70;
+  color: white;
   border-color: #788a70;
-  box-shadow: 0 0 8px #788a70; /* Hehku hover-tilassa */
+  box-shadow: 0 0 8px #788a70;
 }
 
-/* Tag List */
 .tag-list {
   list-style: none;
   padding: 0;
@@ -311,8 +297,7 @@ h1 {
   font-size: 16px;
   font-weight: bold;
   }
-  
-  /* Remove Tag Button */
+
   .remove-button {
   position: absolute; 
   top: -7px;
@@ -330,16 +315,14 @@ h1 {
   align-items: center;
   justify-content: center;
   }
-  
+
   .remove-button:hover {
   color: #2b2b2b;
   border-color: #292828;
   }
 
-/* Skaalaus keskikokoisille näytöille, esim. Ipad */
 @media (min-width: 768px) and (max-width: 1024px) {
 
-  /* Tekstien skaalaus */
   h1 { 
     font-size: 45px;
     padding: 15px;
@@ -367,7 +350,6 @@ h1 {
     padding: 10px;
   }
 
-  /* Nappein skaalaus ja input formien skaalaus*/
   .delete-button {
     width: 20px;
     height: 20px;
@@ -401,10 +383,8 @@ h1 {
   }
 }
 
-/* Skaalautuvuus esimerkiksi puhelimelle */
 @media (max-width: 768px) {
 
-  /* Tekstien skaalaus */
   h1 { 
     font-size: 25px;
     padding: 15px 10px;
@@ -433,7 +413,6 @@ h1 {
     padding: 5px;
   }
 
-  /* Nappein skaalaus ja input formien skaalaus*/
   .delete-button {
     width: 15px;
     height: 15px;
@@ -467,10 +446,8 @@ h1 {
   }
 }
 
-/* Vähän pienemmät näytöt */
 @media (min-width: 1025px) and (max-width: 1500px) {
 
-  /* Tekstien skaalaus */
   h1 { 
     font-size: 50px;
     padding: 20px;
@@ -499,7 +476,6 @@ h1 {
     padding: 10px 15px;
   }
 
-  /* Nappein skaalaus ja input formien skaalaus*/
   .search-bar {
     width: 70%; 
     max-width: 1000px;
@@ -529,7 +505,6 @@ h1 {
     line-height: 25px;
   }
 
- /* Varmistetaan, että containerit skaalautuu */
   .message-box {
     width: 70%; 
     margin: 20px auto;
@@ -547,4 +522,3 @@ h1 {
     right: 0; 
   }
 }
-
