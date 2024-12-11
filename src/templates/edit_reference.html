@@ -6,7 +6,6 @@ Edit Reference
 
 {% block body %}
 
-<!-- Show BibTeX Section -->
 <div id="bibtex-overlay" class="overlay">
   <div class="overlay-content">
     <button id="copy-button" class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
@@ -40,7 +39,6 @@ Edit Reference
 
 <button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
 
-<!-- Flash Messages Section -->
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class="message-box">
@@ -51,7 +49,6 @@ Edit Reference
   {% endif %}
 {% endwith %}
 
-<!-- Manage Tags Section -->
 <h2>Current Tags</h2>
 {% if tags %}
   <ul class="tag-list">
@@ -71,7 +68,6 @@ Edit Reference
   <p>No tags associated with this reference.</p>
 {% endif %}
 
-<!-- Add New Tag Form -->
 <form action="/add_tag" method="post" class="styled-form">
   <input type="hidden" name="ref_id" value="{{ reference.id }}">
   <input type="hidden" name="ref_type" value="{{ ref_type }}">
@@ -84,7 +80,6 @@ Edit Reference
 </form>
 
 <br />
-<!-- Edit Reference Section -->
 <h2>Edit Reference</h2>
 <form action="/edit_reference/{{ reference.id }}" method="post" class="styled-form">
   <input type="hidden" name="ref_type" value="{{ ref_type }}">
