@@ -18,17 +18,23 @@ After adding a book reference, site displays it
     Input Text  ISBN  9789510218440
     Click Button  Add a New Reference
     Page Should Contain  Douglas Adams
+    Page Should Contain  Book citation added successfully
 
 After deleting a book reference, site doesnt display it
+    Reset References
     Go To  ${HOME_URL}
     Click Link  Create a new reference
     Select From List By Value  ref_type  book
-    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  title  The Hitchhiker's Guide to the Galaxy vol2
     Input Text  author  Douglas Adams
     Input Text  year  1978
     Input Text  publisher  Harmony Books
     Input Text  ISBN  9789510218440
-    Page Should Not Contain  Douglas Adams
+    Click Button  Add a New Reference
+    Page Should Contain  The Hitchhiker's Guide to the Galaxy vol2
+    Click Button  X
+    Page Should Not Contain  The Hitchhiker's Guide to the Galaxy vol2
+    Page Should Contain  book reference deleted successfully
 
 Editing book reference works
     Go To  ${HOME_URL}
@@ -64,8 +70,10 @@ After deleting a article reference, site doesnt display it
     Input Text  DOI-article  10.1000/182
     Click Button  Add a New Reference
     Page Should Contain  Douglas Adam
+    Page Should Contain  Article citation added successfully
     Click Button  X
     Page Should Not Contain   Douglas Adam
+    Page Should Contain  article reference deleted successfully
 
 Editing article reference works
     Go To  ${HOME_URL}
@@ -102,6 +110,7 @@ After deleting a misc reference, site doesnt display it
     Page Should Contain  Dougla Adams
     Click Button  X
     Page Should Not Contain   Dougla Adams
+    Page Should Contain  misc reference deleted successfully
 
 Editing misc reference works
     Go To  ${HOME_URL}
@@ -140,6 +149,8 @@ After deleting a inproceeding reference, site doesnt display it
     Page Should Contain  Douglas Adams
     Click Button  X
     Page Should Not Contain   Douglas Adams
+    Page Should Contain  inproceeding reference deleted successfully
+
 
 Editing inproceeding works
     Go To  ${HOME_URL}
