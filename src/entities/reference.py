@@ -17,6 +17,9 @@ class Reference:
 
         details.append("}")
         return "\n".join(details)
+    
+    def __repr__(self):
+        return f"{self.__class__.__name__}({vars(self)})"
 
 
 class Book(Reference):

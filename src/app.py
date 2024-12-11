@@ -7,61 +7,7 @@ from util import *
 
 @app.route("/")
 def index():
-    books = get_references_bytype("book")
-    articles = get_references_bytype("article")
-    miscs = get_references_bytype("misc")
-    inproceedingit = get_references_bytype("inproceeding")
-
-    all_references = []
-
-    for book in books:
-        all_references.append({
-            'type': 'book',
-            'title': book.title,
-            'author': book.author,
-            'year': book.year,
-            'publisher': book.publisher,
-            'ISBN': book.ISBN,
-            'id': book.id
-        })
-
-    for article in articles:
-        all_references.append({
-            'type': 'article',
-            'title': article.title,
-            'author': article.author,
-            'year': article.year,
-            'journal': article.journal,
-            'volume': article.volume,
-            'DOI': article.DOI,
-            'id': article.id
-        })
-
-    for misc in miscs:
-        all_references.append({
-            'type': 'misc',
-            'title': misc.title,
-            'author': misc.author,
-            'year': misc.year,
-            'url': misc.url,
-            'note': misc.note,
-            'id': misc.id
-        })
-
-    for inproceeding in inproceedingit:
-        all_references.append({
-            'type': 'inproceeding',
-            'title': inproceeding.title,
-            'author': inproceeding.author,
-            'year': inproceeding.year,
-            'booktitle': inproceeding.booktitle,
-            'DOI': inproceeding.DOI,
-            'address': inproceeding.address,
-            'month': inproceeding.month,
-            'url': inproceeding.url,
-            'organization': inproceeding.organization,
-            'id': inproceeding.id
-        })
+    all_references = get_all_references()
     return render_template(
         "index.html",
         all_references=all_references
@@ -136,7 +82,7 @@ def reference_creation():
 @app.route("/delete/<ref_id>", methods=["POST"])
 def delete_reference(ref_id):
     ref_type = request.form.get("ref_type")
-    delete_reference_bytype(ref_type, ref_id)
+    delete_reference_by_type(ref_type, ref_id)
     flash(f"{ref_type} reference deleted successfully", "success")
 
     return redirect("/")
@@ -223,7 +169,8 @@ def search_for_reference():
         return redirect("/")
 
     # Kutsu hakumetodia ja palauta
-    results = search_db_for_reference(query)
+    results = search_all_references(query)
+    print(results)
     return render_template(
         "index.html",
         all_references=results, query=query

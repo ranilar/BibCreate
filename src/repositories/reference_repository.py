@@ -3,7 +3,7 @@ from config import db
 from entities.reference import Book, Article, Misc, Inproceeding
 
 
-def get_references_bytype(ref_type):
+def get_references_by_type(ref_type):
     sql = text(f"SELECT * FROM {ref_type}_references")
     result = db.session.execute(sql)
     references = result.fetchall()
@@ -17,6 +17,114 @@ def get_references_bytype(ref_type):
     if ref_type == "inproceeding":
         return [Inproceeding(*reference) for reference in references]
     return []
+
+
+def search_references_by_type_and_tag(ref_type, query):
+    table_map = {
+        "book": "book_references",
+        "article": "article_references",
+        "misc": "misc_references",
+        "inproceeding": "inproceeding_references"
+    }
+
+    table_name = table_map.get(ref_type)
+    if not table_name:
+        raise ValueError(f"Invalid reference type: {ref_type}")
+    
+    sql = text(f"""
+        SELECT B.*
+        FROM {table_name} B
+        LEFT JOIN tags_references TR ON TR.reference_id = B.id AND TR.reference_type = '{ref_type}'
+        LEFT JOIN tags T ON T.id = TR.tag_id
+        WHERE B.title ILIKE :query OR B.author ILIKE :query OR CAST(B.year AS TEXT) ILIKE :query OR T.name ILIKE :query
+    """)
+    result = db.session.execute(
+        sql,
+        {
+            "query": "%"+query+"%"
+        },
+    )
+    references = result.fetchall()
+    print(references)
+
+    if ref_type == "book":
+        return [Book(*reference) for reference in references]
+    if ref_type == "article":
+        return [Article(*reference) for reference in references]
+    if ref_type == "misc":
+        return [Misc(*reference) for reference in references]
+    if ref_type == "inproceeding":
+        return [Inproceeding(*reference) for reference in references]
+    
+    return []
+
+
+def get_all_references():
+    books = get_references_by_type("book")
+    articles = get_references_by_type("article")
+    miscs = get_references_by_type("misc")
+    inproceedingit = get_references_by_type("inproceeding")
+
+    all_references = []
+    for book in books:
+        all_references.append({
+            'type': 'book',
+            'reference': book
+        })
+
+    for article in articles:
+        all_references.append({
+            'type': 'article',
+            'reference': article
+        })
+
+    for misc in miscs:
+        all_references.append({
+            'type': 'misc',
+            'reference': misc
+        })
+
+    for inproceeding in inproceedingit:
+        all_references.append({
+            'type': 'inproceeding',
+            'reference': inproceeding
+        })
+
+    return all_references
+
+
+def search_all_references(query):
+    books = search_references_by_type_and_tag("book", query)
+    articles = search_references_by_type_and_tag("article", query)
+    miscs = search_references_by_type_and_tag("misc", query)
+    inproceedingit = search_references_by_type_and_tag("inproceeding", query)
+
+    all_references = []
+    for book in books:
+        all_references.append({
+            'type': 'book',
+            'reference': book
+        })
+
+    for article in articles:
+        all_references.append({
+            'type': 'article',
+            'reference': article
+        })
+
+    for misc in miscs:
+        all_references.append({
+            'type': 'misc',
+            'reference': misc
+        })
+
+    for inproceeding in inproceedingit:
+        all_references.append({
+            'type': 'inproceeding',
+            'reference': inproceeding
+        })
+
+    return all_references
 
 
 def create_book(title, author, year, publisher, ISBN):
@@ -140,7 +248,7 @@ def get_reference(ref_type, ref_id):
     return None
 
 
-def delete_reference_bytype(ref_type, ref_id):
+def delete_reference_by_type(ref_type, ref_id):
     sql = text("""
         DELETE FROM tags_references
         WHERE reference_id = :reference_id AND reference_type = :reference_type
@@ -296,50 +404,6 @@ def get_tags_for_reference(ref_id, ref_type):
     tags_result = db.session.execute(
         tags_sql, {"ref_id": ref_id, "ref_type": ref_type}).mappings()
     return [{"id": row.id, "name": row.name} for row in tags_result]
-
-# Hakee databaseen tallennettuja viitteitä.
-
-
-def search_db_for_reference(query):
-    sql = text("""
-        SELECT B.id, B.title, B.author, CAST(B.year AS TEXT) AS year, 'book' AS type
-        FROM book_references B
-        LEFT JOIN tags_references TR ON TR.reference_id = B.id AND TR.reference_type = 'book'
-        LEFT JOIN tags T ON T.id = TR.tag_id
-        WHERE B.title ILIKE :query OR B.author ILIKE :query OR CAST(B.year AS TEXT) ILIKE :query OR T.name ILIKE :query
-
-        UNION
-
-        SELECT A.id, A.title, A.author, CAST(A.year AS TEXT) AS year, 'article' AS type
-        FROM article_references A
-        LEFT JOIN tags_references TR ON TR.reference_id = A.id AND TR.reference_type = 'article'
-        LEFT JOIN tags T ON T.id = TR.tag_id
-        WHERE A.title ILIKE :query OR A.author ILIKE :query OR CAST(A.year AS TEXT) ILIKE :query OR T.name ILIKE :query
-
-        UNION
-
-        SELECT M.id, M.title, M.author, CAST(M.year AS TEXT) AS year, 'misc' AS type
-        FROM misc_references M
-        LEFT JOIN tags_references TR ON TR.reference_id = M.id AND TR.reference_type = 'misc'
-        LEFT JOIN tags T ON T.id = TR.tag_id
-        WHERE M.title ILIKE :query OR M.author ILIKE :query OR CAST(M.year AS TEXT) ILIKE :query OR T.name ILIKE :query
-
-        UNION
-
-        SELECT I.id, I.title, I.author, CAST(I.year AS TEXT) AS year, 'inproceeding' AS type
-        FROM inproceeding_references I
-        LEFT JOIN tags_references TR ON TR.reference_id = I.id AND TR.reference_type = 'inproceeding'
-        LEFT JOIN tags T ON T.id = TR.tag_id
-        WHERE I.title ILIKE :query OR I.author ILIKE :query OR CAST(I.year AS TEXT) ILIKE :query OR T.name ILIKE :query
-    """)
-    result = db.session.execute(
-        sql,
-        {
-            "query": "%"+query+"%"
-        },
-    )
-    references = result.fetchall()
-    return references
 
 
 def delete_orphan_tags(tag_id):

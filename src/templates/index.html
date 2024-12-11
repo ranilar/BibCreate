@@ -1,5 +1,5 @@
-{% extends "layout.html" %} {% block title %} Bibcreate {% endblock %} {% block
-  body %}
+{% extends "layout.html" %} {% block title %} Bibcreate {% endblock %}
+{% block body %}
   
   <form action="/create_reference" method="post">
     {% with messages = get_flashed_messages() %} {% if messages %}
@@ -20,42 +20,28 @@
   <br />
   <br />
   
+  <div style="text-align: center; margin-top: 20px;">
+    <form action="/search_for_reference" method="GET" class="search-bar">
+        <input
+            type="text"
+            name="query"
+            placeholder="Search for reference..."
+            required
+            value="{{ query }}"
+            class="search-input"
+        />
+        <button type="submit" class="search-button">Search</button>
+    </form>
+  </div>
   {% if query %}
   <div style="text-align: center; margin-top: 20px;">
-    <form action="/search_for_reference" method="GET" class="search-bar">
-        <input
-            type="text"
-            name="query"
-            placeholder="Search for reference..."
-            required
-            value="{{ query }}"
-            class="search-input"
-        />
-        <button type="submit" class="search-button">Search</button>
-    </form>
-</div>
-  <div style="text-align: center; margin-top: 20px;">
     <a href="/" class="button2">All References</a>
-</div>
-<!-- mikä on tämän idea ?-->
-  {% else %} 
-  <div style="text-align: center; margin-top: 20px;">
-    <form action="/search_for_reference" method="GET" class="search-bar">
-        <input
-            type="text"
-            name="query"
-            placeholder="Search for reference..."
-            required
-            value="{{ query }}"
-            class="search-input"
-        />
-        <button type="submit" class="search-button">Search</button>
-    </form>
-</div>
+  </div>
   {% endif %}
+
   <br />
   
-<h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
+  <h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
   <table
     border="1"
@@ -67,24 +53,24 @@
       <th>Type</th>
       <th>Delete</th>
     </tr>
-    {% for reference in all_references %}
+    {% for item in all_references %}
     <tr
       id="edit-button"
       class="reference-row"
-      data-id="{{ reference.id }}"
-      onclick="editReference('{{ reference.id }}', '{{ reference.type }}')"
+      data-id="{{ item.reference.id }}"
+      onclick="editReference('{{ item.reference.id }}', '{{ item.type }}')"
     >
-      <td>{{ reference.title }}</td>
-      <td>{{ reference.author }}</td>
-      <td>{{ reference.type }}</td>
+      <td>{{ item.reference.title }}</td>
+      <td>{{ item.reference.author }}</td>
+      <td>{{ item.type }}</td>
       <td>
         <form
-          action="/delete/{{ reference.id }}"
+          action="/delete/{{ item.reference.id }}"
           method="post"
           style="display: inline"
-          onsubmit="return confirmDelete(' {{ reference.title  }}')"
+          onsubmit="return confirmDelete(' {{ item.reference.title  }}')"
         >
-          <input type="hidden" name="ref_type" value="{{ reference.type }}" />
+          <input type="hidden" name="ref_type" value="{{ item.type }}" />
           <button
             type="submit"
             class="delete-button"
@@ -110,4 +96,38 @@
     }
   </script>
   <br />
+
+  <!-- Show BibTeX Section -->
+  <div id="bibtex-overlay" class="overlay">
+    <div class="overlay-content">
+      <button id="copy-button" class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <pre id="bibtex-code" class="codebox">{% for item in all_references %}{{ item.reference.generate_bibtex_code() + '\n' + '\n' }}{% endfor %}</pre>
+    </div>
+  </div>
+
+  <script>
+    function showBibtex() {
+      document.getElementById('bibtex-overlay').style.display = 'flex';
+    }
+
+    function copyToClipboard() {
+      const codeText = document.getElementById("bibtex-code").textContent;
+      const tempInput = document.createElement("textarea");
+      tempInput.value = codeText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      alert("BibTeX code copied to clipboard!");
+    }
+
+    window.onclick = function (event) {
+      const overlay = document.getElementById("bibtex-overlay");
+      if (event.target == overlay) {
+        overlay.style.display = "none";
+      }
+    };
+  </script>
+
+  <button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
   {% endblock %}
