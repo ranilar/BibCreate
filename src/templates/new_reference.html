@@ -6,18 +6,19 @@ Create a new reference
 
 {% block body %}
 
+<form action="/create_reference" method="post" class="styled-form">
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="message-box">
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %} {% endwith %}
+
 <h2>Create a new reference</h2>
 
-<form action="/create_reference" method="post" class="styled-form">
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="message-box">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
   <div style="text-align: center;">
     <label for="ref_type">Type:</label><br>
     <select name="ref_type" id="ref_type" required onchange="toggleFields()" class="form-input">
