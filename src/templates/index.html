@@ -39,6 +39,8 @@
 
 <h2>{% if query %}References matching "{{ query }}"{% else %}All references{% endif %}</h2>
 
+<button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
+
 {% if all_references %}
   <table
     border="1"
@@ -135,5 +137,4 @@
     };
   </script>
 
-  <button id="show-bibtex-button" class="button" onclick="showBibtex()">Show BibTeX Code</button>
   {% endblock %}
