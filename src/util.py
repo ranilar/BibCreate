@@ -35,9 +35,11 @@ def validate_reference(ref_type, **fields):
         value = fields.get(field)
         if value:
             if len(value) < min_length:
-                error_fields.append(f"{field.capitalize()} must be at least {min_length} characters long.")
+                error_fields.append(
+                    f"{field.capitalize()} must be at least {min_length} characters long.")
             if len(value) > max_length:
-               error_fields.append(f"{field.capitalize()} must not exceed {max_length} characters.")
+                error_fields.append(
+                    f"{field.capitalize()} must not exceed {max_length} characters.")
 
     if ref_type == "book":
         isbn_value = fields.get("ISBN")
@@ -45,14 +47,15 @@ def validate_reference(ref_type, **fields):
             if len(isbn_value) != 13:
                 error_fields.append("ISBN must be exactly 13 characters long.")
             if not isbn_value.isdigit():
-                error_fields.append("ISBN must contain only numeric characters.")
+                error_fields.append(
+                    "ISBN must contain only numeric characters.")
 
     numeric_fields = ["year", "volume"]
     for field in numeric_fields:
         value = fields.get(field)
         if value and not value.isdigit():
-            error_fields.append(f"{field.capitalize()} must be a valid number.")
-    
+            error_fields.append(
+                f"{field.capitalize()} must be a valid number.")
 
     if error_fields:
         raise UserInputError(error_fields)
