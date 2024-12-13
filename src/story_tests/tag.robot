@@ -30,7 +30,7 @@ Add More Tags To an Existing Book Reference
     Click Button  Save Changes
     Wait Until Page Contains  Reference updated successfully!
 
-Delete Tag From Reference
+Delete Tag From Reference With Alert Confirmation
     Go To  ${HOME_URL}
     Click Element  xpath://tr[td[text()='Herman T. Tavani']]
     Page Should Contain  prio

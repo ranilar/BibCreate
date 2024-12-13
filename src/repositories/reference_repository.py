@@ -30,7 +30,7 @@ def search_references_by_type_and_tag(ref_type, query):
     table_name = table_map.get(ref_type)
     if not table_name:
         raise ValueError(f"Invalid reference type: {ref_type}")
-    
+
     sql = text(f"""
         SELECT B.*
         FROM {table_name} B
@@ -55,7 +55,7 @@ def search_references_by_type_and_tag(ref_type, query):
         return [Misc(*reference) for reference in references]
     if ref_type == "inproceeding":
         return [Inproceeding(*reference) for reference in references]
-    
+
     return []
 
 
@@ -164,7 +164,7 @@ def create_article(title, author, journal, year, volume, DOI):
             "author": author,
             "journal": journal,
             "year": year,
-            "volume": int(volume) if volume and volume.isdigit() else None, 
+            "volume": int(volume) if volume and volume.isdigit() else None,
             "DOI": DOI,
         },
     )

@@ -59,5 +59,5 @@ def validate_tag(tag_name):
     if not tag_name:
         return True
     if len(tag_name) < 1 or len(tag_name) > 50:
-         raise ValueError("Tag name must be between 1 and 50 characters.")
+        raise ValueError("Tag name must be between 1 and 50 characters.")
     return True

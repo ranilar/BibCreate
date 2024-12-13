@@ -27,6 +27,7 @@ disable=raw-checker-failed,
         consider-iterating-dictionary,
         broad-exception-caught,
         possibly-used-before-assignment
+        R1710
 
 [FORMAT]
 max-line-length=140
