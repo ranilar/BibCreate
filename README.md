@@ -9,7 +9,7 @@ To klo 11-11.30
 
 ## Links
 [Product Backlogs](https://docs.google.com/spreadsheets/d/1VMvwVkrx3sCwMhOg9KaBRGVdFl2taQKhlVoZCgXNELQ/edit?gid=1#gid=1)
-[Project Report](https://docs.google.com/document/d/1m42kApOVZfgWQ91NtkQRYdTKp9wOHr9ukpMosRGDd3s/edit?tab=t.0)
+[Project Report](https://github.com/ranilar/BibCreate/blob/main/report.md)
 
 ## Definition of Done
 - The acceptance criteria of the user story are met
