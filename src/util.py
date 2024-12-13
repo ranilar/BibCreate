@@ -1,9 +1,11 @@
 class UserInputError(Exception):
-    pass
+    def __init__(self, error_fields):
+        self.error_fields = error_fields
+        super().__init__(error_fields)
 
 
 def validate_reference(ref_type, **fields):
-    errors = {}
+    error_fields = []
 
     required_fields = {
         "book": ["author", "title", "publisher", "year"],
@@ -14,7 +16,7 @@ def validate_reference(ref_type, **fields):
 
     for field in required_fields.get(ref_type, []):
         if not fields.get(field):
-            errors[field] = f"{field.capitalize()} is required."
+            error_fields.append(f"{field.capitalize()} is required.")
 
     fields_with_limits = {
         "title": (1, 100),
@@ -33,26 +35,27 @@ def validate_reference(ref_type, **fields):
         value = fields.get(field)
         if value:
             if len(value) < min_length:
-                errors[field] = f"{field.capitalize()} must be at least {min_length} characters long."
+                error_fields.append(f"{field.capitalize()} must be at least {min_length} characters long.")
             if len(value) > max_length:
-                errors[field] = f"{field.capitalize()} must not exceed {max_length} characters."
+               error_fields.append(f"{field.capitalize()} must not exceed {max_length} characters.")
 
     if ref_type == "book":
         isbn_value = fields.get("ISBN")
         if isbn_value:
             if len(isbn_value) != 13:
-                errors["ISBN"] = "ISBN must be exactly 13 characters long."
-            elif not isbn_value.isdigit():
-                errors["ISBN"] = "ISBN must contain only numeric characters."
+                error_fields.append("ISBN must be exactly 13 characters long.")
+            if not isbn_value.isdigit():
+                error_fields.append("ISBN must contain only numeric characters.")
 
     numeric_fields = ["year", "volume"]
     for field in numeric_fields:
         value = fields.get(field)
         if value and not value.isdigit():
-            errors[field] = f"{field.capitalize()} must be a valid number."
+            error_fields.append(f"{field.capitalize()} must be a valid number.")
+    
 
-    if errors:
-        raise UserInputError(errors)
+    if error_fields:
+        raise UserInputError(error_fields)
 
 
 def validate_tag(tag_name):

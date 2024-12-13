@@ -273,3 +273,19 @@ Editing Book Reference With Empty Title Displays Error
     Clear Element Text  title
     Click Button  Save Changes
     Page Should Contain  Title is required
+
+Editing Book Reference With Invalid ISBN (not numbers) Displays Error
+    Go To  ${HOME_URL}
+    Click Link  Create a new reference
+    Select From List By Value  ref_type  book
+    Input Text  title  The Hitchhiker's Guide to the Galaxy
+    Input Text  author  Douglas Adams
+    Input Text  year  1978
+    Input Text  publisher  Harmony Books
+    Input Text  ISBN  9789510218440
+    Click Button  Add a New Reference
+    Page Should Contain  Douglas Adams
+    Click Element  xpath://tr[td[text()='Douglas Adams']]
+    Input Text  ISBN  aaaaaaaaaaaaa
+    Click Button  Save Changes
+    Page Should Contain  ISBN must contain only numeric characters

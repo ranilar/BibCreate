@@ -25,7 +25,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 author="Valid Author",
                 year="2024"
             )
-        self.assertIn("Publisher is required.", context.exception.args[0].values())
+        self.assertIn("Publisher is required.", context.exception.error_fields)
 
     def test_title_exceeding_max_length_raises_error(self):
         with self.assertRaises(UserInputError) as context:
@@ -37,7 +37,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 publisher="Valid Publisher",
                 ISBN="1234567890123"
             )
-        self.assertIn("Title must not exceed 100 characters.", context.exception.args[0].values())
+        self.assertIn("Title must not exceed 100 characters.", context.exception.error_fields)
 
     def test_invalid_ISBN_length_raises_error(self):
         with self.assertRaises(UserInputError) as context:
@@ -49,7 +49,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 publisher="Valid Publisher",
                 ISBN="1234"
             )
-        self.assertIn("ISBN must be exactly 13 characters long.", context.exception.args[0].values())
+        self.assertIn("ISBN must be exactly 13 characters long.", context.exception.error_fields)
 
     def test_invalid_ISBN_characters_raises_error(self):
         with self.assertRaises(UserInputError) as context:
@@ -61,7 +61,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 publisher="Valid Publisher",
                 ISBN="123456789abcd"
             )
-        self.assertIn("ISBN must contain only numeric characters.", context.exception.args[0].values())
+        self.assertIn("ISBN must contain only numeric characters.", context.exception.error_fields)
 
     def test_numeric_field_invalid_value_raises_error(self):
         with self.assertRaises(UserInputError) as context:
@@ -72,7 +72,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 year="twenty",
                 journal="Valid Journal"
             )
-        self.assertIn("Year must be a valid number.", context.exception.args[0].values())
+        self.assertIn("Year must be a valid number.", context.exception.error_fields)
 
     def test_misc_reference_validates_correctly(self):
         validate_reference(
@@ -114,7 +114,7 @@ class TestTReferenceValidation(unittest.TestCase):
                 ISBN="1234567890123",
                 note="A" * 101
             )
-        self.assertIn("Note must not exceed 100 characters.", context.exception.args[0].values())
+        self.assertIn("Note must not exceed 100 characters.", context.exception.error_fields)
 
     def test_required_field_with_empty_string_raises_error(self):
         with self.assertRaises(UserInputError) as context:
@@ -126,12 +126,12 @@ class TestTReferenceValidation(unittest.TestCase):
                 publisher="Valid Publisher",
                 ISBN="1234567890123"
             )
-        self.assertIn("Title is required.", context.exception.args[0].values())
+        self.assertIn("Title is required.", context.exception.error_fields)
     
     def test_empty_input_raises_error(self):
         with self.assertRaises(UserInputError) as context:
             validate_reference("book")
-        self.assertIn("Title is required.", context.exception.args[0].values())
+        self.assertIn("Title is required.", context.exception.error_fields)
 
 
 if __name__ == "__main__":

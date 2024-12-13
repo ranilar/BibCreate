@@ -72,8 +72,8 @@ def reference_creation():
 
         flash(f"{ref_type.capitalize()} citation added successfully", "success")
     except UserInputError as error:
-        for field, message in error.args[0].items():
-            flash(f"{field}: {message}", "error")
+        for message in error.error_fields:
+            flash(message, "error")
         return render_template("new_reference.html", ref_type=ref_type, form_data=fields)
 
     return redirect("/")
@@ -147,10 +147,12 @@ def edit_reference(reference_id):
 
             flash("Reference updated successfully!", "success")
             return redirect("/")
+
         except UserInputError as error:
-            for field, message in error.args[0].items():
-                flash(f"{field}: {message}", "error")
+            for message in error.error_fields:
+                flash(message, "error")
             return render_template("edit_reference.html", reference=reference_obj, ref_type=ref_type, tags=tags)
+
 
 # Reitti viitehakutuloksien hakemiseen
 @app.route("/search_for_reference", methods=["GET"])
